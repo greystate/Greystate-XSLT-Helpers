@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE xsl:stylesheet [
-	<!-- Define RequestQueryString function (this one's in Umbraco) -->
-	<!ENTITY queryString "umbraco.library:RequestQueryString">
+	<!-- Define RequestQueryString function (this one's from Umbraco) -->
+	<!ENTITY queryString "umb:RequestQueryString">
 	
 	<!-- Paging constants -->
 	<!ENTITY prevPage "&#8249; Previous">
