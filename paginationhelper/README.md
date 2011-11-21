@@ -32,7 +32,7 @@ There&#8217;s very little work involved in using the Pagination Helper, basicall
 
 		<xsl:template match="/">
 			<xsl:call-template name="PaginateSelection">
-				<xsl:with-param name="selection" select="$currentPage/Textpage">
+				<xsl:with-param name="selection" select="$currentPage/Textpage" />
 			</xsl:call-template>
 		</xsl:template>
 
