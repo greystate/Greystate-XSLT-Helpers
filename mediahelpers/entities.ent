@@ -1,0 +1,2 @@
+<!ENTITY GetMediaFile "document('test/media.xml')//*[@id = current()]">
+<!ENTITY GetMediaFolder "&GetMediaFile;">
