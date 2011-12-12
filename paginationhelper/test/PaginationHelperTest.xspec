@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE x:description [
+	<!-- Paging constants -->
+	<!ENTITY firstPage "&#171;">
+	<!ENTITY prevPage "&#8249; Previous">
+	<!ENTITY nextPage "Next &#8250;">
+	<!ENTITY lastPage "&#187;">
+	<!ENTITY pagerParam "p">
+]>
+<x:description
+	stylesheet="PaginationHelperSample.xslt"
+	xslt-version="1.0"
+	xmlns:x="http://www.jenitennison.com/xslt/xspec"
+>
+	<x:scenario label="Using all the defaults on people.xml">
+		<x:context href="fixtures/people.xml" select="/people" />
+		<x:expect label="it should render 10 person elements and a pager">
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<ul class="pager">...</ul>
+		</x:expect>
+	</x:scenario>
+	
+	<x:scenario label="when Paginating page 2 of people.xml ">
+		<x:call template="PaginateSelection">
+			<x:param name="selection" select="document('fixtures/people.xml', /)/people/person" />
+			<x:param name="page" select="2" />
+		</x:call>
+		<x:expect label="it should render 4 person elements and a pager">
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<ul class="pager">...</ul>
+		</x:expect>
+	</x:scenario>
+	
+	<x:scenario label="when calling RenderPager">
+		<x:call template="RenderPager">
+			<x:param name="selection" select="document('fixtures/people.xml', /)/people/person" />
+		</x:call>
+		<x:expect label="it should produce the pager for page 1">
+			<ul class="pager">
+				<li class="prev">&prevPage;</li>
+				<li class="current">1</li>
+				<li><a href="?&pagerParam;=2">2</a></li>
+				<li class="next"><a href="?&pagerParam;=2">&nextPage;</a></li>
+			</ul>
+		</x:expect>
+	</x:scenario>
+	
+	<x:scenario label="when calling RenderPager for page 1">
+		<x:call template="RenderPager">
+			<x:param name="page" select="1" />
+			<x:param name="selection" select="document('fixtures/people.xml', /)/people/person" />
+		</x:call>
+		<x:expect label="it should produce the pager for page 1">
+			<ul class="pager">
+				<li class="prev">&prevPage;</li>
+				<li class="current">1</li>
+				<li><a href="?&pagerParam;=2">2</a></li>
+				<li class="next"><a href="?&pagerParam;=2">&nextPage;</a></li>
+			</ul>
+		</x:expect>
+	</x:scenario>
+
+	<x:scenario label="when calling RenderPager for page 2">
+		<x:call template="RenderPager">
+			<x:param name="page" select="2" />
+			<x:param name="selection" select="document('fixtures/people.xml', /)/people/person" />
+		</x:call>
+		<x:expect label="it should produce the pager for page 2">
+			<ul class="pager">
+				<li class="prev"><a href="?&pagerParam;=1">&prevPage;</a></li>
+				<li><a href="?&pagerParam;=1">1</a></li>
+				<li class="current">2</li>
+				<li class="next">&nextPage;</li>
+			</ul>
+		</x:expect>
+	</x:scenario>
+
+	<x:scenario label="when calling RenderPager for page 3 of 'lots-of-people.xml'">
+		<x:call template="RenderPager">
+			<x:param name="selection" select="document('fixtures/lots-of-people.xml', /)/people/person" />
+			<x:param name="page" select="3" />
+		</x:call>
+		<x:expect label="it should produce a pager with 7(+2) pages" test="count(/ul/li) = 9" />
+		<x:expect label="the third page should be marked 'current'" test="/ul/li[4]/@class = 'current'" />
+		<x:expect label="the Previous link should be active" test="/ul/li[1]/a/@href = '?&pagerParam;=2'" />
+		<x:expect label="and the Next link should also be active" test="/ul/li[last()]/a/@href = '?&pagerParam;=4'" />
+	</x:scenario>
+	
+	<x:scenario label="when specifying false() for the 'showPager' parameter">
+		<x:call template="PaginateSelection">
+			<x:param name="selection" select="document('fixtures/people.xml', /)/people/person" />
+			<x:param name="showPager" select="false()" />
+		</x:call>
+		
+		<x:expect label="it should only produce the page output">
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+		</x:expect>
+		<x:expect label="not the pager &lt;ul&gt;" test="not(//ul[@class = 'pager'])" />
+	</x:scenario>
+	
+	
+	
+</x:description>
