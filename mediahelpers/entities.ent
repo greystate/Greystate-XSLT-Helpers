@@ -1,2 +1,12 @@
-<!ENTITY GetMediaFile "document('test/media.xml')//*[@id = current()]">
-<!ENTITY GetMediaFolder "&GetMediaFile;">
+<!ENTITY % use.in.umbraco "INCLUDE">
+<!ENTITY % use.in.textmate "IGNORE">
+
+<![ %use.in.umbraco; [
+	<!ENTITY GetMediaFile "umb:GetMedia(., false())">
+	<!ENTITY GetMediaFolder "umb:GetMedia(., true())">
+]]>
+
+<![ %use.in.textmate; [
+	<!ENTITY GetMediaFile "document('test/media.xml')//*[@id = current()]">
+	<!ENTITY GetMediaFolder "&GetMediaFile;">
+]]>
