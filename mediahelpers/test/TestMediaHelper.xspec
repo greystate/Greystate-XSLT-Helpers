@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<x:description
+	stylesheet="../_MediaHelper.xslt"
+	xslt-version="1.0"
+	xmlns:x="http://www.jenitennison.com/xslt/xspec"
+>
+	<x:scenario label="when processing an element in mode=&quot;media&quot;">
+		
+		<x:scenario label="with no content">
+			<x:context mode="media">
+				<pageImage></pageImage>
+			</x:context>
+			<x:expect label="it should generate no output">
+				<!--...-->
+			</x:expect>
+		</x:scenario>
+		
+		<x:scenario label="with a correct Media id">
+			<x:context mode="media">
+				<pageImage>2230</pageImage>
+			</x:context>
+			<x:expect label="it should produce an img element with the correct attributes">
+				<img src="/test2230.png" width="1600" height="800" alt="My first Banner" />
+			</x:expect>
+
+			<x:scenario label="and a class parameter">
+				<x:context mode="media">
+					<x:param name="class" select="'className'" />
+				</x:context>
+			
+				<x:expect label="it should add the class attribute">
+					<img class="className" src="..." width="..." height="..." alt="..." />
+				</x:expect>
+			</x:scenario>
+		</x:scenario>
+				
+	</x:scenario>
+	
+	<x:scenario label="when processing an element in mode=&quot;media.url&quot;">
+		
+		<x:scenario label="with no content">
+			<x:context mode="media.url">
+				<pageImage></pageImage>
+			</x:context>
+			<x:expect label="it should generate no output">
+				<!--...-->
+			</x:expect>
+		</x:scenario>
+		
+		<x:scenario label="with a correct Media id">
+			<x:context mode="media.url">
+				<pageImage>2230</pageImage>
+			</x:context>
+			<x:expect label="it should only return the Image's URL" select="output/text()">
+				<output>/test2230.png</output>
+			</x:expect>
+		</x:scenario>
+
+	</x:scenario>
+	
+	<x:scenario label="when processing an element in mode=&quot;media.folder&quot;">
+		
+		<x:scenario label="with no content">
+			<x:context mode="media.folder">
+				<imgFolder></imgFolder>
+			</x:context>
+			<x:expect label="it should generate no output">
+				<!--...-->
+			</x:expect>
+		</x:scenario>
+		
+		<x:scenario label="with a correct folder id">
+			<x:context mode="media.folder">
+				<imgFolder>2030</imgFolder>
+			</x:context>
+			<x:expect label="it should render each Image in the folder">
+				<img src="..." width="..." height="..." alt="..." />
+				<img src="..." width="..." height="..." alt="..." />
+				<img src="..." width="..." height="..." alt="..." />
+			</x:expect>
+		</x:scenario>
+		
+	</x:scenario>
+
+</x:description>

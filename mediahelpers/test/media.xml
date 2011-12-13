@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root id="-1">
+	<Folder id="2030" parentID="-1" level="1" writerID="0" creatorID="0" nodeType="1066" template="1051" sortOrder="2" createDate="2009-02-26T18:39:39" updateDate="2009-11-11T23:58:49" nodeName="Home" urlName="home" writerName="Administrator" creatorName="Administrator" path="-1,2030">
+		<contents />
+		<Image id="2230" parentID="2030" level="1" writerID="0" creatorID="0" nodeType="1066" template="1051" sortOrder="2" createDate="2009-02-26T18:39:39" updateDate="2009-11-11T23:58:49" nodeName="My first Banner" urlName="my" writerName="Administrator" creatorName="Administrator" path="2030,2040">
+			<umbracoFile>/test2230.png</umbracoFile>
+			<umbracoWidth>1600</umbracoWidth>
+			<umbracoHeight>800</umbracoHeight>
+			<umbracoBytes>4096</umbracoBytes>
+			<umbracoExtension>png</umbracoExtension>
+		</Image>
+		<Image id="2231" parentID="2030" level="1" writerID="0" creatorID="0" nodeType="1066" template="1051" sortOrder="2" createDate="2009-02-26T18:39:39" updateDate="2009-11-11T23:58:49" nodeName="My first Banner" urlName="my" writerName="Administrator" creatorName="Administrator" path="2030,2040">
+			<umbracoFile>/test2231.png</umbracoFile>
+			<umbracoWidth>768</umbracoWidth>
+			<umbracoHeight>576</umbracoHeight>
+			<umbracoBytes>4096</umbracoBytes>
+			<umbracoExtension>png</umbracoExtension>
+		</Image>
+		<Image id="2232" parentID="2030" level="1" writerID="0" creatorID="0" nodeType="1066" template="1051" sortOrder="2" createDate="2009-02-26T18:39:39" updateDate="2009-11-11T23:58:49" nodeName="My first Banner" urlName="my" writerName="Administrator" creatorName="Administrator" path="2030,2040">
+			<umbracoFile>/test2232.png</umbracoFile>
+			<umbracoWidth>320</umbracoWidth>
+			<umbracoHeight>180</umbracoHeight>
+			<umbracoBytes>4096</umbracoBytes>
+			<umbracoExtension>png</umbracoExtension>
+		</Image>
+	</Folder>
+</root>
