@@ -87,15 +87,15 @@
 		</x:expect>
 	</x:scenario>
 
-	<x:scenario label="when calling RenderPager for page 3 of 'lots-of-people.xml'">
+	<x:scenario label="when calling RenderPager for page 3 of 'lots-of-people.xml'" focus="x">
 		<x:call template="RenderPager">
 			<x:param name="selection" select="document('fixtures/lots-of-people.xml', /)/people/person" />
 			<x:param name="page" select="3" />
 		</x:call>
 		<x:expect label="it should produce a pager with 7(+2) pages" test="count(/ul/li) = 9" />
 		<x:expect label="the third page should be marked 'current'" test="/ul/li[4]/@class = 'current'" />
-		<x:expect label="the Previous link should be active" test="/ul/li[1]/a/@href = '?&pagerParam;=2'" />
-		<x:expect label="and the Next link should also be active" test="/ul/li[last()]/a/@href = '?&pagerParam;=4'" />
+		<x:expect label="the Previous link should be active" test="boolean(/ul/li[1]/a[contains(@href, '&pagerParam;=2')])" />
+		<x:expect label="and the Next link should also be active" test="boolean(/ul/li[last()]/a[contains(@href, '&pagerParam;=4')])" />
 	</x:scenario>
 	
 	<x:scenario label="when specifying false() for the 'showPager' parameter">
