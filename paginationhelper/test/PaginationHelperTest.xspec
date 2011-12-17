@@ -87,7 +87,7 @@
 		</x:expect>
 	</x:scenario>
 
-	<x:scenario label="when calling RenderPager for page 3 of 'lots-of-people.xml'" focus="x">
+	<x:scenario label="when calling RenderPager for page 3 of 'lots-of-people.xml'">
 		<x:call template="RenderPager">
 			<x:param name="selection" select="document('fixtures/lots-of-people.xml', /)/people/person" />
 			<x:param name="page" select="3" />
