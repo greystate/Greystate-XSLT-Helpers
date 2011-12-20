@@ -20,6 +20,11 @@
 			<umbracoHeight>576</umbracoHeight>
 			<umbracoBytes>4096</umbracoBytes>
 			<umbracoExtension>png</umbracoExtension>
+			<cropping>
+				<crops date="20/12/2011 13:22:39">
+					<crop name="Large" x="0" y="0" x2="920" y2="890" url="/test2231_Large.png" />
+				</crops>
+			</cropping>
 		</Image>
 		<Image id="2232" parentID="2030" level="1" writerID="0" creatorID="0" nodeType="1066" template="1051" sortOrder="2" createDate="2009-02-26T18:39:39" updateDate="2009-11-11T23:58:49" nodeName="My first Banner" urlName="my" writerName="Administrator" creatorName="Administrator" path="2030,2040">
 			<umbracoFile>/test2232.png</umbracoFile>
@@ -27,6 +32,11 @@
 			<umbracoHeight>180</umbracoHeight>
 			<umbracoBytes>4096</umbracoBytes>
 			<umbracoExtension>png</umbracoExtension>
+			<cropping>
+				<crops date="20/12/2011 13:22:39">
+					<crop name="Large" x="0" y="0" x2="920" y2="890" url="/test2232_Large.png" />
+				</crops>
+			</cropping>
 		</Image>
 	</Folder>
 </root>
