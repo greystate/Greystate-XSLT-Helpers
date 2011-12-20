@@ -4,9 +4,11 @@
 <![ %use.in.umbraco; [
 	<!ENTITY GetMediaFile "umb:GetMedia(., false())">
 	<!ENTITY GetMediaFolder "umb:GetMedia(., true())">
+	<!ENTITY random-ns-uri "urn:Exslt.ExsltMath">
 ]]>
 
 <![ %use.in.textmate; [
 	<!ENTITY GetMediaFile "document('test/media.xml')//*[@id = current()]">
 	<!ENTITY GetMediaFolder "&GetMediaFile;">
+	<!ENTITY random-ns-uri "http://exslt.org/math">
 ]]>

@@ -12,7 +12,8 @@
 	version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:umb="urn:umbraco.library"
-	exclude-result-prefixes="umb"
+	xmlns:get="&random-ns-uri;"
+	exclude-result-prefixes="umb get"
 >
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
@@ -36,6 +37,20 @@
 		<xsl:param name="size" />
 		<xsl:variable name="mediaFolder" select="&GetMediaFolder;" />
 		<xsl:apply-templates select="$mediaFolder[not(error)]">
+			<xsl:with-param name="class" select="$class" />
+			<xsl:with-param name="size" select="$size" />
+		</xsl:apply-templates>
+	</xsl:template>
+	
+	<!-- Template for getting a random item from a mediafolder -->
+	<xsl:template match="*" mode="media.random">
+		<xsl:param name="class" />
+		<xsl:param name="size" />
+		<xsl:param name="count" select="1" /><!-- Currently unused -->
+		<xsl:variable name="mediaFolder" select="&GetMediaFolder;" />
+		<xsl:variable name="randomNumber" select="floor(get:random() * (count($mediaFolder/*[@id])) + 1)" />
+		
+		<xsl:apply-templates select="$mediaFolder[not(error)]/*[@id][position() = $randomNumber]">
 			<xsl:with-param name="class" select="$class" />
 			<xsl:with-param name="size" select="$size" />
 		</xsl:apply-templates>
