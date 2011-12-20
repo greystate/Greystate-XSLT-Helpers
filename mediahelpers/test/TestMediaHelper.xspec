@@ -33,6 +33,16 @@
 				</x:expect>
 			</x:scenario>
 		</x:scenario>
+		
+		<x:scenario label="with a crop parameter">
+			<x:context mode="media">
+				<x:param name="crop" select="'Large'" />
+				<pageImage>2230</pageImage>
+			</x:context>
+			<x:expect label="it should use the crop with that name">
+				<img src="/test2230_Large.png" width="800" height="600" alt="My first Banner" />
+			</x:expect>
+		</x:scenario>
 				
 	</x:scenario>
 	
