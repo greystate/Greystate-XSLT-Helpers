@@ -67,7 +67,10 @@
 	
 	<!-- Template for a Media Folder - default to rendering all images/files inside -->
 	<xsl:template match="Folder">
-		<xsl:apply-templates select="*[@id]" />
+		<xsl:param name="crop" />
+		<xsl:apply-templates select="*[@id]">
+			<xsl:with-param name="crop" select="$crop" />
+		</xsl:apply-templates>
 	</xsl:template>
 	
 	<!-- Template for a Media Image -->
