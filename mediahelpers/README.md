@@ -89,14 +89,14 @@ Of course, you can combine this with the `size`, `class` and `id` parameters. An
 
 ### Cropping support baked in
 
-If you use the `Image Cropper` Data Type (or one of the [compatible packages][DAMP]), you can grap a specific crop very easy;
+If you use the `Image Cropper` Data Type (or one of the [compatible][DAMP] [packages][EXTRAS]), you can grap a specific crop very easy;
 just add the `crop` parameter:
 
 	<xsl:apply-templates select="pageImage" mode="media">
 		<xsl:with-param name="crop" select="'GalleryThumb'" />
 	</xsl:apply-templates>
 
-By default, this will create an image tag with empty `width` and `height` attributes, because that info is not available in the XML,
+By default, this will create an `<img>` element with empty `width` and `height` attributes, because that info is not available in the crop XML,
 but you can create a config file for the Media Helper to use, if you would like to generate the correct dimensions (which can
 eliminate potential reflow during rendering). Create an XML file called `cropping-config.xml` in the XSLT directory and specify the sizes you've set up for the crops, e.g.:
 
@@ -105,8 +105,10 @@ eliminate potential reflow during rendering). Create an XML file called `croppin
 		<crop name="Small" size="320x480" />
 	</crops>
 
-That's it!
+
+
 
 
 [DAMP]: http://our.umbraco.org/projects/backoffice-extensions/digibiz-advanced-media-picker	
+[EXTRAS]: http://our.umbraco.org/projects/backoffice-extensions/images-extras
 
