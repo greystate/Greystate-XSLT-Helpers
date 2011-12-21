@@ -86,10 +86,21 @@
 		<img src="{umbracoFile}" width="{umbracoWidth}" height="{umbracoHeight}" alt="{@nodeName}">
 			<xsl:if test="$crop">
 				<xsl:variable name="cropSize" select="$croppingSetup[@name = $crop]/@size" />
-				<xsl:attribute name="src"><xsl:value-of select="*/crops/crop[@name = $crop]/@url" /></xsl:attribute>
-				<xsl:attribute name="width"><xsl:value-of select="substring-before($cropSize, 'x')" /></xsl:attribute>
-				<xsl:attribute name="height"><xsl:value-of select="substring-after($cropSize, 'x')" /></xsl:attribute>
+				<xsl:variable name="selectedCrop" select="*/crops/crop[@name = $crop]" />
+				<xsl:if test="$selectedCrop">
+					<xsl:attribute name="src"><xsl:value-of select="*/crops/crop[@name = $crop]/@url" /></xsl:attribute>
+				</xsl:if>
+				<!-- If a config file was created we can grab the cropped sizes from that -->
+				<xsl:if test="$cropSize">
+					<xsl:attribute name="width"><xsl:value-of select="substring-before($cropSize, 'x')" /></xsl:attribute>
+					<xsl:attribute name="height"><xsl:value-of select="substring-after($cropSize, 'x')" /></xsl:attribute>
+				</xsl:if>
+				<xsl:if test="not($cropSize)">
+					<xsl:attribute name="width"></xsl:attribute>
+					<xsl:attribute name="height"></xsl:attribute>
+				</xsl:if>
 			</xsl:if>
+			<!-- $size can override original + cropped sizes -->
 			<xsl:if test="$size">
 				<xsl:attribute name="width"><xsl:value-of select="substring-before($size, 'x')" /></xsl:attribute>
 				<xsl:attribute name="height"><xsl:value-of select="substring-after($size, 'x')" /></xsl:attribute>
