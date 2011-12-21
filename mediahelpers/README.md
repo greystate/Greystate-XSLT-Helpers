@@ -39,6 +39,14 @@ line of code to get what you want - the following use cases illustrate how:
 		
 	Handles missing ids etc. just like the first one. 
 
+1. **Set a specific id for the image**
+
+	Add the `id` parameter:
+
+		<xsl:apply-templates select="pageImage" mode="media">
+			<xsl:with-param name="id" select="'topBanner'" />
+		</xsl:apply-templates>
+	
 1. **Add a specific CSS class to the image**
 
 	Add the `class` parameter to the statement:
@@ -54,8 +62,30 @@ line of code to get what you want - the following use cases illustrate how:
 		<xsl:apply-templates select="pageImage" mode="media">
 			<xsl:with-param name="size" select="'400x300'" />
 		</xsl:apply-templates>
-		
+
+1. **Combine the various options**
+
+	You can use all of them together where it makes sense (e.g., in the media.url mode,
+	only the crop parameter makes sense):
+	
+		<xsl:apply-templates select="pageImage" mode="media">
+			<xsl:with-param name="class" select="'slide'" />
+			<xsl:with-param name="crop" select="'ImageGallery'" />
+			<xsl:with-param name="id" select="concat('slide', position())" />
+		</xsl:apply-templates>
+	
 ## Advanced usage
+
+### Getting a random image from a specified folder
+
+A common pattern on a web page is to have an image that changes on every page load, and to make that very easy,
+there's a simple change you can make to have that happen automatically. Just create a folder of images to choose
+from, and create a Media Picker property that points to the folder, so the editor can change it at will. Then put
+a simple `mode.random` on the apply-templates instruction:
+
+	<xsl:apply-templates select="imageFolder" mode="media.random" />
+	
+Of course, you can use the `size`, `crop`, `class` and `id` parameters with this one too.
 
 ### Cropping support baked in
 
