@@ -2,6 +2,8 @@
 <!DOCTYPE xsl:stylesheet [
 	<!ENTITY % entities SYSTEM "entities.ent">
 	%entities;
+	
+	<!ENTITY config-file "cropping-config.xml">
 ]>
 <!--
 	_MediaHelper.xslt
@@ -19,7 +21,7 @@
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
 	
 	<!-- Fetch cropping setup -->
-	<xsl:variable name="croppingSetup" select="document('cropping.xml')/crops/crop" />
+	<xsl:variable name="croppingSetup" select="document('&config-file;')/crops/crop" />
 	
 	<!-- Template for any media that needs fetching - handles potential error -->
 	<xsl:template match="*" mode="media">
