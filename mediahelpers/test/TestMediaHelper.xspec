@@ -7,11 +7,13 @@
 	<x:scenario label="when processing an element in mode=&quot;media&quot;">
 		
 		<x:scenario label="with no content">
-			<x:context mode="media">
-				<pageImage></pageImage>
+			<x:context mode="media" select="//pageImage">
+				<Textpage id="1234" nodeName="Testpage">
+					<pageImage></pageImage>
+				</Textpage>
 			</x:context>
-			<x:expect label="it should generate no output">
-				<!--...-->
+			<x:expect label="it should generate a helping comment for debugging">
+				<!--Missing Media ID in pageImage on Testpage (ID: 1234)-->
 			</x:expect>
 		</x:scenario>
 		
