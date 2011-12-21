@@ -85,7 +85,7 @@ a simple `mode.random` on the apply-templates instruction:
 
 	<xsl:apply-templates select="imageFolder" mode="media.random" />
 	
-Of course, you can use the `size`, `crop`, `class` and `id` parameters with this one too.
+Of course, you can combine this with the `size`, `class` and `id` parameters. And you can *even* use this next one too: 
 
 ### Cropping support baked in
 
