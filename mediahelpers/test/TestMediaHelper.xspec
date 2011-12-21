@@ -79,9 +79,10 @@
 	</x:scenario>
 	
 	<x:scenario label="when processing an element in mode=&quot;media.folder&quot;">
-		
+		<x:context mode="media.folder" />
+
 		<x:scenario label="with no content">
-			<x:context mode="media.folder">
+			<x:context>
 				<imgFolder></imgFolder>
 			</x:context>
 			<x:expect label="it should generate no output">
@@ -90,7 +91,7 @@
 		</x:scenario>
 		
 		<x:scenario label="with a correct folder id">
-			<x:context mode="media.folder">
+			<x:context>
 				<imgFolder>2030</imgFolder>
 			</x:context>
 			<x:expect label="it should render each Image in the folder">
@@ -101,7 +102,7 @@
 		</x:scenario>
 		
 		<x:scenario label="with a class parameter">
-			<x:context mode="media.folder">
+			<x:context>
 				<x:param name="class" select="'master'" />
 				<imgFolder>2030</imgFolder>
 			</x:context>
@@ -110,10 +111,22 @@
 				<img class="master" src="..." width="..." height="..." alt="..." />
 				<img class="master" src="..." width="..." height="..." alt="..." />
 			</x:expect>
+			
+			<x:scenario label="and a size parameter">
+				<x:context>
+					<x:param name="size" select="'256x128'" />					
+					<imgFolder>2030</imgFolder>
+				</x:context>
+				<x:expect label="it should override the width and height attributes on all images in the folder">
+					<img class="master" src="..." width="256" height="128" alt="..." />
+					<img class="master" src="..." width="256" height="128" alt="..." />
+					<img class="master" src="..." width="256" height="128" alt="..." />
+				</x:expect>
+			</x:scenario>
 		</x:scenario>
 		
 		<x:scenario label="with a crop parameter">
-			<x:context mode="media">
+			<x:context>
 				<x:param name="crop" select="'Large'" />
 				<imgFolder>2030</imgFolder>
 			</x:context>
