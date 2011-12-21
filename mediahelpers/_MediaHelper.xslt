@@ -111,15 +111,16 @@
 	
 	<!-- Safeguards for empty elements - need one for each mode -->
 	<xsl:template match="*[not(normalize-space())]" mode="media">
-		<xsl:comment>Missing Media ID</xsl:comment>
+		<!-- Render info to the developer looking for clues in the source, as to why nothing renders -->
+		<xsl:comment>Missing Media ID in <xsl:value-of select="name()" /> on <xsl:value-of select="../@nodeName" /> (ID: <xsl:value-of select="../@id" />)</xsl:comment>
 	</xsl:template>
 	
 	<xsl:template match="*[not(normalize-space())]" mode="media.url">
-		<xsl:apply-templates select="." mode="media" />
+		<xsl:apply-templates select="." mode="media" /><!-- Redirect to the one above -->
 	</xsl:template>
 	
 	<xsl:template match="*[not(normalize-space())]" mode="media.folder">
-		<xsl:apply-templates select="." mode="media" />
+		<xsl:apply-templates select="." mode="media" /><!-- Redirect to the one above -->
 	</xsl:template>
 	
 	<!-- Template for Images -->
