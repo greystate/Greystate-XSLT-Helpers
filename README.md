@@ -27,9 +27,12 @@ A self-contained clip-on solution for pagination of node-sets.
 
 ### Media Helpers
 
-These are probably only applicable to Umbraco macros, since they tackle a very common scenarios:
+A bunch of well-tested templates for handling Media items in Umbraco - if you've asked some of the following questions, this is definitely for you:
 
 > How can I output Media files and/or folders from my XSLT macros?
 
 > But I just want to render the image the user picked - why is it so hard???
+
+> How do I output a specific crop version?
+
 
