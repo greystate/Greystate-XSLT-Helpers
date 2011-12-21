@@ -65,6 +65,16 @@
 				<output>/test2230.png</output>
 			</x:expect>
 		</x:scenario>
+		
+		<x:scenario label="with a crop parameter">
+			<x:context mode="media.url">
+				<x:param name="crop" select="'Large'" />
+				<pageImage>2230</pageImage>
+			</x:context>
+			<x:expect label="it should only return the URL of the specified crop" select="output/text()">
+				<output>/test2230_Large.png</output>
+			</x:expect>
+		</x:scenario>
 
 	</x:scenario>
 	
@@ -87,6 +97,18 @@
 				<img src="..." width="..." height="..." alt="..." />
 				<img src="..." width="..." height="..." alt="..." />
 				<img src="..." width="..." height="..." alt="..." />
+			</x:expect>
+		</x:scenario>
+		
+		<x:scenario label="with a crop parameter">
+			<x:context mode="media">
+				<x:param name="crop" select="'Large'" />
+				<imgFolder>2030</imgFolder>
+			</x:context>
+			<x:expect label="it should render the specified crop for each Image in the folder">
+				<img src="/test2230_Large.png" width="800" height="600" alt="My first Banner" />
+				<img src="/test2231_Large.png" width="800" height="600" alt="My first Banner" />
+				<img src="/test2232_Large.png" width="800" height="600" alt="My first Banner" />
 			</x:expect>
 		</x:scenario>
 		
