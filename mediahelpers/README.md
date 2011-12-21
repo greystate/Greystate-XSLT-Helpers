@@ -16,7 +16,9 @@ into that and find the various bits needed (e.g.: `<umbracoFile>` and `<umbracoW
 an image (thus calling the extension with ""), the extension fails miserably and throws an error, which is why there's usually an 
 `<xsl:if>` statement wrapped around a call to `GetMedia()`.
 
->	The `_MediaHelper.xslt` makes it really easy to handle your Umbraco media from XSLT.
+The `_MediaHelper.xslt` makes it really easy to handle your Umbraco media from XSLT, because most of the time, you can use a single
+line of code to get what you want - the following use cases illustrate how:
+
 
 ## Basic use cases
 
@@ -45,4 +47,36 @@ an image (thus calling the extension with ""), the extension fails miserably and
 			<xsl:with-param name="class" select="'slide'" />
 		</xsl:apply-templates>
 
+1. **Override the `width` and `height` attributes for an image**
+
+	Add the `size` parameter:
 	
+		<xsl:apply-templates select="pageImage" mode="media">
+			<xsl:with-param name="size" select="'400x300'" />
+		</xsl:apply-templates>
+		
+## Advanced usage
+
+### Cropping support baked in
+
+If you use the `Image Cropper` Data Type (or one of the [compatible packages][DAMP]), you can grap a specific crop very easy;
+just add the `crop` parameter:
+
+	<xsl:apply-templates select="pageImage" mode="media">
+		<xsl:with-param name="crop" select="'GalleryThumb'" />
+	</xsl:apply-templates>
+
+By default, this will create an image tag with empty `width` and `height` attributes, because that info is not available in the XML,
+but you can create a config file for the Media Helper to use, if you would like to generate the correct dimensions (which can
+eliminate potential reflow during rendering). Create an XML file called `cropping-config.xml` in the XSLT directory and specify the sizes you've set up for the crops, e.g.:
+
+	<crops>
+		<crop name="Large" size="800x600" />
+		<crop name="Small" size="320x480" />
+	</crops>
+
+That's it!
+
+
+[DAMP]: http://our.umbraco.org/projects/backoffice-extensions/digibiz-advanced-media-picker	
+
