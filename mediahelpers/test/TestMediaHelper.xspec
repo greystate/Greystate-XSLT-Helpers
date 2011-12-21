@@ -100,6 +100,18 @@
 			</x:expect>
 		</x:scenario>
 		
+		<x:scenario label="with a class parameter">
+			<x:context mode="media.folder">
+				<x:param name="class" select="'master'" />
+				<imgFolder>2030</imgFolder>
+			</x:context>
+			<x:expect label="it should add the class to each rendered Image in the folder">
+				<img class="master" src="..." width="..." height="..." alt="..." />
+				<img class="master" src="..." width="..." height="..." alt="..." />
+				<img class="master" src="..." width="..." height="..." alt="..." />
+			</x:expect>
+		</x:scenario>
+		
 		<x:scenario label="with a crop parameter">
 			<x:context mode="media">
 				<x:param name="crop" select="'Large'" />
