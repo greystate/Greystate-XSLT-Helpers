@@ -11,6 +11,7 @@
 			<cropping>
 				<crops date="20/12/2011 13:22:39">
 					<crop name="Large" x="0" y="0" x2="920" y2="890" url="/test2230_Large.png" />
+					<crop name="X-Large" x="0" y="0" x2="920" y2="890" url="/test2230_X-Large.png" />
 				</crops>
 			</cropping>
 		</Image>

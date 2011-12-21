@@ -43,6 +43,26 @@
 				<img src="/test2230_Large.png" width="800" height="600" alt="My first Banner" />
 			</x:expect>
 		</x:scenario>
+		
+		<x:scenario label="with a crop name that has not been created">
+			<x:context mode="media">
+				<x:param name="crop" select="'Small'" />
+				<pageImage>2230</pageImage>
+			</x:context>
+			<x:expect label="it should fallback to the original image URL but use the width &amp; height from the config file">
+				<img src="/test2230.png" width="320" height="480" alt="My first Banner" />
+			</x:expect>
+		</x:scenario>
+				
+		<x:scenario label="with a crop name that exists but no config available">
+			<x:context mode="media">
+				<x:param name="crop" select="'X-Large'" />
+				<pageImage>2230</pageImage>
+			</x:context>
+			<x:expect label="it should use the crop URL but remove the width &amp; height">
+				<img src="/test2230_X-Large.png" width="" height="" alt="My first Banner" />
+			</x:expect>
+		</x:scenario>
 				
 	</x:scenario>
 	
