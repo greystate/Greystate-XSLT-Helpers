@@ -81,7 +81,7 @@ line of code to get what you want - the following use cases illustrate how:
 A common pattern on a web page is to have an image that changes on every page load, and to make that very easy,
 there's a simple change you can make to have that happen automatically. Just create a folder of images to choose
 from, and create a Media Picker property that points to the folder, so the editor can change it at will. Then put
-a simple `mode.random` on the apply-templates instruction:
+a simple `media.random` on the apply-templates instruction:
 
 	<xsl:apply-templates select="imageFolder" mode="media.random" />
 	
