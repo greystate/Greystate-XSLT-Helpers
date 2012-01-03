@@ -6,14 +6,14 @@ The big problem with Media in Umbraco (from an XSLT standpoint) is, that if you 
 it stores the id of the chosen media (a good thing, really). To get to your precious media file, you need to use a library function
 called `GetMedia()` which takes the id and a boolean (whether to return childnodes as well as the one requested by the id).
 
-And here's the problem: Beginners usually think that they can do something similar to this, and "magically" get an `<img>` tag with the
-selected image:
+And here's the problem: Because most things in Umbraco are easy and simple, newcomers usually think that they can do something 
+similar to this, and "magically" get an `<img>` tag with the selected image:
 
 	<xsl:value-of select="umbraco.library:GetMedia(pageImage, 0)" />
 
-There's multiple problems with this - *first of all:* The extension function returns the XML for the media item, so one has to dig
+There are multiple problems with this - *first of all:* The extension function returns the XML for the media item, so one has to dig
 into that and find the various bits needed (e.g.: `<umbracoFile>` and `<umbracoWidth>` etc.). *Second:* If the editor hasn't yet chosen
-an image (thus calling the extension with ""), the extension fails miserably and throws an error, which is why there's usually an 
+an image (thus calling the extension with an empty string), the extension fails miserably and throws an error, which is why there's usually an 
 `<xsl:if>` statement wrapped around a call to `GetMedia()`.
 
 The `_MediaHelper.xslt` makes it really easy to handle your Umbraco media from XSLT, because most of the time, you can use a single
@@ -98,12 +98,17 @@ just add the `crop` parameter:
 
 By default, this will create an `<img>` element with empty `width` and `height` attributes, because that info is not available in the crop XML,
 but you can create a config file for the Media Helper to use, if you would like to generate the correct dimensions (which can
-eliminate potential reflow during rendering). Create an XML file called `cropping-config.xml` in the XSLT directory and specify the sizes you've set up for the crops, e.g.:
+eliminate potential reflow during rendering, not to mention protecting against the odd giant image uploaded by "somebody", wrecking the entire frontpage for an hour).
+
+Just edit the included sample XML file called `cropping-config.xml` in the XSLT directory and specify the names and sizes you've set up for the crops, e.g.:
 
 	<crops>
 		<crop name="Large" size="800x600" />
 		<crop name="Small" size="320x480" />
 	</crops>
+
+That's it - the helpers will make sure to consult your config file before writing the `width` and `height` of crops. 
+
 
 
 
