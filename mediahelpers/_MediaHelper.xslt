@@ -97,6 +97,7 @@
 					<xsl:attribute name="width"><xsl:value-of select="substring-before($cropSize, 'x')" /></xsl:attribute>
 					<xsl:attribute name="height"><xsl:value-of select="substring-after($cropSize, 'x')" /></xsl:attribute>
 				</xsl:if>
+				<!-- No config file - make sure to blank the dimensions inserted for the original image then -->
 				<xsl:if test="not($cropSize)">
 					<xsl:attribute name="width"></xsl:attribute>
 					<xsl:attribute name="height"></xsl:attribute>

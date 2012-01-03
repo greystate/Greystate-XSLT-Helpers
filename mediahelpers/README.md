@@ -22,11 +22,34 @@ line of code to get what you want - the following use cases illustrate how:
 
 ## Basic use cases
 
+In Umbraco you can use this simple boilerplate for most of the following examples:
+
+	<xsl:stylesheet
+		version="1.0"
+		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+		xmlns:umb="urn:umbraco.library"
+		exclude-result-prefixes="umb"
+	>
+
+		<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
+	
+		<xsl:template match="/">
+
+			<!-- Add the sample code here -->
+
+		</xsl:template>
+		
+		<!-- Include helpers -->
+		<xsl:include href="_MediaHelper.xslt" />
+	
+	</xsl:stylesheet>
+
+
 1. **Render an image tag for the chosen image**
 
-	We can do this with a single line:
+	We can do this with a single line where you want the `<img>` to occur:
 
-		<xsl:apply-templates select="pageImage" mode="media" />
+		<xsl:apply-templates select="$currentPage/pageImage" mode="media" />
 	
 	This will only render something if there's actually an id in the `pageImage` property
 	and that item is published.
@@ -35,7 +58,7 @@ line of code to get what you want - the following use cases illustrate how:
 
 	Use the `media.url` mode instead:
 
-		<xsl:apply-templates select="pageImage" mode="media.url" />
+		<xsl:apply-templates select="$currentPage/pageImage" mode="media.url" />
 		
 	Handles missing ids etc. just like the first one. 
 
@@ -43,7 +66,7 @@ line of code to get what you want - the following use cases illustrate how:
 
 	Add the `id` parameter:
 
-		<xsl:apply-templates select="pageImage" mode="media">
+		<xsl:apply-templates select="$currentPage/pageImage" mode="media">
 			<xsl:with-param name="id" select="'topBanner'" />
 		</xsl:apply-templates>
 	
@@ -51,7 +74,7 @@ line of code to get what you want - the following use cases illustrate how:
 
 	Add the `class` parameter to the statement:
 
-		<xsl:apply-templates select="pageImage" mode="media">
+		<xsl:apply-templates select="$currentPage/pageImage" mode="media">
 			<xsl:with-param name="class" select="'slide'" />
 		</xsl:apply-templates>
 
@@ -59,7 +82,7 @@ line of code to get what you want - the following use cases illustrate how:
 
 	Add the `size` parameter:
 	
-		<xsl:apply-templates select="pageImage" mode="media">
+		<xsl:apply-templates select="$currentPage/pageImage" mode="media">
 			<xsl:with-param name="size" select="'400x300'" />
 		</xsl:apply-templates>
 
@@ -68,7 +91,7 @@ line of code to get what you want - the following use cases illustrate how:
 	You can use all of them together where it makes sense (e.g., in the media.url mode,
 	only the crop parameter makes sense):
 	
-		<xsl:apply-templates select="pageImage" mode="media">
+		<xsl:apply-templates select="$currentPage/pageImage" mode="media">
 			<xsl:with-param name="class" select="'slide'" />
 			<xsl:with-param name="crop" select="'ImageGallery'" />
 			<xsl:with-param name="id" select="concat('slide', position())" />
@@ -83,7 +106,7 @@ there's a simple change you can make to have that happen automatically. Just cre
 from, and create a Media Picker property that points to the folder, so the editor can change it at will. Then put
 a simple `media.random` on the apply-templates instruction:
 
-	<xsl:apply-templates select="imageFolder" mode="media.random" />
+	<xsl:apply-templates select="$currentPage/imageFolder" mode="media.random" />
 	
 Of course, you can combine this with the `size`, `class` and `id` parameters. And you can *even* use this next one too: 
 
@@ -92,7 +115,7 @@ Of course, you can combine this with the `size`, `class` and `id` parameters. An
 If you use the `Image Cropper` Data Type (or one of the [compatible][DAMP] [packages][EXTRAS]), you can grap a specific crop very easy;
 just add the `crop` parameter:
 
-	<xsl:apply-templates select="pageImage" mode="media">
+	<xsl:apply-templates select="$currentPage/pageImage" mode="media">
 		<xsl:with-param name="crop" select="'GalleryThumb'" />
 	</xsl:apply-templates>
 
@@ -109,8 +132,53 @@ Just edit the included sample XML file called `cropping-config.xml` in the XSLT 
 
 That's it - the helpers will make sure to consult your config file before writing the `width` and `height` of crops. 
 
+### Overriding the templates for Media Types
 
+If you need to further change the HTML that gets rendered for e.g. an Image, you can do so by overriding the `Image` template in your own XSLT
+file - *after* the include statement. For example, here's a way to render a `<figure>` element instead:
 
+	<xsl:template match="/">
+		<!-- Render my figure element here, thank you: -->
+		<xsl:apply-templates select="$currentPage/pageImage" mode="media" />
+	</xsl:template>
+	
+	<!-- Include helpers -->
+	<xsl:include href="_MediaHelper.xslt" />
+
+	<!-- Override Image template -->
+	<xsl:template match="Image">
+		<figure>
+			<img src="{umbracoFile}" />
+			<figcaption>
+				<xsl:value-of select="Fig.: {caption}" />
+			</figcaption>
+		</figure>
+	</xsl:template>
+
+This gives you the ability to leverage all the error- and parameter-handling of the helper file, but to use your own actual output templates.
+
+### Supporting custom Media Types 
+
+This is almost the exact same as the above - except you'll not be overriding, but merely specifying a template for the new type.
+
+Imagine a Media Type called **DownloadItem** - it has a simple *Upload* property, a *Size in bytes* property and a *Description* property - you know
+it will be used for PDF files and ZIP files, so you create a template to render both and the rest is just like before:
+
+	<xsl:template match="/">
+		<!-- Render the download item here -->
+		<xsl:apply-templates select="$currentPage/downloadItem" mode="media" />
+	</xsl:template>
+	
+	<!-- Include helpers -->
+	<xsl:include href="_MediaHelper.xslt" />
+
+	<!-- Custom template for DownloadItem Media Type -->
+	<xsl:template match="DownloadItem">
+		<p>
+			<xsl:value-of select="description" />
+		</p>
+		<a class="download {umbracoExtension}file" href="{umbracoFile}" title="Download {@nodeName} ({umbracoBytes} bytes)">Download</a>
+	</xsl:template>
 
 
 
