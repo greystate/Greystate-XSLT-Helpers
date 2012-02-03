@@ -1,16 +1,30 @@
-<!ENTITY % use.in.umbraco "INCLUDE">
-<!ENTITY % use.in.textmate "IGNORE">
+<!ENTITY % use.in.umbraco "IGNORE">
+<!ENTITY % use.in.textmate "INCLUDE">
 
 <![ %use.in.umbraco; [
 	<!ENTITY GetMediaFile "umb:GetMedia(., false())">
 	<!ENTITY GetMediaFolder "umb:GetMedia(., true())">
 	<!ENTITY random-ns-uri "urn:Exslt.ExsltMath">
-	<!ENTITY queryString "umb:RequestQueryString">
+	<!ENTITY string-ns-uri "urn:Exslt.ExsltStrings">
+	<!ENTITY nodeset-ns-uri "urn:schemas-microsoft-com:xslt">
+	<!ENTITY QueryString "umb:RequestQueryString">
+	<!ENTITY token "value">
+	<!ENTITY tokenize "str:split">
+	<!ENTITY GetQueryStringValueForKey "&QueryString;($key)">
+	<!ENTITY CompleteQueryString "umb:RequestServerVariables('QUERY_STRING')">
+	<!ENTITY MakeNodesetOfOptions "make:node-set($optionsProxy)/options/option">
 ]]>
 
 <![ %use.in.textmate; [
 	<!ENTITY GetMediaFile "document('test/media.xml')//*[@id = current()]">
 	<!ENTITY GetMediaFolder "&GetMediaFile;">
 	<!ENTITY random-ns-uri "http://exslt.org/math">
-	<!ENTITY queryString "string">	
+	<!ENTITY nodeset-ns-uri "http://exslt.org/common">
+	<!ENTITY string-ns-uri "http://exslt.org/strings">
+	<!ENTITY QueryString "string">	
+	<!ENTITY token "token">
+	<!ENTITY tokenize "str:split">
+	<!ENTITY GetQueryStringValueForKey "substring-after(., '=')">
+	<!ENTITY CompleteQueryString "'p=1&amp;sort=name&amp;size=10'">
+	<!ENTITY MakeNodesetOfOptions "document('test/fixtures/options.xml')/options/option">
 ]]>

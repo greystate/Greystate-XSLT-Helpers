@@ -14,22 +14,32 @@
 	version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:umb="urn:umbraco.library"
-	exclude-result-prefixes="umb"
+	xmlns:str="&string-ns-uri;"
+	xmlns:make="&nodeset-ns-uri;"
+	exclude-result-prefixes="umb str make"
 >
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
 
+	<!--
+		Build an options variable of all the query string params for easy lookup,
+		e.g.: If you need to pass a search-string (q=xslt) along to all pages, it's available
+		as $options[@key = 'q']
+	-->
+	<xsl:variable name="optionsProxy">
+		<xsl:call-template name="parseOptions">
+			<xsl:with-param name="options" select="&CompleteQueryString;" />
+		</xsl:call-template>
+	</xsl:variable>
+	<xsl:variable name="options" select="&MakeNodesetOfOptions;" />
+
 	<!-- Paging variables -->
 	<xsl:variable name="perPage" select="&perPage;" />
-	<xsl:variable name="reqPage" select="&queryString;('&pagerParam;')" />
+	<xsl:variable name="reqPage" select="$options[@key = '&pagerParam;']" />
 	<xsl:variable name="page">
 		<xsl:choose>
-			<xsl:when test="number($reqPage) = $reqPage">
-				<xsl:value-of select="$reqPage" />
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="1" />
-			</xsl:otherwise>
+			<xsl:when test="number($reqPage) = $reqPage"><xsl:value-of select="$reqPage" /></xsl:when>
+			<xsl:otherwise><xsl:value-of select="1" /></xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
 	
@@ -100,6 +110,21 @@
 				</xsl:choose>
 			</li>			
 		</ul>
+	</xsl:template>
+	
+	<!-- Options Parsing -->
+	<xsl:template name="parseOptions">
+		<xsl:param name="options" select="''" />
+		<options>
+			<xsl:apply-templates select="&tokenize;($options, '&amp;')" mode="parse" />
+		</options>
+	</xsl:template>
+
+	<xsl:template match="&token;" mode="parse">
+		<xsl:variable name="key" select="substring-before(., '=')" />
+		<option key="{$key}">
+			<xsl:value-of select="&GetQueryStringValueForKey;" />
+		</option>
 	</xsl:template>
 
 </xsl:stylesheet>
