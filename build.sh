@@ -7,6 +7,13 @@ if [[ ! -d package ]]
 	then mkdir package
 fi
 
+# Make sure to use the PRODUCTION entities
+sed -i 's/umbraco "IGNORE">/umbraco "INCLUDE"/' mediahelpers/entities.ent
+sed -i 's/umbraco "IGNORE">/umbraco "INCLUDE"/' paginationhelper/entities.ent
+sed -i 's/textmate "INCLUDE">/textmate "IGNORE"/' mediahelpers/entities.ent
+sed -i 's/textmate "INCLUDE">/textmate "IGNORE"/' paginationhelper/entities.ent
+
+
 # Transform the development XSLT into the release file
 xsltproc --novalid --output package/_PaginationHelper.xslt lib/freezeEntities.xslt paginationhelper/_PaginationHelper.xslt
 xsltproc --novalid --output package/_MediaHelper.xslt lib/freezeEntities.xslt mediahelpers/_MediaHelper.xslt
