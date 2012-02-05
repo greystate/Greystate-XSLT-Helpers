@@ -16,13 +16,18 @@ of your Umbraco installation.
 
 Using these helpers usually just require the same 2 steps:
 
-1.	Include the file(s) in your main XSLT file using the include instruction, e.g.:
+1.	Include the file(s) in your main XSLT file using the include instruction:
 
 	`<xsl:include href="_HelperFile.xslt" />`
 
-2.	Perform one of the following actions
+2.	Perform one of the following actions:
 	* Applying templates in a specific mode
+	
+		`<xsl:apply-templates select="$currentPage/pageImage" mode="media" />`
+	
 	* Calling a named template
+	
+		`<xsl:call-template name="PageinateSelection" />`
 	
 ## Helpers
 
