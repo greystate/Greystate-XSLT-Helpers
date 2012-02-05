@@ -128,19 +128,17 @@
 		</x:expect>
 	</x:scenario>
 	
-	<x:pending label="Can not use extensions with Saxon HE">
-		<x:scenario label="when calling parseOptions">
-			<x:call template="parseOptions">
-				<x:param name="options" select="'key1=value1&amp;key2=value2&amp;key3=value3'" />
-			</x:call>
-			<x:expect label="it should produce an option element for each set of key=value">
-				<options>
-					<option key="key1">value1</option>
-					<option key="key2">value2</option>
-					<option key="key3">value3</option>
-				</options>
-			</x:expect>
-		</x:scenario>
-	</x:pending>
+	<x:scenario label="when calling parseOptions" pending="Can not use extensions with Saxon HE">
+		<x:call template="parseOptions">
+			<x:param name="options" select="'key1=value1&amp;key2=value2&amp;key3=value3'" />
+		</x:call>
+		<x:expect label="it should produce an option element for each set of key=value">
+			<options>
+				<option key="key1">value1</option>
+				<option key="key2">value2</option>
+				<option key="key3">value3</option>
+			</options>
+		</x:expect>
+	</x:scenario>
 	
 </x:description>
