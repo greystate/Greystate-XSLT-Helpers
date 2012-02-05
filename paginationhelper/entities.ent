@@ -25,6 +25,6 @@
 	<!ENTITY token "token">
 	<!ENTITY tokenize "str:split">
 	<!ENTITY GetQueryStringValueForKey "substring-after(., '=')">
-	<!ENTITY CompleteQueryString "'p=1&amp;sort=name&amp;size=10'">
-	<!ENTITY MakeNodesetOfOptions "document('test/fixtures/options.xml')/options/option">
+	<!ENTITY CompleteQueryString "''">
+	<!ENTITY MakeNodesetOfOptions "document('test/fixtures/nooptions.xml')/options/option">
 ]]>

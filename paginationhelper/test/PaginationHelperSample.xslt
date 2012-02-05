@@ -6,17 +6,12 @@
 
 	<xsl:template match="/">
 		<body>
-			<!-- <xsl:call-template name="parseOptions">
-				<xsl:with-param name="options" select="'page=7&amp;v=34&amp;f=345&amp;start=yuriuyiuyeæøås'" />
-			</xsl:call-template> -->
 			<xsl:apply-templates />
 		</body>
 	</xsl:template>
 
 	<xsl:template match="people">
-		<xsl:call-template name="PaginateSelection">
-			<xsl:with-param name="page" select="4" />
-		</xsl:call-template>
+		<xsl:call-template name="PaginateSelection" />
 	</xsl:template>
 	
 	<xsl:template match="person">
