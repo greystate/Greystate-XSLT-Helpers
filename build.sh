@@ -8,11 +8,14 @@ if [[ ! -d package ]]
 fi
 
 # Make sure to use the PRODUCTION entities
-sed -i 's/umbraco "IGNORE">/umbraco "INCLUDE"/' mediahelpers/entities.ent
-sed -i 's/umbraco "IGNORE">/umbraco "INCLUDE"/' paginationhelper/entities.ent
-sed -i 's/textmate "INCLUDE">/textmate "IGNORE"/' mediahelpers/entities.ent
-sed -i 's/textmate "INCLUDE">/textmate "IGNORE"/' paginationhelper/entities.ent
-
+UMBOFF="umbraco \"IGNORE\""
+UMBON="umbraco \"INCLUDE\""
+TMOFF="textmate \"IGNORE\""
+TMON="textmate \"INCLUDE\""
+sed -i "" "s/$UMBOFF/$UMBON/" mediahelpers/entities.ent
+sed -i "" "s/$UMBOFF/$UMBON/" paginationhelper/entities.ent
+sed -i "" "s/$TMON/$TMOFF/" mediahelpers/entities.ent
+sed -i "" "s/$TMON/$TMOFF/" paginationhelper/entities.ent
 
 # Transform the development XSLT into the release file
 xsltproc --novalid --output package/_PaginationHelper.xslt lib/freezeEntities.xslt paginationhelper/_PaginationHelper.xslt
@@ -29,3 +32,9 @@ zip -j dist/XSLTHelpers package/* -x \*.DS_Store
 cp package/_PaginationHelper.xslt dist/_PaginationHelper.xslt
 cp package/_MediaHelper.xslt dist/_MediaHelper.xslt
 cp package/cropping-config.xml dist/cropping-config.xml
+
+# Go back to DEVELOPMENT versions again
+sed -i "" "s/$UMBON/$UMBOFF/" mediahelpers/entities.ent
+sed -i "" "s/$UMBON/$UMBOFF/" paginationhelper/entities.ent
+sed -i "" "s/$TMOFF/$TMON/" mediahelpers/entities.ent
+sed -i "" "s/$TMOFF/$TMON/" paginationhelper/entities.ent
