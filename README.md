@@ -17,6 +17,9 @@ Using these helpers usually just require the same 2 steps:
 	
 ## Helpers
 
+An installable package is in the works but for now, you should grab the files in the `dist` folder and put them in the `xslt` folder
+of your Umbraco installation.
+
 Each helper has its own README but here&#8217;s a quick rundown: 
 
 ### Pagination Helper
