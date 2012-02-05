@@ -7,7 +7,7 @@
 	<!ENTITY prevPage "&#8249; Previous">
 	<!ENTITY nextPage "Next &#8250;">
 
-	<!ENTITY pagerParam "p">		<!-- Name of QueryString parameter for 'page' --> 
+	<!ENTITY pagerParam "p">		<!-- Name of QueryString parameter for 'page' -->
 	<!ENTITY perPage "10">			<!-- Number of items on a page -->
 ]>
 <xsl:stylesheet
@@ -22,7 +22,7 @@
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
 
 	<!--
-		Build an options variable of all the query string params for easy lookup,
+		Build an `options` variable of all the query string params for easy lookup,
 		e.g.: If you need to pass a search-string (q=xslt) along to all pages, it's available
 		as $options[@key = 'q']
 	-->
@@ -33,9 +33,14 @@
 	</xsl:variable>
 	<xsl:variable name="options" select="&MakeNodesetOfOptions;" />
 
+	<!-- Config constants -->
+	<xsl:variable name="pagerParam" select="'&pagerParam;'" /><!-- Name of QueryString parameter for 'page' -->
+	<xsl:variable name="perPage" select="&perPage;" /><!-- Number of items on a page -->
+	<xsl:variable name="prevPage" select="'&prevPage;'" />
+	<xsl:variable name="nextPage" select="'&nextPage;'" />
+	
 	<!-- Paging variables -->
-	<xsl:variable name="perPage" select="&perPage;" />
-	<xsl:variable name="reqPage" select="$options[@key = '&pagerParam;']" />
+	<xsl:variable name="reqPage" select="$options[@key = $pagerParam]" />
 	<xsl:variable name="page">
 		<xsl:choose>
 			<xsl:when test="number($reqPage) = $reqPage"><xsl:value-of select="$reqPage" /></xsl:when>
@@ -46,9 +51,12 @@
 	<xsl:template name="PaginateSelection">
 		<!-- The stuff to paginate - defaults to all children of the context node when invoking this  -->
 		<xsl:param name="selection" select="*" />
-
+		
 		<!-- This is to allow forcing a specific page without using QueryString  -->
 		<xsl:param name="page" select="$page" />
+
+		<!-- Also, allow forcing specific options -->
+		<xsl:param name="options" select="$options" />
 
 		<!-- You can disable the "Pager" control by setting this to false() - then manually calling RenderPager somewhere else -->
 		<xsl:param name="showPager" select="true()" />
@@ -79,9 +87,9 @@
 			<!-- Create the "Previous" link -->
 			<li class="prev">
 				<xsl:choose>
-					<xsl:when test="$page = 1">&prevPage;</xsl:when>
+					<xsl:when test="$page = 1"><xsl:value-of select="$prevPage" /></xsl:when>
 					<xsl:otherwise>
-						<a href="?&pagerParam;={$page - 1}">&prevPage;</a>
+						<a href="?{$pagerParam}={$page - 1}"><xsl:value-of select="$prevPage" /></a>
 					</xsl:otherwise>
 				</xsl:choose>
 			</li>
@@ -94,7 +102,7 @@
 							<xsl:value-of select="position()" />
 						</xsl:when>
 						<xsl:otherwise>
-							<a href="?&pagerParam;={position()}">
+							<a href="?{$pagerParam}={position()}">
 								<xsl:value-of select="position()" />
 							</a>
 						</xsl:otherwise>
@@ -103,9 +111,9 @@
 			</xsl:for-each>
 			<li class="next">
 				<xsl:choose>
-					<xsl:when test="$page = $lastPageNum">&nextPage;</xsl:when>
+					<xsl:when test="$page = $lastPageNum"><xsl:value-of select="$nextPage" /></xsl:when>
 					<xsl:otherwise>
-						<a href="?&pagerParam;={$page + 1}">&nextPage;</a>
+						<a href="?{$pagerParam}={$page + 1}"><xsl:value-of select="$nextPage" /></a>
 					</xsl:otherwise>
 				</xsl:choose>
 			</li>			
