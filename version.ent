@@ -1,0 +1,5 @@
+<!-- Current Versions -->
+<!ENTITY packageVersion "0.5">
+<!ENTITY XSLTHelpersVersionHeader "XSLT Helpers for Umbraco (v&packageVersion;)">
+<!ENTITY MediaHelperVersion "1.0">
+<!ENTITY PaginationHelperVersion "1.0">
