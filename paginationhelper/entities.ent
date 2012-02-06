@@ -8,7 +8,7 @@
 	<!ENTITY string-ns-uri "urn:Exslt.ExsltStrings">
 	<!ENTITY nodeset-ns-uri "urn:schemas-microsoft-com:xslt">
 	<!ENTITY QueryString "umb:RequestQueryString">
-	<!ENTITY token "value">
+	<!ENTITY token "token">
 	<!ENTITY tokenize "str:split">
 	<!ENTITY GetQueryStringValueForKey "&QueryString;($key)">
 	<!ENTITY CompleteQueryString "umb:RequestServerVariables('QUERY_STRING')">

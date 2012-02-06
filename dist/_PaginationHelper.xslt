@@ -110,7 +110,7 @@
 		</options>
 	</xsl:template>
 
-	<xsl:template match="value" mode="parse">
+	<xsl:template match="token" mode="parse">
 		<xsl:variable name="key" select="substring-before(., '=')"/>
 		<option key="{$key}">
 			<xsl:value-of select="umb:RequestQueryString($key)"/>
