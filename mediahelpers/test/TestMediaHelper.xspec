@@ -65,7 +65,7 @@
 				<img src="/test2230_X-Large.png" width="" height="" alt="My first Banner" />
 			</x:expect>
 		</x:scenario>
-				
+		
 	</x:scenario>
 	
 	<x:scenario label="when processing an element in mode=&quot;media.url&quot;">
@@ -159,6 +159,36 @@
 			</x:expect>
 		</x:scenario>
 		
+	</x:scenario>
+	
+	<x:scenario label="when processing an element with a DAMP property in mode=&quot;media&quot;" focus="Implementing DAMP support">
+		
+		<x:scenario label="with DAMP in fullMedia mode">
+			<x:context mode="media">
+			    <images>
+			       <DAMP fullMedia="">
+			         <mediaItem>
+			           <Image id="1159" version="76d83bff-6d93-4b6c-b27f-4b35091c49a9" parentID="1156" level="2" writerID="0" nodeType="1032" template="0" sortOrder="1" createDate="2012-02-07T21:53:23" updateDate="2012-02-07T21:53:10" nodeName="HomeWorld" urlName="homeworld" writerName="Vokseværk Admin" nodeTypeAlias="Image" path="-1,1156,1159">
+			             <umbracoFile>/media/896/homeworld.png</umbracoFile>
+			             <umbracoWidth>1024</umbracoWidth>
+			             <umbracoHeight>1024</umbracoHeight>
+			             <umbracoBytes>1517282</umbracoBytes>
+			             <umbracoExtension>png</umbracoExtension>
+			             <cropping>
+			               <crops date="07/02/2012 21:53:56">
+			                 <crop name="Large" x="127" y="121" x2="1024" y2="794" url="/media/896/homeworld_Large.jpg" />
+			                 <crop name="Mini" x="300" y="368" x2="756" y2="824" url="/media/896/homeworld_Mini.jpg" />
+			               </crops>
+			             </cropping>
+			           </Image>
+			         </mediaItem>
+			       </DAMP>
+			     </images>
+			</x:context>
+			<x:expect label="it should produce an img element with the correct attributes">
+				<img src="/media/896/homeworld.png" width="1024" height="1024" alt="HomeWorld" />
+			</x:expect>
+		</x:scenario>
 	</x:scenario>
 
 </x:description>

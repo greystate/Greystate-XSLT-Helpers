@@ -38,6 +38,19 @@
 		</xsl:apply-templates>
 	</xsl:template>
 	
+	<xsl:template match="*[DAMP[@fullMedia]]" mode="media">
+		<xsl:param name="class" />
+		<xsl:param name="crop" />
+		<xsl:param name="id" />
+		<xsl:param name="size" />
+		<xsl:apply-templates select="DAMP/mediaItem">
+			<xsl:with-param name="class" select="$class" />
+			<xsl:with-param name="crop" select="$crop" />
+			<xsl:with-param name="id" select="$id" />
+			<xsl:with-param name="size" select="$size" />
+		</xsl:apply-templates>
+	</xsl:template>
+	
 	<!-- Template for any mediafolder that needs fetching - handles potential error -->
 	<xsl:template match="*" mode="media.folder">
 		<xsl:param name="class" />
