@@ -43,6 +43,8 @@ In Umbraco you can use this simple boilerplate for most of the following example
 		<xsl:include href="_MediaHelper.xslt" />
 	
 	</xsl:stylesheet>
+	
+**NOTE:** *All of the following scenarios "just works", even if you're using the [Digibiz Advanced Media Picker][DAMP] (DAMP) for selecting images (magic!)*
 
 
 1. **Render an image tag for the chosen image**
@@ -96,7 +98,7 @@ In Umbraco you can use this simple boilerplate for most of the following example
 			<xsl:with-param name="crop" select="'ImageGallery'" />
 			<xsl:with-param name="id" select="concat('slide', position())" />
 		</xsl:apply-templates>
-	
+
 ## Advanced usage
 
 ### Getting a random image from a specified folder
