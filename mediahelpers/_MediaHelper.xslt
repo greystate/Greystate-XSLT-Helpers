@@ -38,6 +38,7 @@
 		</xsl:apply-templates>
 	</xsl:template>
 	
+	<!-- Template for DAMP (Digibiz Advanced Media Picker) content -->
 	<xsl:template match="*[DAMP[@fullMedia]]" mode="media">
 		<xsl:param name="class" />
 		<xsl:param name="crop" />
@@ -132,6 +133,14 @@
 		<xsl:param name="crop" />
 		<xsl:variable name="mediaNode" select="&GetMediaFile;" />
 		<xsl:apply-templates select="$mediaNode[not(error)]" mode="url">
+			<xsl:with-param name="crop" select="$crop" />
+		</xsl:apply-templates>
+	</xsl:template>
+
+	<!-- DAMP template -->
+	<xsl:template match="*[DAMP[@fullMedia]]" mode="media.url">
+		<xsl:param name="crop" />
+		<xsl:apply-templates select="DAMP/mediaItem" mode="url">
 			<xsl:with-param name="crop" select="$crop" />
 		</xsl:apply-templates>
 	</xsl:template>
