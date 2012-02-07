@@ -236,8 +236,51 @@
 				<x:expect label="it should use the crop URL but remove the width &amp; height">
 					<img src="/media/896/homeworld_Mini.jpg" width="" height="" alt="HomeWorld" />
 				</x:expect>
-			</x:scenario>
+			</x:scenario>			
+		</x:scenario>
+		
+		<x:scenario label="with multiple items picked">
+			<x:context>
+				<images>
+				    <DAMP fullMedia="">
+				      <mediaItem>
+				        <Image id="1161" level="2" nodeName="chriz-request-gravatar" urlName="chriz-request-gravatar" nodeTypeAlias="Image">
+				          <umbracoFile>/media/918/chriz-request-gravatar.jpg</umbracoFile>
+				          <umbracoWidth>512</umbracoWidth>
+				          <umbracoHeight>512</umbracoHeight>
+				          <umbracoBytes>361428</umbracoBytes>
+				          <umbracoExtension>jpg</umbracoExtension>
+				          <cropping>
+				            <crops>
+				              <crop name="Large" url="/media/918/chriz-request-gravatar_Large.jpg" />
+				              <crop name="Mini" url="/media/918/chriz-request-gravatar_Mini.jpg" />
+				            </crops>
+				          </cropping>
+				        </Image>
+				      </mediaItem>
+				      <mediaItem>
+				        <Image id="1159" level="2" nodeName="HomeWorld" urlName="homeworld" nodeTypeAlias="Image">
+				          <umbracoFile>/media/896/homeworld.png</umbracoFile>
+				          <umbracoWidth>1024</umbracoWidth>
+				          <umbracoHeight>1024</umbracoHeight>
+				          <umbracoBytes>1517282</umbracoBytes>
+				          <umbracoExtension>png</umbracoExtension>
+				          <cropping>
+				            <crops>
+				              <crop name="Large" url="/media/896/homeworld_Large.jpg" />
+				              <crop name="Mini" url="/media/896/homeworld_Mini.jpg" />
+				            </crops>
+				          </cropping>
+				        </Image>
+				      </mediaItem>
+				    </DAMP>
+				  </images>
+			</x:context>
 			
+			<x:expect label="it should render all items in the correct order">
+				<img src="/media/918/chriz-request-gravatar.jpg" width="512" height="512" alt="chriz-request-gravatar" />
+				<img src="/media/896/homeworld.png" width="1024" height="1024" alt="HomeWorld" />
+			</x:expect>
 		</x:scenario>
 
 	</x:scenario>
