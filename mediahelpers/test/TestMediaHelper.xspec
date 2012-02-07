@@ -188,6 +188,56 @@
 			<x:expect label="it should produce an img element with the correct attributes">
 				<img src="/media/896/homeworld.png" width="1024" height="1024" alt="HomeWorld" />
 			</x:expect>
+			
+			<x:scenario label="with a class parameter">
+				<x:context>
+					<x:param name="class" select="'className'" />					
+				</x:context>
+				
+				<x:expect label="it should add the class attribute">
+					<img class="className" src="..." width="..." height="..." alt="..." />
+				</x:expect>
+			</x:scenario>
+			
+			<x:scenario label="with an id parameter">
+				<x:context>
+					<x:param name="id" select="'startupImage'" />
+				</x:context>
+				<x:expect label="it should add the id attribute">
+					<img id="startupImage" src="..." width="..." height="..." alt="..." />
+				</x:expect>
+			</x:scenario>
+			
+			<x:scenario label="with a crop parameter">
+				<x:context mode="media">
+					<x:param name="crop" select="'Large'" />
+				</x:context>
+				
+				<x:expect label="it should use the crop with that name">
+					<img src="/media/896/homeworld_Large.jpg" width="800" height="600" alt="HomeWorld" />
+				</x:expect>
+			</x:scenario>
+		
+			<x:scenario label="with a crop name that has not been created">
+				<x:context mode="media">
+					<x:param name="crop" select="'Small'" />
+				</x:context>
+				
+				<x:expect label="it should fallback to the original image URL but use the width &amp; height from the config file">
+					<img src="/media/896/homeworld.png" width="320" height="480" alt="HomeWorld" />
+				</x:expect>
+			</x:scenario>
+				
+			<x:scenario label="with a crop name that exists but no config available">
+				<x:context mode="media">
+					<x:param name="crop" select="'Mini'" />
+				</x:context>
+				
+				<x:expect label="it should use the crop URL but remove the width &amp; height">
+					<img src="/media/896/homeworld_Mini.jpg" width="" height="" alt="HomeWorld" />
+				</x:expect>
+			</x:scenario>
+			
 		</x:scenario>
 
 	</x:scenario>
