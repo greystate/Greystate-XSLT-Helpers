@@ -26,12 +26,39 @@
 		</xsl:apply-templates>
 	</xsl:template>
 	
+	<!-- Template for DAMP (Digibiz Advanced Media Picker) content -->
+	<xsl:template match="*[DAMP[@fullMedia]]" mode="media">
+		<xsl:param name="class"/>
+		<xsl:param name="crop"/>
+		<xsl:param name="id"/>
+		<xsl:param name="size"/>
+		<xsl:apply-templates select="DAMP/mediaItem">
+			<xsl:with-param name="class" select="$class"/>
+			<xsl:with-param name="crop" select="$crop"/>
+			<xsl:with-param name="id" select="$id"/>
+			<xsl:with-param name="size" select="$size"/>
+		</xsl:apply-templates>
+	</xsl:template>
+	
 	<!-- Template for any mediafolder that needs fetching - handles potential error -->
 	<xsl:template match="*" mode="media.folder">
 		<xsl:param name="class"/>
 		<xsl:param name="crop"/>
 		<xsl:param name="size"/>
 		<xsl:variable name="mediaFolder" select="umb:GetMedia(., true())"/>
+		<xsl:apply-templates select="$mediaFolder[not(error)]">
+			<xsl:with-param name="class" select="$class"/>
+			<xsl:with-param name="crop" select="$crop"/>
+			<xsl:with-param name="size" select="$size"/>
+		</xsl:apply-templates>
+	</xsl:template>
+	
+	<!-- Template for DAMP folder content -->
+	<xsl:template match="*[DAMP[@fullMedia]]" mode="media.folder">
+		<xsl:param name="class"/>
+		<xsl:param name="crop"/>
+		<xsl:param name="size"/>
+		<xsl:variable name="mediaFolder" select="umb:GetMedia(DAMP/mediaItem/Folder/@id, true())"/>
 		<xsl:apply-templates select="$mediaFolder[not(error)]">
 			<xsl:with-param name="class" select="$class"/>
 			<xsl:with-param name="crop" select="$crop"/>
@@ -110,6 +137,14 @@
 			<xsl:with-param name="crop" select="$crop"/>
 		</xsl:apply-templates>
 	</xsl:template>
+
+	<!-- DAMP template -->
+	<xsl:template match="*[DAMP[@fullMedia]]" mode="media.url">
+		<xsl:param name="crop"/>
+		<xsl:apply-templates select="DAMP/mediaItem" mode="url">
+			<xsl:with-param name="crop" select="$crop"/>
+		</xsl:apply-templates>
+	</xsl:template>
 	
 	<!-- Safeguards for empty elements - need one for each mode -->
 	<xsl:template match="*[not(normalize-space())]" mode="media">
@@ -121,7 +156,7 @@
 		<xsl:apply-templates select="." mode="media"/><!-- Redirect to the one above -->
 	</xsl:template>
 	
-	<xsl:template match="*[not(normalize-space())]" mode="media.folder">
+	<xsl:template match="*[not(normalize-space())]" mode="media.folder" priority="0">
 		<xsl:apply-templates select="." mode="media"/><!-- Redirect to the one above -->
 	</xsl:template>
 	
