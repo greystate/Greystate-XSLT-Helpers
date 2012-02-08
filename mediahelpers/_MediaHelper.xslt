@@ -44,7 +44,7 @@
 		<xsl:param name="crop" />
 		<xsl:param name="id" />
 		<xsl:param name="size" />
-		<xsl:apply-templates select="DAMP/mediaItem">
+		<xsl:apply-templates select="DAMP/mediaItem/*[@id]">
 			<xsl:with-param name="class" select="$class" />
 			<xsl:with-param name="crop" select="$crop" />
 			<xsl:with-param name="id" select="$id" />
@@ -153,7 +153,7 @@
 	<!-- DAMP template -->
 	<xsl:template match="*[DAMP[@fullMedia]]" mode="media.url">
 		<xsl:param name="crop" />
-		<xsl:apply-templates select="DAMP/mediaItem" mode="url">
+		<xsl:apply-templates select="DAMP/mediaItem/*[@id]" mode="url">
 			<xsl:with-param name="crop" select="$crop" />
 		</xsl:apply-templates>
 	</xsl:template>
