@@ -33,13 +33,13 @@ Using these helpers usually just require the same 2 steps:
 
 Each helper has its own README but here&#8217;s a quick rundown: 
 
-### Pagination Helper
+### [Pagination Helper][PAGINATION]
 
 A self-contained clip-on solution for pagination of node-sets.
 
 > "Just add Pagination"
 
-### Media Helpers
+### [Media Helpers][MEDIA]
 
 A bunch of well-tested templates for handling Media items in Umbraco - if you've asked some of the following questions, this is definitely for you:
 
@@ -50,3 +50,5 @@ A bunch of well-tested templates for handling Media items in Umbraco - if you've
 > How do I output a specific crop version?
 
 
+[PAGINATION]: https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/paginationhelper
+[MEDIA]: https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/mediahelpers

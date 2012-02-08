@@ -21,24 +21,30 @@
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
 
-	<!--
-		Build an `options` variable of all the query string params for easy lookup,
-		e.g.: If you need to pass a search-string (q=xslt) along to all pages, it's available
-		as $options[@key = 'q']
-	-->
-	<xsl:variable name="optionsProxy">
-		<xsl:call-template name="parseOptions">
-			<xsl:with-param name="options" select="&CompleteQueryString;" />
-		</xsl:call-template>
-	</xsl:variable>
-	<xsl:variable name="options" select="&MakeNodesetOfOptions;" />
-
 	<!-- Config constants -->
 	<xsl:variable name="pagerParam" select="'&pagerParam;'" /><!-- Name of QueryString parameter for 'page' -->
 	<xsl:variable name="perPage" select="&perPage;" /><!-- Number of items on a page -->
 	<xsl:variable name="prevPage" select="'&prevPage;'" />
 	<xsl:variable name="nextPage" select="'&nextPage;'" />
 	
+	<!--
+		This is where we get the options for the page, which defaults to the QueryString
+		but as long as it is formatted like a QueryString it can come from anywhere you like.
+	-->
+	<xsl:variable name="optionString" select="&CompleteQueryString;" />
+	
+	<!--
+		Build an `options` variable of all the query string params for easy lookup,
+		e.g.: If you need to pass a search-string (q=xslt) along to all pages, it
+		will be available as $options[@key = 'q']
+	-->
+	<xsl:variable name="optionsProxy">
+		<xsl:call-template name="parseOptions">
+			<xsl:with-param name="options" select="$optionString" />
+		</xsl:call-template>
+	</xsl:variable>
+	<xsl:variable name="options" select="&MakeNodesetOfOptions;" />
+
 	<!-- Paging variables -->
 	<xsl:variable name="reqPage" select="$options[@key = $pagerParam]" />
 	<xsl:variable name="page">
