@@ -179,4 +179,64 @@
 		</x:scenario>
 	</x:scenario>
 
+	<x:scenario label="when processing an element with a DAMP property in mode=&quot;media.folder&quot;">
+		<x:scenario label="with a correct folder id">
+			<x:context mode="media.folder">
+				<imgFolder>
+					<DAMP fullMedia="">
+						<mediaItem>
+							<Folder id="2030" version="7b210fcb-aa43-4231-8b62-b1bc2f7642ac" parentID="-1" level="1" writerID="0" nodeType="1031" template="0" sortOrder="52" createDate="2012-02-07T21:37:22" updateDate="2012-02-07T21:37:09" nodeName="DAMP Test" urlName="damptest" writerName="Vokseværk Admin" nodeTypeAlias="Folder" path="-1,1156">
+								<contents />
+							</Folder>
+						</mediaItem>
+					</DAMP>
+				</imgFolder>
+			</x:context>
+
+			<x:expect label="it should render each Image in the folder">
+				<img src="..." width="..." height="..." alt="..." />
+				<img src="..." width="..." height="..." alt="..." />
+				<img src="..." width="..." height="..." alt="..." />
+			</x:expect>
+			
+			<x:scenario label="with a class parameter">
+				<x:context>
+					<x:param name="class" select="'master'" />
+				</x:context>
+				<x:expect label="it should add the class to each rendered Image in the folder">
+					<img class="master" src="..." width="..." height="..." alt="..." />
+					<img class="master" src="..." width="..." height="..." alt="..." />
+					<img class="master" src="..." width="..." height="..." alt="..." />
+				</x:expect>
+			
+				<x:scenario label="and a size parameter">
+					<x:context>
+						<x:param name="size" select="'256x128'" />					
+					</x:context>
+					<x:expect label="it should override the width and height attributes on all images in the folder">
+						<img class="master" src="..." width="256" height="128" alt="..." />
+						<img class="master" src="..." width="256" height="128" alt="..." />
+						<img class="master" src="..." width="256" height="128" alt="..." />
+					</x:expect>
+				</x:scenario>
+			</x:scenario>
+			
+			<x:scenario label="with a crop parameter">
+				<x:context>
+					<x:param name="crop" select="'Large'" />
+				</x:context>
+				<x:expect label="it should render the specified crop for each Image in the folder">
+					<img src="/test2230_Large.png" width="800" height="600" alt="My first Banner" />
+					<img src="/test2231_Large.png" width="800" height="600" alt="My first Banner" />
+					<img src="/test2232_Large.png" width="800" height="600" alt="My first Banner" />
+				</x:expect>
+			</x:scenario>
+			
+		</x:scenario>
+		
+		
+		
+	</x:scenario>
+	
+
 </x:description>

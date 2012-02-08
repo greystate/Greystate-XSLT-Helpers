@@ -65,6 +65,19 @@
 		</xsl:apply-templates>
 	</xsl:template>
 	
+	<!-- Template for DAMP folder content -->
+	<xsl:template match="*[DAMP[@fullMedia]]" mode="media.folder">
+		<xsl:param name="class" />
+		<xsl:param name="crop" />
+		<xsl:param name="size" />
+		<xsl:variable name="mediaFolder" select="&GetDAMPMediaFolder;" />
+		<xsl:apply-templates select="$mediaFolder[not(error)]">
+			<xsl:with-param name="class" select="$class" />
+			<xsl:with-param name="crop" select="$crop" />
+			<xsl:with-param name="size" select="$size" />
+		</xsl:apply-templates>
+	</xsl:template>
+	
 	<!-- Template for getting a random item from a mediafolder -->
 	<xsl:template match="*" mode="media.random">
 		<xsl:param name="class" />
@@ -155,7 +168,7 @@
 		<xsl:apply-templates select="." mode="media" /><!-- Redirect to the one above -->
 	</xsl:template>
 	
-	<xsl:template match="*[not(normalize-space())]" mode="media.folder">
+	<xsl:template match="*[not(normalize-space())]" mode="media.folder" priority="0">
 		<xsl:apply-templates select="." mode="media" /><!-- Redirect to the one above -->
 	</xsl:template>
 	
