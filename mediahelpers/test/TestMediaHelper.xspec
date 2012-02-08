@@ -36,6 +36,16 @@
 			</x:scenario>
 		</x:scenario>
 		
+		<x:scenario label="with a size parameter">
+			<x:context mode="media">
+				<x:param name="size" select="'1234x567'" />
+				<pageImage>2230</pageImage>
+			</x:context>
+			<x:expect label="it should override the dimensions of the image">
+				<img src="..." width="1234" height="567" alt="..." />
+			</x:expect>
+		</x:scenario>
+
 		<x:scenario label="with a crop parameter">
 			<x:context mode="media">
 				<x:param name="crop" select="'Large'" />
