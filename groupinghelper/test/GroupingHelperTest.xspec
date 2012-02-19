@@ -95,6 +95,51 @@
 			</x:scenario>
 			
 		</x:scenario>
+
+		<x:scenario label="with a custom selection not in sequential document order">
+			<x:call template="GroupifySelection">
+				<x:param name="selection" select="document('fixtures/lots-of-people.xml', /)/people/person/name[starts-with(., 'C')]" />
+				<x:param name="groupSize" select="3" />
+			</x:call>
+			
+			<x:expect label="it should still produce sets of $groupSize (3) items">
+				<ul>
+					<p>Charlie Pace</p>
+					<p>Charles Widmore</p>
+					<p>Claire Littleton</p>
+				</ul>
+				<ul>
+					<p>Christian Shepard</p>
+					<p>Charlie Pace</p>
+					<p>Charles Widmore</p>
+				</ul>
+				<ul>
+					<p>Claire Littleton</p>
+					<p>Christian Shepard</p>
+					<p>Charlie Pace</p>
+				</ul>
+				<ul>
+					<p>Charles Widmore</p>
+					<p>Claire Littleton</p>
+					<p>Christian Shepard</p>
+				</ul>
+				<ul>
+					<p>Charlie Pace</p>
+					<p>Charles Widmore</p>
+					<p>Claire Littleton</p>
+				</ul>
+				<ul>
+					<p>Christian Shepard</p>
+					<p>Charlie Pace</p>
+					<p>Charles Widmore</p>
+				</ul>
+				<ul>
+					<p>Claire Littleton</p>
+					<p>Christian Shepard</p>
+				</ul>
+			</x:expect>
+		</x:scenario>
+
 	</x:scenario>
 
 </x:description>
