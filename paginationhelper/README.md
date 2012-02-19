@@ -56,7 +56,7 @@ defined in the *variable* `pagerParam` right at the top of the file. Here you ca
 *Previous* and *Next* links generated, and the number of results per page (default is 10). You can even change the function that
 retrieves the options for the current page, which defaults to Umbraco&#8217;s `umbraco.library:RequestQueryString`
 but if you&#8217;re not using this with Umbraco you&#8217;re bound to get that from some other extension function.
-It assumes the standard query string `key=value&amp;otherkey=othervalue` format.
+It assumes the standard query string `key=value&otherkey=othervalue` format.
 
 
 ### Paginating search results
