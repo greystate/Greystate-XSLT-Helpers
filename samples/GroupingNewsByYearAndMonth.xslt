@@ -21,27 +21,23 @@
 	
 	<xsl:template match="NewsSection">
 		
-		<xsl:for-each select="NewsItem[count(. | key('NewsByYear', substring(newsDate, 1, 4))[1]) = 1]">
+		<xsl:apply-templates select="NewsItem[count(. | key('NewsByYear', substring(newsDate, 1, 4))[1]) = 1]" mode="years">
 			<xsl:sort select="newsDate" data-type="text" order="descending" />
-			
-			<xsl:variable name="year" select="substring(newsDate, 1, 4)" />
-			<xsl:variable name="month" select="substring(newsDate, 6, 2)" />
-			<xsl:variable name="newsThisYear" select="key('NewsByYear', $year)" />
-			
-			<h2><xsl:value-of select="$year" /></h2>
-			
-			<div>
-				<xsl:apply-templates select="$newsThisYear[count(. | key('NewsByMonth', substring(newsDate, 1, 7))[1]) = 1]" mode="months">
-					<xsl:sort select="newsDate" data-type="text" order="descending" />
-				</xsl:apply-templates>
-			</div>
-		</xsl:for-each>
+		</xsl:apply-templates>
 	</xsl:template>
 	
-	<xsl:template match="NewsItem" mode="year">
-		<h2>
-			<xsl:value-of select="substring(newsDate, 1, 4)" />
-		</h2>
+	<xsl:template match="NewsItem" mode="years">
+		<xsl:variable name="year" select="substring(newsDate, 1, 4)" />
+		<xsl:variable name="month" select="substring(newsDate, 6, 2)" />
+		<xsl:variable name="current-group" select="key('NewsByYear', $year)" />
+		
+		<h2><xsl:value-of select="$year" /></h2>
+			
+		<div>
+			<xsl:apply-templates select="$current-group[count(. | key('NewsByMonth', substring(newsDate, 1, 7))[1]) = 1]" mode="months">
+				<xsl:sort select="newsDate" data-type="text" order="descending" />
+			</xsl:apply-templates>
+		</div>
 	</xsl:template>
 	
 	<xsl:template match="NewsItem" mode="months">
