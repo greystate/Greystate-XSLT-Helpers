@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<Website id="1200" nodeName="News Sample" isDoc="">
+		<NewsSection id="1201" nodeName="News" isDoc="">
+			<NewsItem id="1202" nodeName="News 2012 February" isDoc="">
+				<title>News Item A - February 2012</title>
+				<newsDate>2012-02-19T12:00:00+0100</newsDate>
+			</NewsItem>
+			<NewsItem id="1203" nodeName="News 2011 January" isDoc="">
+				<title>News Item B - January 2011</title>
+				<newsDate>2011-01-19T19:00:00+0100</newsDate>
+			</NewsItem>
+			<NewsItem id="1204" nodeName="News 2011 December" isDoc="">
+				<title>News Item C - December 2011</title>
+				<newsDate>2011-12-09T19:00:00+0100</newsDate>
+			</NewsItem>
+			<NewsItem id="1205" nodeName="News 2010 March" isDoc="">
+				<title>News Item D - March 2010</title>
+				<newsDate>2010-03-09T19:00:00+0100</newsDate>
+			</NewsItem>
+			<NewsItem id="1206" nodeName="News 2010 August" isDoc="">
+				<title>News Item E - August 2010</title>
+				<newsDate>2010-08-09T19:00:00+0100</newsDate>
+			</NewsItem>
+			<NewsItem id="1207" nodeName="News 2012 January (1)" isDoc="">
+				<title>News Item F - January 2012</title>
+				<newsDate>2012-01-04T10:00:00+0100</newsDate>
+			</NewsItem>
+			<NewsItem id="1208" nodeName="News 2012 January (2)" isDoc="">
+				<title>News Item G - January 2012</title>
+				<newsDate>2012-01-01T12:00:00+0100</newsDate>
+			</NewsItem>
+		</NewsSection>
+	</Website>
+</root>
