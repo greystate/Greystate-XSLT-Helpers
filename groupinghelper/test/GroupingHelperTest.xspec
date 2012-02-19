@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<x:description
+	stylesheet="GroupingHelperSample.xslt"
+	xslt-version="1.0"
+	xmlns:x="http://www.jenitennison.com/xslt/xspec"
+>
+	<x:scenario label="when calling GroupifySelection">
+		
+		<x:scenario label="with no parameters">
+			<x:context href="fixtures/lots-of-people.xml" />
+			<x:expect label="it should not produce any output">
+				<body />
+			</x:expect>
+		</x:scenario>
+
+		<x:scenario label="without a group size">
+			<x:call template="GroupifySelection">
+				<x:param name="selection" select="document('fixtures/people.xml', /)/people/person" />
+			</x:call>
+			<x:expect label="it should use the default group size of 5">
+				<ul>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+				</ul>
+				<ul>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+				</ul>
+				<ul>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+				</ul>
+			</x:expect>
+		</x:scenario>
+
+		<x:scenario label="with a group size of 2">
+			<x:call template="GroupifySelection">
+				<x:param name="selection" select="document('fixtures/people.xml', /)/people/person" />
+				<x:param name="groupSize" select="7" />
+			</x:call>
+			<x:expect label="it should use the new group size of 7">
+				<ul>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+				</ul>
+				<ul>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+				</ul>
+			</x:expect>
+			
+			<x:scenario label="and setting a specific wrapper">
+				<x:call>
+					<x:param name="wrapperElement" select="'section'" />
+				</x:call>
+				
+				<x:expect label="it should produce groups of 7 wrapped in &lt;section&gt; elements">
+					<section>
+						<li>...</li>
+						<li>...</li>
+						<li>...</li>
+						<li>...</li>
+						<li>...</li>
+						<li>...</li>
+						<li>...</li>
+					</section>
+					<section>
+						<li>...</li>
+						<li>...</li>
+						<li>...</li>
+						<li>...</li>
+						<li>...</li>
+						<li>...</li>
+						<li>...</li>
+					</section>
+				</x:expect>
+			</x:scenario>
+			
+		</x:scenario>
+	</x:scenario>
+
+</x:description>
