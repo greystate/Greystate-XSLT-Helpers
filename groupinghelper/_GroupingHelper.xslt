@@ -11,13 +11,13 @@
 	<!-- 'Groupify' template -->
 	<xsl:template name="GroupifySelection">
 		<xsl:param name="selection" select="/.." />
-		<xsl:param name="groupSize" select="5" />
-		<xsl:param name="wrapperElement" select="'ul'" />
+		<xsl:param name="&groupSizeParam;" select="5" />
+		<xsl:param name="&elementParam;" select="'div'" />
 		
-		<xsl:apply-templates select="$selection[position() mod $groupSize = 1]" mode="group">
+		<xsl:apply-templates select="$selection[position() mod $&groupSizeParam; = 1]" mode="group">
 			<xsl:with-param name="selection" select="$selection" />
-			<xsl:with-param name="groupSize" select="$groupSize" />
-			<xsl:with-param name="wrapperElement" select="$wrapperElement" />
+			<xsl:with-param name="&groupSizeParam;" select="$&groupSizeParam;" />
+			<xsl:with-param name="&elementParam;" select="$&elementParam;" />
 		</xsl:apply-templates>
 		
 	</xsl:template>
@@ -25,23 +25,16 @@
 	<!-- Group/wrapper template -->
 	<xsl:template match="*" mode="group">
 		<xsl:param name="selection" select="/.." />
-		<xsl:param name="groupSize" />
-		<xsl:param name="wrapperElement" />
-		<xsl:element name="{$wrapperElement}">
+		<xsl:param name="&groupSizeParam;" />
+		<xsl:param name="&elementParam;" />
+		<xsl:element name="{$&elementParam;}">
 			<xsl:variable name="pos" select="position()" />
-			<xsl:variable name="first" select="$groupSize * ($pos - 1) + 1" />
-			<xsl:variable name="last" select="$pos * $groupSize" />
+			<xsl:variable name="first" select="$&groupSizeParam; * ($pos - 1) + 1" />
+			<xsl:variable name="last" select="$pos * $&groupSizeParam;" />
 			
-			<xsl:apply-templates select="$selection[position() &gt;= $first and position() &lt;= $last]" mode="item" />
+			<xsl:apply-templates select="$selection[position() &gt;= $first and position() &lt;= $last]" />
 		</xsl:element>
 	</xsl:template>
 	
-	<!-- Override this in your stylesheet -->
-	<xsl:template match="*" mode="item">
-		<li>
-			<xsl:value-of select="." />
-		</li>
-	</xsl:template>	
-
 </xsl:stylesheet>
 

@@ -23,7 +23,7 @@
 	<xsl:include href="../_GroupingHelper.xslt" />
 
 	<!-- Overrides item mode template in "_GroupingHelper.xslt" -->
-	<xsl:template match="name" mode="item">
+	<xsl:template match="name">
 		<p>
 			<xsl:value-of select="." />
 		</p>

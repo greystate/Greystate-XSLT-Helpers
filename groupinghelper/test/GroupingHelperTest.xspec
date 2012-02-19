@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE x:description [
+	<!ENTITY % entities SYSTEM "../entities.ent">
+	%entities;
+]>
 <x:description
 	stylesheet="GroupingHelperSample.xslt"
 	xslt-version="1.0"
@@ -18,78 +22,78 @@
 				<x:param name="selection" select="document('fixtures/people.xml', /)/people/person" />
 			</x:call>
 			<x:expect label="it should use the default group size of 5">
-				<ul>
-					<li>...</li>
-					<li>...</li>
-					<li>...</li>
-					<li>...</li>
-					<li>...</li>
-				</ul>
-				<ul>
-					<li>...</li>
-					<li>...</li>
-					<li>...</li>
-					<li>...</li>
-					<li>...</li>
-				</ul>
-				<ul>
-					<li>...</li>
-					<li>...</li>
-					<li>...</li>
-					<li>...</li>
-				</ul>
+				<div>
+					<p>...</p>
+					<p>...</p>
+					<p>...</p>
+					<p>...</p>
+					<p>...</p>
+				</div>
+				<div>
+					<p>...</p>
+					<p>...</p>
+					<p>...</p>
+					<p>...</p>
+					<p>...</p>
+				</div>
+				<div>
+					<p>...</p>
+					<p>...</p>
+					<p>...</p>
+					<p>...</p>
+				</div>
 			</x:expect>
 		</x:scenario>
 
 		<x:scenario label="with a group size of 2">
 			<x:call template="GroupifySelection">
 				<x:param name="selection" select="document('fixtures/people.xml', /)/people/person" />
-				<x:param name="groupSize" select="7" />
+				<x:param name="&groupSizeParam;" select="7" />
 			</x:call>
 			<x:expect label="it should use the new group size of 7">
-				<ul>
-					<li>...</li>
-					<li>...</li>
-					<li>...</li>
-					<li>...</li>
-					<li>...</li>
-					<li>...</li>
-					<li>...</li>
-				</ul>
-				<ul>
-					<li>...</li>
-					<li>...</li>
-					<li>...</li>
-					<li>...</li>
-					<li>...</li>
-					<li>...</li>
-					<li>...</li>
-				</ul>
+				<div>
+					<p>...</p>
+					<p>...</p>
+					<p>...</p>
+					<p>...</p>
+					<p>...</p>
+					<p>...</p>
+					<p>...</p>
+				</div>
+				<div>
+					<p>...</p>
+					<p>...</p>
+					<p>...</p>
+					<p>...</p>
+					<p>...</p>
+					<p>...</p>
+					<p>...</p>
+				</div>
 			</x:expect>
 			
 			<x:scenario label="and setting a specific wrapper">
 				<x:call>
-					<x:param name="wrapperElement" select="'section'" />
+					<x:param name="&elementParam;" select="'section'" />
 				</x:call>
 				
 				<x:expect label="it should produce groups of 7 wrapped in &lt;section&gt; elements">
 					<section>
-						<li>...</li>
-						<li>...</li>
-						<li>...</li>
-						<li>...</li>
-						<li>...</li>
-						<li>...</li>
-						<li>...</li>
+						<p>...</p>
+						<p>...</p>
+						<p>...</p>
+						<p>...</p>
+						<p>...</p>
+						<p>...</p>
+						<p>...</p>
 					</section>
 					<section>
-						<li>...</li>
-						<li>...</li>
-						<li>...</li>
-						<li>...</li>
-						<li>...</li>
-						<li>...</li>
-						<li>...</li>
+						<p>...</p>
+						<p>...</p>
+						<p>...</p>
+						<p>...</p>
+						<p>...</p>
+						<p>...</p>
+						<p>...</p>
 					</section>
 				</x:expect>
 			</x:scenario>
@@ -99,44 +103,44 @@
 		<x:scenario label="with a custom selection not in sequential document order">
 			<x:call template="GroupifySelection">
 				<x:param name="selection" select="document('fixtures/lots-of-people.xml', /)/people/person/name[starts-with(., 'C')]" />
-				<x:param name="groupSize" select="3" />
+				<x:param name="&groupSizeParam;" select="3" />
 			</x:call>
 			
-			<x:expect label="it should still produce sets of $groupSize (3) items">
-				<ul>
+			<x:expect label="it should produce the correct sets of 3 items each">
+				<div>
 					<p>Charlie Pace</p>
 					<p>Charles Widmore</p>
 					<p>Claire Littleton</p>
-				</ul>
-				<ul>
+				</div>
+				<div>
 					<p>Christian Shepard</p>
 					<p>Charlie Pace</p>
 					<p>Charles Widmore</p>
-				</ul>
-				<ul>
+				</div>
+				<div>
 					<p>Claire Littleton</p>
 					<p>Christian Shepard</p>
 					<p>Charlie Pace</p>
-				</ul>
-				<ul>
+				</div>
+				<div>
 					<p>Charles Widmore</p>
 					<p>Claire Littleton</p>
 					<p>Christian Shepard</p>
-				</ul>
-				<ul>
+				</div>
+				<div>
 					<p>Charlie Pace</p>
 					<p>Charles Widmore</p>
 					<p>Claire Littleton</p>
-				</ul>
-				<ul>
+				</div>
+				<div>
 					<p>Christian Shepard</p>
 					<p>Charlie Pace</p>
 					<p>Charles Widmore</p>
-				</ul>
-				<ul>
+				</div>
+				<div>
 					<p>Claire Littleton</p>
 					<p>Christian Shepard</p>
-				</ul>
+				</div>
 			</x:expect>
 		</x:scenario>
 
