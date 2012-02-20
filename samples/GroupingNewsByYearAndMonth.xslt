@@ -30,6 +30,7 @@
 		<xsl:variable name="year" select="substring(newsDate, 1, 4)" />
 		<xsl:variable name="current-group" select="key('NewsByYear', $year)" />
 		
+		<!-- Output year -->
 		<h2><xsl:value-of select="$year" /></h2>
 			
 		<!-- Apply templates to unique months in current year -->
@@ -42,7 +43,8 @@
 		<xsl:variable name="year" select="substring(newsDate, 1, 4)" />
 		<xsl:variable name="month" select="substring(newsDate, 6, 2)" />
 
-		<h3><xsl:apply-templates select="newsDate" mode="date.monthname" /></h3>
+		<!-- Output month -->
+		<h3><xsl:value-of select="$month" /></h3>
 		
 		<!-- Apply templates to dates in the current month -->
 		<xsl:apply-templates select="key('NewsByMonth', concat($year, '-', $month))">
@@ -50,18 +52,11 @@
 		</xsl:apply-templates>
 	</xsl:template>
 
-	<!-- Template for a single NewsItem -->
+	<!-- Sample template for a single NewsItem -->
 	<xsl:template match="NewsItem">
 		<p>
 			<xsl:value-of select="title" />
 		</p>
 	</xsl:template>
 	
-	<!-- Template for monthname -->
-	<xsl:template match="* | @*" mode="date.monthname">
-		<xsl:variable name="names" select="'January   February  March     April     May       June      July      August    September October   November  December'" />
-		<xsl:variable name="m" select="number(substring(., 6, 2))" />
-		<xsl:value-of select="normalize-space(substring($names, 10 * ($m - 1), 10))" />
-	</xsl:template>
-
 </xsl:stylesheet>
