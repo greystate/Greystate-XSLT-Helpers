@@ -4,9 +4,13 @@
 <![ %use.in.umbraco; [
 	<!ENTITY linkURL "umb:NiceUrl">
 	<!ENTITY linkName "@nodeName">
+	<!ENTITY homeNode "*[@level = 1]">
+	<!ENTITY page "*[@isDoc][not(umbracoNaviHide = 1)]">
 ]]>
 
 <![ %use.in.textmate; [
 	<!ENTITY linkURL "@id">
 	<!ENTITY linkName "@nodeName">
+	<!ENTITY homeNode "Website">
+	<!ENTITY page "Textpage">
 ]]>
