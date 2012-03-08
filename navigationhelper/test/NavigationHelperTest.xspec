@@ -4,8 +4,10 @@
 	xslt-version="1.0"
 	xmlns:x="http://www.jenitennison.com/xslt/xspec"
 >
+
 	<x:scenario label="when processing a single node">
 		<x:context>
+			<x:param name="currentPage"><Textpage id="1300"></Textpage></x:param>
 			<Textpage id="1200" nodeName="Page 1" isDoc=""></Textpage>
 		</x:context>
 		<x:expect label="it should produce a link wrapped in a list item">
