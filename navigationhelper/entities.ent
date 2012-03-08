@@ -1,0 +1,12 @@
+<!ENTITY % use.in.umbraco "IGNORE">
+<!ENTITY % use.in.textmate "INCLUDE">
+
+<![ %use.in.umbraco; [
+	<!ENTITY linkURL "umb:NiceUrl">
+	<!ENTITY linkName "@nodeName">
+]]>
+
+<![ %use.in.textmate; [
+	<!ENTITY linkURL "@id">
+	<!ENTITY linkName "@nodeName">
+]]>
