@@ -6,7 +6,7 @@
 <xsl:stylesheet
 	version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:freeze="http://xmlns.greystate.dk/2012/frezer"
+	xmlns:freeze="http://xmlns.greystate.dk/2012/freezer"
 	exclude-result-prefixes="freeze"
 >
 
