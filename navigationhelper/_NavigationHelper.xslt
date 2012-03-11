@@ -24,20 +24,23 @@
 	<xsl:param name="mode" select="'mainnav'" />
 	
 <!-- :: Templates :: -->
+
+	<!-- Root template -->
 	<xsl:template match="/">
+		
 		<!-- Mutually Exclusive xsl:choose Avoidance Hack (TM) -->
 		<xsl:apply-templates select="$currentPage[$mode = 'subnav']" mode="subnav" />
 		<xsl:apply-templates select="$currentPage[$mode = 'mainnav']" mode="mainnav" />
+		
 	</xsl:template>
 	
+	<!-- Main navigation -->
 	<xsl:template match="*" mode="mainnav">
 		<xsl:apply-templates select="$siteRoot/&page;" />
 	</xsl:template>
 	
 	<!-- Generic template for creating the links -->
 	<xsl:template match="*">
-		<!-- This is only needed for testing, so ... freeze:remove="yes" -->
-		<xsl:param name="currentPage" select="$currentPage" freeze:remove="yes" />
 		<li>
 			<xsl:if test="descendant-or-self::*[@id = $currentPage/@id]"><xsl:attribute name="class">selected</xsl:attribute></xsl:if>
 			<a href="{&linkURL;}">
