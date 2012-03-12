@@ -4,8 +4,10 @@
 	xslt-version="1.0"
 	xmlns:x="http://www.jenitennison.com/xslt/xspec"
 >
-	<x:import href="NavigationHelperTest_MainNav.xspec" />
+
 	<x:import href="NavigationHelperTest_SubNav.xspec" />
+	<x:import href="NavigationHelperTest_MainNav.xspec" />
+	<x:import href="NavigationHelperTest_Sitemap.xspec" />
 	<x:import href="NavigationHelperTest_Breadcrumb.xspec" />
 
 </x:description>
