@@ -39,6 +39,11 @@
 		<xsl:apply-templates select="$siteRoot/&page;" />
 	</xsl:template>
 	
+	<!-- Sub Navigation -->
+	<xsl:template match="*" mode="subnav">
+		<xsl:apply-templates select="$currentSection/&page;" />
+	</xsl:template>
+	
 	<!-- Generic template for creating the links -->
 	<xsl:template match="*">
 		<li>
