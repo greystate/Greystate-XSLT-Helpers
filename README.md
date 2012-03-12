@@ -39,6 +39,10 @@ A self-contained clip-on solution for pagination of node-sets.
 
 > "Just add Pagination"
 
+### [Navigation Helper][NAVIGATION]
+
+Simple generation of Navigation.
+
 ### [Grouping Helper][GROUPING]
 
 Just like pagination - but for grouping sets into chunks of *n* elements.
@@ -55,5 +59,6 @@ A bunch of well-tested templates for handling Media items in Umbraco - if you've
 
 
 [PAGINATION]: https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/paginationhelper
+[NAVIGATION]: https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/navigationhelper
 [GROUPING]: https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/groupinghelper
 [MEDIA]: https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/mediahelpers
