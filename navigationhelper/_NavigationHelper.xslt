@@ -12,8 +12,6 @@
 
 	<xsl:param name="currentPage" select="/.." />
 	
-	<xsl:variable name="currentSection" select="$currentPage/ancestor-or-self::*[parent::&homeNode;]" />
-	
 <!--
 	The `mode` parameter decides which kind of navigation to create. Currently two exist:
 	
@@ -46,6 +44,7 @@
 	
 	<!-- Sub Navigation -->
 	<xsl:template match="*" mode="subnav">
+		<xsl:variable name="currentSection" select="ancestor-or-self::*[parent::&homeNode;]" />
 		
 		<xsl:apply-templates select="$currentSection/&page;" />
 	</xsl:template>
