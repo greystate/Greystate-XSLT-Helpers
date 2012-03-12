@@ -51,7 +51,7 @@
 	
 	<!-- Breadcrumb -->
 	<xsl:template match="*" mode="breadcrumb">
-		<xsl:apply-templates select="$currentPage/ancestor-or-self::*[ancestor::Website]" />
+		<xsl:apply-templates select="ancestor-or-self::*[ancestor::&homeNode;]" />
 	</xsl:template>
 	
 	<!-- Generic template for creating the links -->
