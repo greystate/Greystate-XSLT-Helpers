@@ -10,9 +10,8 @@
 	exclude-result-prefixes="freeze"
 >
 
-	<xsl:param name="currentPage" />
+	<xsl:param name="currentPage" select="/.." />
 	
-	<xsl:variable name="siteRoot" select="$currentPage/ancestor-or-self::&homeNode;" />
 	<xsl:variable name="currentSection" select="$currentPage/ancestor-or-self::*[parent::&homeNode;]" />
 	
 <!--
@@ -26,28 +25,43 @@
 <!-- :: Templates :: -->
 
 	<!-- Root template -->
-	<xsl:template match="/">
+	<xsl:template match="/" name="Navigation">
+		<!-- Enable testing in specific mode -->
+		<xsl:param name="mode" select="$mode" />
+		<xsl:param name="context" select="$currentPage" />
 		
 		<!-- Mutually Exclusive xsl:choose Avoidance Hack (TM) -->
-		<xsl:apply-templates select="$currentPage[$mode = 'subnav']" mode="subnav" />
-		<xsl:apply-templates select="$currentPage[$mode = 'mainnav']" mode="mainnav" />
+		<xsl:apply-templates select="$context[$mode = 'subnav']" mode="subnav" />
+		<xsl:apply-templates select="$context[$mode = 'mainnav']" mode="mainnav" />
+		<xsl:apply-templates select="$context[$mode = 'breadcrumb']" mode="breadcrumb" />
 		
 	</xsl:template>
 	
 	<!-- Main navigation -->
 	<xsl:template match="*" mode="mainnav">
+		<xsl:variable name="siteRoot" select="ancestor-or-self::&homeNode;" />
+		
 		<xsl:apply-templates select="$siteRoot/&page;" />
 	</xsl:template>
 	
 	<!-- Sub Navigation -->
 	<xsl:template match="*" mode="subnav">
+		
 		<xsl:apply-templates select="$currentSection/&page;" />
+	</xsl:template>
+	
+	<!-- Breadcrumb -->
+	<xsl:template match="*" mode="breadcrumb">
+		<xsl:apply-templates select="$currentPage/ancestor-or-self::*[ancestor::Website]" />
 	</xsl:template>
 	
 	<!-- Generic template for creating the links -->
 	<xsl:template match="*">
+		<xsl:variable name="isCurrentPage" select="@id = $currentPage/@id" />
+		<xsl:variable name="hasCurrentPageBelow" select="descendant::*[@id = $currentPage/@id]" />
 		<li>
-			<xsl:if test="descendant-or-self::*[@id = $currentPage/@id]"><xsl:attribute name="class">selected</xsl:attribute></xsl:if>
+			<!-- Add the selected class if needed -->
+			<xsl:if test="not($mode = 'breadcrumb') and ($isCurrentPage or $hasCurrentPageBelow)"><xsl:attribute name="class">selected</xsl:attribute></xsl:if>
 			<a href="{&linkURL;}">
 				<xsl:value-of select="&linkName;" />
 			</a>

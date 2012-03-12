@@ -5,26 +5,30 @@
 	xmlns:x="http://www.jenitennison.com/xslt/xspec"
 >
 
-	<x:param name="currentPage" select="document('fixtures/simple-site.xml', /)/Website" />
-	<x:param name="mode" select="'mainnav'" />
-
-	<x:scenario label="when processing a single node">
-		<x:context>
-			<Textpage id="1200" nodeName="Page 1" isDoc=""></Textpage>
-		</x:context>
-		<x:expect label="it should produce a link wrapped in a list item">
-			<li><a href="1200">Page 1</a></li>
-		</x:expect>
-	</x:scenario>
+	<x:scenario label="processing in 'mainnav' mode">
+		<x:call template="Navigation">
+			<x:param name="mode" select="'mainnav'" />
+			<x:param name="context" select="document('fixtures/simple-site.xml', /)/Website" />			
+		</x:call>
+		
+		<x:scenario label="when processing a single node">
+			<x:call>
+				<x:param name="context"><Website><Textpage id="1200" nodeName="Page 1" isDoc=""></Textpage></Website></x:param>
+			</x:call>
+			<x:expect label="it should produce a link wrapped in a list item">
+				<li><a href="1200">Page 1</a></li>
+			</x:expect>
+		</x:scenario>
 	
-	<x:scenario label="when processing the simple-site fixture">
-		<x:context href="fixtures/simple-site.xml" />
-		<x:expect label="it should generate links to the 4 top level pages">
-			<li><a href="...">Page A</a></li>
-			<li><a href="...">Page B</a></li>
-			<li><a href="...">Page C</a></li>
-			<li><a href="...">Page D</a></li>
-		</x:expect>
+		<x:scenario label="when processing the simple-site fixture">
+			<x:call />
+			<x:expect label="it should generate links to the 4 top level pages">
+				<li><a href="...">Page A</a></li>
+				<li><a href="...">Page B</a></li>
+				<li><a href="...">Page C</a></li>
+				<li><a href="...">Page D</a></li>
+			</x:expect>
+		</x:scenario>
 	</x:scenario>
-	
+		
 </x:description>
