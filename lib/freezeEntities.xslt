@@ -12,6 +12,7 @@
 	version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:x="http://www.w3.org/1999/XSL/TransformAlias"
+	xmlns:freeze="http://xmlns.greystate.dk/2012/freezer"
 >
 
 	<xsl:output method="xml"
@@ -34,6 +35,10 @@
 	
 	<xsl:template match="comment() | processing-instruction()">
 		<xsl:copy-of select="." />
+	</xsl:template>
+	
+	<xsl:template match="*[@freeze:remove = 'yes']" priority="1">
+		<!-- Remove from output -->
 	</xsl:template>
 	
 <!--

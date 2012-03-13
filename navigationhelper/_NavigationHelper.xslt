@@ -59,9 +59,7 @@
 	
 	<!-- Sitemap -->
 	<xsl:template match="*" mode="sitemap">
-		<xsl:apply-templates select=".">
-			<xsl:with-param name="isSitemap" select="true()" freeze:remove="yes" />
-		</xsl:apply-templates>
+		<xsl:apply-templates select="."><xsl:with-param name="isSitemap" select="true()" freeze:remove="yes" /></xsl:apply-templates>
 	</xsl:template>
 	
 	<!-- Generic template for creating the links -->
@@ -77,9 +75,7 @@
 			</a>
 			<xsl:if test="$isSitemap and &page;">
 				<ul>
-					<xsl:apply-templates select="&page;">
-						<xsl:with-param name="isSitemap" select="true()" freeze:remove="yes" />
-					</xsl:apply-templates>
+					<xsl:apply-templates select="&page;"><xsl:with-param name="isSitemap" select="true()" freeze:remove="yes" /></xsl:apply-templates>
 				</ul>
 			</xsl:if>
 		</li>
