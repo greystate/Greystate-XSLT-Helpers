@@ -128,7 +128,7 @@
 				<!-- CropUp has its own extension to get the URL -->
 				<xsl:if test="$usingCropUp">
 					<xsl:variable name="cropUpArgs" select="concat($crop[not($cropConfig)], $cropConfig/@alias)" />
-					<xsl:attribute name="src"><xsl:value-of select="concat('/Images/media/', $cropUpArgs, '/', substring-after(umbracoFile, '/media/'))" /></xsl:attribute>
+					<xsl:attribute name="src"><xsl:value-of select="&CropUpUrlByMediaId;" /></xsl:attribute>
 				</xsl:if>
 				<!-- If a config file was created we can grab the cropped sizes from that -->
 				<xsl:if test="$cropSize">
