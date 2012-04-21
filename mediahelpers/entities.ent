@@ -6,6 +6,7 @@
 	<!ENTITY GetMediaFolder "umb:GetMedia(., true())">
 	<!ENTITY GetDAMPMediaFolder "umb:GetMedia(DAMP/mediaItem/Folder/@id, true())">
 	<!ENTITY random-ns-uri "urn:Exslt.ExsltMath">
+	<!ENTITY CropUpUrlByMediaId "cropup:UrlByMediaId(@id, $cropUpArgs)">
 ]]>
 
 <![ %use.in.textmate; [
@@ -13,4 +14,5 @@
 	<!ENTITY GetMediaFolder "&GetMediaFile;">
 	<!ENTITY GetDAMPMediaFolder "document('test/media.xml')//*[@id = current()/DAMP/mediaItem/Folder/@id]">
 	<!ENTITY random-ns-uri "http://exslt.org/math">
+	<!ENTITY CropUpUrlByMediaId "concat('/Images/media/', $cropUpArgs, '/', substring-after(umbracoFile, '/media/'))">
 ]]>
