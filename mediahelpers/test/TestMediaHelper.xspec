@@ -130,6 +130,7 @@
 				<img src="..." width="..." height="..." alt="..." />
 				<img src="..." width="..." height="..." alt="..." />
 				<img src="..." width="..." height="..." alt="..." />
+				<img src="..." width="..." height="..." alt="..." />
 			</x:expect>
 		</x:scenario>
 		
@@ -142,6 +143,7 @@
 				<img class="master" src="..." width="..." height="..." alt="..." />
 				<img class="master" src="..." width="..." height="..." alt="..." />
 				<img class="master" src="..." width="..." height="..." alt="..." />
+				<img class="master" src="..." width="..." height="..." alt="..." />
 			</x:expect>
 			
 			<x:scenario label="and a size parameter">
@@ -150,6 +152,7 @@
 					<imgFolder>2030</imgFolder>
 				</x:context>
 				<x:expect label="it should override the width and height attributes on all images in the folder">
+					<img class="master" src="..." width="256" height="128" alt="..." />
 					<img class="master" src="..." width="256" height="128" alt="..." />
 					<img class="master" src="..." width="256" height="128" alt="..." />
 					<img class="master" src="..." width="256" height="128" alt="..." />
@@ -166,6 +169,7 @@
 				<img src="/test2230_Large.png" width="800" height="600" alt="My first Banner" />
 				<img src="/test2231_Large.png" width="800" height="600" alt="My first Banner" />
 				<img src="/test2232_Large.png" width="800" height="600" alt="My first Banner" />
+				<img src="..." width="..." height="..." alt="..." />
 			</x:expect>
 		</x:scenario>
 		
