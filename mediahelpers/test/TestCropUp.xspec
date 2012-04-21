@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<x:description
+	stylesheet="../_MediaHelper.xslt"
+	xslt-version="1.0"
+	xmlns:x="http://www.jenitennison.com/xslt/xspec"
+>
+
+	<x:scenario label="using the CropUp cropper, processing an element in mode=&quot;media&quot;">
+		
+		<x:scenario label="with a crop parameter">
+			<x:context mode="media">
+				<x:param name="crop" select="'Large'" />
+				<pageImage>2233</pageImage>
+			</x:context>
+			<x:expect label="it should use the crop with that name">
+				<img src="/Images/media/large/3467/test2233.png" width="800" height="600" alt="My first Banner" />
+			</x:expect>
+		</x:scenario>
+				
+		<x:scenario label="with a crop specifying just sizes">
+			<x:context mode="media">
+				<x:param name="crop" select="'300x200'" />
+				<pageImage>2233</pageImage>
+			</x:context>
+			<x:expect label="it should pass the parameters and clear the width &amp; height attributes">
+				<img src="/Images/media/300x200/3467/test2233.png" width="" height="" alt="My first Banner" />
+			</x:expect>
+		</x:scenario>
+		
+	</x:scenario>
+
+</x:description>
