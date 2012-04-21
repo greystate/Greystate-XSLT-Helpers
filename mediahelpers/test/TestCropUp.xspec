@@ -7,13 +7,13 @@
 
 	<x:scenario label="using the CropUp cropper, processing an element in mode=&quot;media&quot;">
 		
-		<x:scenario label="with a 'crop' parameter">
+		<x:scenario label="with a crop name in the 'crop' parameter">
 			<x:context mode="media">
-				<x:param name="crop" select="'Large'" />
+				<x:param name="crop" select="'Banner'" />
 				<pageImage>2233</pageImage>
 			</x:context>
 			<x:expect label="it should use the crop with that name">
-				<img src="/Images/media/large/3467/test2233.png" width="800" height="600" alt="My first Banner" />
+				<img src="/Images/media/banner/3467/test2233.png" width="620" height="140" alt="My first Banner" />
 			</x:expect>
 			
 			<x:scenario label="adding a 'class' parameter">
@@ -21,7 +21,7 @@
 					<x:param name="class" select="'master'" />
 				</x:context>
 				<x:expect label="it should add the class to the rendered Image">
-					<img class="master" src="/Images/media/large/3467/test2233.png" width="800" height="600" alt="My first Banner" />
+					<img class="master" src="/Images/media/banner/3467/test2233.png" width="620" height="140" alt="My first Banner" />
 				</x:expect>
 			</x:scenario>
 			
@@ -30,7 +30,7 @@
 					<x:param name="size" select="'724x234'" />
 				</x:context>
 				<x:expect label="it should use the width and height from the size parameter">
-					<img src="/Images/media/large/3467/test2233.png" width="724" height="234" alt="My first Banner" />
+					<img src="/Images/media/banner/3467/test2233.png" width="724" height="234" alt="My first Banner" />
 				</x:expect>
 				
 				<x:scenario label="adding an 'id' parameter">
@@ -38,14 +38,24 @@
 						<x:param name="id" select="'topBannerImg'" />
 					</x:context>
 					<x:expect label="it should add the id to the generated Image">
-						<img id="topBannerImg" src="/Images/media/large/3467/test2233.png" width="724" height="234" alt="My first Banner" />
+						<img id="topBannerImg" src="/Images/media/banner/3467/test2233.png" width="724" height="234" alt="My first Banner" />
 					</x:expect>
 				</x:scenario>
 				
 			</x:scenario>
 			
 		</x:scenario>
-				
+		
+		<x:scenario label="with a crop alias in the 'crop' parameter">
+			<x:context mode="media">
+				<x:param name="crop" select="'portrait'" />
+				<pageImage>2233</pageImage>
+			</x:context>
+			<x:expect label="it should use the crop with that alias">
+				<img src="/Images/media/portrait/3467/test2233.png" width="320" height="400" alt="My first Banner" />
+			</x:expect>
+		</x:scenario>				
+		
 		<x:scenario label="with a crop specifying just sizes">
 			<x:context mode="media">
 				<x:param name="crop" select="'300x200'" />
