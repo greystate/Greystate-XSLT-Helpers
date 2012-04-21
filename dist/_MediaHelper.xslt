@@ -7,13 +7,16 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:get="urn:Exslt.ExsltMath" xmlns:cropup="urn:Eksponent.CropUp" version="1.0" exclude-result-prefixes="umb get cropup">
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
+
+	<!-- Set this to true() if you're using the Eksponent.CropUp cropper -->
+	<xsl:variable name="useCropUp" select="false()"/>
 	
+	<xsl:variable name="configFileName" select="concat('cropping-config.xml'[not($useCropUp)], '../config/Eksponent.CropUp.config'[$useCropUp])"/>
+
 	<!-- Fetch cropping setup -->
-	<xsl:variable name="configFile" select="document('cropping-config.xml')"/>
+	<xsl:variable name="configFile" select="document($configFileName, /)"/>
 	<xsl:variable name="croppingSetup" select="$configFile/crops/crop"/>
-	
-	<!-- Determine if using the CropUp cropper -->
-	<xsl:variable name="usingCropUp" select="boolean($configFile/crops/@useCropUp = 'yes')"/>
+	<xsl:variable name="cropUpSetup" select="$configFile/cropUp/croppings/add"/>
 	
 	<!-- Template for any media that needs fetching - handles potential error -->
 	<xsl:template match="*" mode="media">
@@ -106,27 +109,23 @@
 		<xsl:param name="size"/>
 		<img src="{umbracoFile}" width="{umbracoWidth}" height="{umbracoHeight}" alt="{@nodeName}">
 			<xsl:if test="$crop">
-				<xsl:variable name="cropConfig" select="$croppingSetup[@name = $crop]"/>
-				<xsl:variable name="cropSize" select="$cropConfig/@size"/>
+				<xsl:variable name="cropConfig" select="($croppingSetup[@name = $crop] | $cropUpSetup[@name = $crop] | $cropUpSetup[@alias = $crop])[1]"/>
+				<xsl:variable name="cropSize" select="concat($cropConfig/@size, $cropConfig/@width, 'x'[$cropConfig/@width], $cropConfig/@height)"/>
 				<xsl:variable name="selectedCrop" select="*/crops/crop[@name = $crop]"/>
+				<!-- If the media XML contains the crop -->
 				<xsl:if test="$selectedCrop">
 					<xsl:attribute name="src"><xsl:value-of select="*/crops/crop[@name = $crop]/@url"/></xsl:attribute>
 				</xsl:if>
 				<!-- CropUp has its own extension to get the URL -->
-				<xsl:if test="$usingCropUp">
+				<xsl:if test="$useCropUp">
 					<xsl:variable name="cropUpArgs" select="concat($crop[not($cropConfig)], $cropConfig/@alias)"/>
 					<xsl:attribute name="src"><xsl:value-of select="cropup:UrlByMediaId(@id, $cropUpArgs)"/></xsl:attribute>
 				</xsl:if>
-				<!-- If a config file was created we can grab the cropped sizes from that -->
-				<xsl:if test="$cropSize">
-					<xsl:attribute name="width"><xsl:value-of select="substring-before($cropSize, 'x')"/></xsl:attribute>
-					<xsl:attribute name="height"><xsl:value-of select="substring-after($cropSize, 'x')"/></xsl:attribute>
-				</xsl:if>
-				<!-- No config file - make sure to blank the dimensions inserted for the original image then -->
-				<xsl:if test="not($cropSize)">
-					<xsl:attribute name="width"/>
-					<xsl:attribute name="height"/>
-				</xsl:if>
+
+				<!-- Output the sizes (or clear them if none found) -->
+				<xsl:attribute name="width"><xsl:value-of select="substring-before($cropSize, 'x')"/></xsl:attribute>
+				<xsl:attribute name="height"><xsl:value-of select="substring-after($cropSize, 'x')"/></xsl:attribute>
+				
 			</xsl:if>
 			<!-- $size can override original + cropped sizes -->
 			<xsl:if test="$size">
