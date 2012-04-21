@@ -4,17 +4,25 @@
 	
 	Enables simple retrieval of media by handling the GetMedia() call and error-checking
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:get="urn:Exslt.ExsltMath" xmlns:cropup="urn:Eksponent.CropUp" version="1.0" exclude-result-prefixes="umb get cropup">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:get="urn:Exslt.ExsltMath" xmlns:make="urn:schemas-microsoft-com:xslt" xmlns:cropup="urn:Eksponent.CropUp" version="1.0" exclude-result-prefixes="umb get make cropup">
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
 
 	<!-- Set this to true() if you're using the Eksponent.CropUp cropper -->
 	<xsl:variable name="useCropUp" select="false()"/>
+
+	<!-- Set up some strings for later use -->
+	<xsl:variable name="stringProxy">
+		<defaultConfig>cropping-config.xml</defaultConfig>
+		<cropUpConfig>../config/Eksponent.CropUp.config</cropUpConfig>
+		<x>x</x>
+	</xsl:variable>
+	<xsl:variable name="strings" select="make:node-set($stringProxy)"/>
 	
-	<xsl:variable name="configFileName" select="concat('cropping-config.xml'[not($useCropUp)], '../config/Eksponent.CropUp.config'[$useCropUp])"/>
+	<xsl:variable name="configFileName" select="($strings/defaultConfig[not($useCropUp)] | $strings/cropUpConfig[$useCropUp])[1]"/>
 
 	<!-- Fetch cropping setup -->
-	<xsl:variable name="configFile" select="document($configFileName, /)"/>
+	<xsl:variable name="configFile" select="document(normalize-space($configFileName))"/>
 	<xsl:variable name="croppingSetup" select="$configFile/crops/crop"/>
 	<xsl:variable name="cropUpSetup" select="$configFile/cropUp/croppings/add"/>
 	
@@ -110,7 +118,7 @@
 		<img src="{umbracoFile}" width="{umbracoWidth}" height="{umbracoHeight}" alt="{@nodeName}">
 			<xsl:if test="$crop">
 				<xsl:variable name="cropConfig" select="($croppingSetup[@name = $crop] | $cropUpSetup[@name = $crop] | $cropUpSetup[@alias = $crop])[1]"/>
-				<xsl:variable name="cropSize" select="concat($cropConfig/@size, $cropConfig/@width, 'x'[$cropConfig/@width], $cropConfig/@height)"/>
+				<xsl:variable name="cropSize" select="concat($cropConfig/@size, $cropConfig/@width, $strings/x[$cropConfig/@width], $cropConfig/@height)"/>
 				<xsl:variable name="selectedCrop" select="*/crops/crop[@name = $crop]"/>
 				<!-- If the media XML contains the crop -->
 				<xsl:if test="$selectedCrop">
@@ -118,7 +126,10 @@
 				</xsl:if>
 				<!-- CropUp has its own extension to get the URL -->
 				<xsl:if test="$useCropUp">
-					<xsl:variable name="cropUpArgs" select="concat($crop[not($cropConfig)], $cropConfig/@alias)"/>
+					<xsl:variable name="cropUpArgs">
+						<xsl:if test="not($cropConfig)"><xsl:value-of select="$crop"/></xsl:if>
+						<xsl:value-of select="$cropConfig/@alias"/>
+					</xsl:variable>
 					<xsl:attribute name="src"><xsl:value-of select="cropup:UrlByMediaId(@id, $cropUpArgs)"/></xsl:attribute>
 				</xsl:if>
 
