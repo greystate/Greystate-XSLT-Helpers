@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<crops>
-	<crop name="Large" size="800x600" />
-	<crop name="Small" size="320x480" />
+<crops useCropUp="no">
+	<crop alias="large" name="Large" size="800x600" />
+	<crop alias="small" name="Small" size="320x480" />
 </crops>
