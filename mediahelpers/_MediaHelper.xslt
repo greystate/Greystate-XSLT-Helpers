@@ -20,7 +20,7 @@
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
 
 	<!-- Set this to true() if you're using the Eksponent.CropUp cropper -->
-	<xsl:variable name="useCropUp" select="true()" />
+	<xsl:variable name="useCropUp" select="false()" />
 	
 	<xsl:variable name="configFileName" select="concat('&config-file;'[not($useCropUp)], '&cropUp-config-file;'[$useCropUp])" />
 
@@ -132,18 +132,10 @@
 					<xsl:variable name="cropUpArgs" select="concat($crop[not($cropConfig)], $cropConfig/@alias)" />
 					<xsl:attribute name="src"><xsl:value-of select="&CropUpUrlByMediaId;" /></xsl:attribute>
 				</xsl:if>
-				
-				<!-- If a config file was created we can grab the cropped sizes from that -->
-				<!-- <xsl:if test="not($cropSize = 'x')"> -->
-					<xsl:attribute name="width"><xsl:value-of select="substring-before($cropSize, 'x')" /></xsl:attribute>
-					<xsl:attribute name="height"><xsl:value-of select="substring-after($cropSize, 'x')" /></xsl:attribute>
-				<!-- </xsl:if> -->
-				<!-- No config file - make sure to blank the dimensions inserted for the original image then -->
-				<!-- <xsl:if test="$cropSize = 'x'">
-					<xsl:attribute name="width"></xsl:attribute>
-					<xsl:attribute name="height"></xsl:attribute>
-				</xsl:if> -->
-				<!-- <xsl:attribute name="title"><xsl:value-of select="$cropSize" /></xsl:attribute> -->
+
+				<!-- Output the sizes (or clear them if none found) -->
+				<xsl:attribute name="width"><xsl:value-of select="substring-before($cropSize, 'x')" /></xsl:attribute>
+				<xsl:attribute name="height"><xsl:value-of select="substring-after($cropSize, 'x')" /></xsl:attribute>
 				
 			</xsl:if>
 			<!-- $size can override original + cropped sizes -->
