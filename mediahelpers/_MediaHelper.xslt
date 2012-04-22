@@ -132,17 +132,18 @@
 				<xsl:variable name="cropConfig" select="($croppingSetup[@name = $crop] | $cropUpSetup[@name = $crop] | $cropUpSetup[@alias = $crop])[1]" />
 				<xsl:variable name="cropSize" select="concat($cropConfig/@size, $cropConfig/@width, $strings/x[$cropConfig/@width], $cropConfig/@height)" />
 				<xsl:variable name="selectedCrop" select="*/crops/crop[@name = $crop]" />
+				
 				<!-- If the media XML contains the crop -->
 				<xsl:if test="$selectedCrop">
 					<xsl:attribute name="src"><xsl:value-of select="*/crops/crop[@name = $crop]/@url" /></xsl:attribute>
 				</xsl:if>
 				<!-- CropUp has its own extension to get the URL -->
 				<xsl:if test="$useCropUp">
-					<xsl:variable name="cropUpArgs">
-						<xsl:if test="not($cropConfig)"><xsl:value-of select="$crop" /></xsl:if>
-						<xsl:value-of select="$cropConfig/@alias" />
-					</xsl:variable>
-					<xsl:attribute name="src"><xsl:value-of select="&CropUpUrlByMediaId;" /></xsl:attribute>
+					<xsl:attribute name="src">
+						<xsl:apply-templates select="." mode="cropUp.url">
+							<xsl:with-param name="crop" select="$crop" />
+						</xsl:apply-templates>
+					</xsl:attribute>
 				</xsl:if>
 
 				<!-- Output the sizes (or clear them if none found) -->
@@ -159,7 +160,7 @@
 			<xsl:if test="$id"><xsl:attribute name="id"><xsl:value-of select="$id" /></xsl:attribute></xsl:if>
 		</img>
 	</xsl:template>
-	
+			
 <!-- :: URL Templates :: -->
 	<!-- Entry template -->
 	<xsl:template match="*" mode="media.url">
@@ -192,10 +193,15 @@
 		<xsl:apply-templates select="." mode="media" /><!-- Redirect to the one above -->
 	</xsl:template>
 	
-	<!-- Template for Images -->
+	<!-- URL Template for Images -->
 	<xsl:template match="Image" mode="url">
 		<xsl:param name="crop" />
 		<xsl:choose>
+			<xsl:when test="$crop and $useCropUp">
+				<xsl:apply-templates select="." mode="cropUp.url">
+					<xsl:with-param name="crop" select="$crop" />
+				</xsl:apply-templates>
+			</xsl:when>				
 			<xsl:when test="$crop">
 				<xsl:value-of select="*/crops/crop[@name = $crop]/@url" />
 			</xsl:when>
@@ -203,6 +209,23 @@
 				<xsl:value-of select="umbracoFile" />				
 			</xsl:otherwise>
 		</xsl:choose>
+	</xsl:template>
+	
+	<!-- (internal) URL Template for CropUp image -->
+	<xsl:template match="Image" mode="cropUp.url">
+		<xsl:param name="crop" />
+		
+		<xsl:variable name="cropConfig" select="($croppingSetup[@name = $crop] | $cropUpSetup[@name = $crop] | $cropUpSetup[@alias = $crop])[1]" />
+		<xsl:variable name="cropSize" select="concat($cropConfig/@size, $cropConfig/@width, $strings/x[$cropConfig/@width], $cropConfig/@height)" />
+
+		<xsl:variable name="cropUpArgs">
+			<xsl:if test="not($cropConfig)"><xsl:value-of select="$crop" /></xsl:if>
+			<xsl:value-of select="$cropConfig/@alias" />
+		</xsl:variable>
+
+		<!-- Call the extension -->
+		<xsl:value-of select="&CropUpUrlByMediaId;" />
+		
 	</xsl:template>
 	
 </xsl:stylesheet>
