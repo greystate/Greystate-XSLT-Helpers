@@ -67,5 +67,21 @@
 		</x:scenario>
 		
 	</x:scenario>
+	
+	<x:scenario label="using the CropUp cropper, processing an element in mode=&quot;media.url&quot;">
+		<x:context mode="media.url">
+			<pageImage>2233</pageImage>
+		</x:context>
+
+		<x:scenario label="with a crop parameter">
+			<x:context>
+				<x:param name="crop" select="'Banner'" />
+			</x:context>
+			<x:expect label="it should only return the URL of the specified crop" select="output/text()">
+				<output>/Images/media/banner/3467/test2233.png</output>
+			</x:expect>
+		</x:scenario>
+		
+	</x:scenario>
 
 </x:description>
