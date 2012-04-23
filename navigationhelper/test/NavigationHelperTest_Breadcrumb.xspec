@@ -10,7 +10,14 @@
 			<x:param name="mode" select="'breadcrumb'" />
 		</x:call>
 			
-		<x:scenario label="when processing the simple-site fixture with currentPage as 'Page A1' in 'breadcrumb' mode">
+		<x:scenario label="when processing the simple-site fixture with currentPage as the Home node">
+			<x:call>
+				<x:param name="context" select="document('fixtures/simple-site.xml', /)/Website" />
+			</x:call>
+			<x:expect label="it shouldn't produce a breadcrumb" select="()" />
+		</x:scenario>
+	
+		<x:scenario label="when processing the simple-site fixture with currentPage as 'Page D3b'">
 			<x:call>
 				<x:param name="context" select="document('fixtures/simple-site.xml', /)/Website//Textpage[@id = 1505]" />
 			</x:call>
@@ -20,7 +27,17 @@
 				<li><a href="...">Page D3b</a></li>
 			</x:expect>
 		</x:scenario>
-	
+		
+		<x:scenario label="when processing the simple-site fixture with currentPage as 'Page A1'">
+			<x:call>
+				<x:param name="context" select="document('fixtures/simple-site.xml', /)/Website//Textpage[@id = 1201]" />
+			</x:call>
+			<x:expect label="it should generate the correct breadcrumb trail">
+				<li><a href="...">Page A</a></li>
+				<li><a href="...">Page A1</a></li>
+			</x:expect>
+		</x:scenario>
+		
 	</x:scenario>
 
 </x:description>
