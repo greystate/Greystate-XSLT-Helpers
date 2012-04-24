@@ -8,8 +8,7 @@ the low-level implementation, when moved from one system to another.
 
 ## Installation
 
-An installable package is in the works but for now, you should grab the files in the `dist` folder and put them in the `xslt` folder
-of your Umbraco installation.
+An installable package is in the works but for now, you should <span style="background:#fff9c6;text-decoration:underline">grab the files in the `dist` folder</span> and put them in alongside your other XSLT files (i.e., the `xslt` folder if you're using Umbraco).
 
 
 ## Basic usage
@@ -21,6 +20,7 @@ Using these helpers usually just require the same 2 steps:
 	`<xsl:include href="_HelperFile.xslt" />`
 
 2.	Perform one of the following actions:
+	
 	* Applying templates in a specific mode
 	
 		`<xsl:apply-templates select="$currentPage/pageImage" mode="media" />`
