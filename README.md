@@ -8,7 +8,7 @@ the low-level implementation, when moved from one system to another.
 
 ## Installation
 
-An installable package is in the works but for now, you should <span style="background:#fff9c6;text-decoration:underline">grab the files in the `dist` folder</span> and put them in alongside your other XSLT files (i.e., the `xslt` folder if you're using Umbraco).
+An installable package is in the works but for now, you should **_grab the files in the `dist` folder_** and put them in alongside your other XSLT files (i.e., the `xslt` folder if you're using Umbraco).
 
 
 ## Basic usage
