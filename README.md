@@ -17,18 +17,19 @@ Using these helpers usually just require the same 2 steps:
 
 1.	Include the file(s) in your main XSLT file using the include instruction:
 
-	`<xsl:include href="_HelperFile.xslt" />`
+		<xsl:include href="_HelperFile.xslt" />
 
 2.	Perform one of the following actions:
 	
-	* Applying templates in a specific mode
-	
+	1. Applying templates in a specific mode
+
 		`<xsl:apply-templates select="$currentPage/pageImage" mode="media" />`
-	
-	* Calling a named template
-	
+
+	2. Calling a named template
+
 		`<xsl:call-template name="PageinateSelection" />`
-	
+
+
 ## Helpers
 
 Each helper has its own README but here&#8217;s a quick rundown: 
