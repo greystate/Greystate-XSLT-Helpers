@@ -10,39 +10,74 @@
 	exclude-result-prefixes="freeze"
 >
 
-	<xsl:param name="currentPage" />
-	
-	<xsl:variable name="siteRoot" select="$currentPage/ancestor-or-self::&homeNode;" />
-	<xsl:variable name="currentSection" select="$currentPage/ancestor-or-self::*[parent::&homeNode;]" />
+	<xsl:param name="currentPage" select="/.." />
 	
 <!--
-	The `mode` parameter decides which kind of navigation to create. Currently two exist:
+	The `mode` parameter decides which kind of navigation to create. Currently four exist:
 	
-	* mainnav   - children of `$siteRoot`
-	* subnav    - children of the "current section" (typically the siblings of the selected node)
+	* mainnav   	- children of `$siteRoot`
+	* subnav    	- children of the "current section" (typically the siblings of the selected node)
+	* breadcrumb	- ancestors of "current page" 
+	* sitemap    	- "exploded" view of all pages and their children
 -->
 	<xsl:param name="mode" select="'mainnav'" />
 	
 <!-- :: Templates :: -->
-	<xsl:template match="/">
+
+	<!-- Root template -->
+	<xsl:template match="/" name="Navigation">
+		<!-- Enable testing in specific mode -->
+		<xsl:param name="mode" select="$mode" />
+		<xsl:param name="context" select="$currentPage" />
+		
 		<!-- Mutually Exclusive xsl:choose Avoidance Hack (TM) -->
-		<xsl:apply-templates select="$currentPage[$mode = 'subnav']" mode="subnav" />
-		<xsl:apply-templates select="$currentPage[$mode = 'mainnav']" mode="mainnav" />
+		<xsl:apply-templates select="$context[$mode = 'subnav']" mode="subnav" />
+		<xsl:apply-templates select="$context[$mode = 'mainnav']" mode="mainnav" />
+		<xsl:apply-templates select="$context[$mode = 'sitemap']" mode="sitemap" />
+		<xsl:apply-templates select="$context[$mode = 'breadcrumb']" mode="breadcrumb" />
+		
 	</xsl:template>
 	
+	<!-- Main navigation -->
 	<xsl:template match="*" mode="mainnav">
+		<xsl:variable name="siteRoot" select="ancestor-or-self::&homeNode;" />
+		
 		<xsl:apply-templates select="$siteRoot/&page;" />
+	</xsl:template>
+	
+	<!-- Sub navigation -->
+	<xsl:template match="*" mode="subnav">
+		<xsl:variable name="currentSection" select="ancestor-or-self::*[parent::&homeNode;]" />
+		
+		<xsl:apply-templates select="$currentSection/&page;" />
+	</xsl:template>
+	
+	<!-- Breadcrumb -->
+	<xsl:template match="*" mode="breadcrumb">
+		<xsl:apply-templates select="ancestor-or-self::*[ancestor::&homeNode;]" />
+	</xsl:template>
+	
+	<!-- Sitemap -->
+	<xsl:template match="*" mode="sitemap">
+		<xsl:apply-templates select="."><xsl:with-param name="isSitemap" select="true()" freeze:remove="yes" /></xsl:apply-templates>
 	</xsl:template>
 	
 	<!-- Generic template for creating the links -->
 	<xsl:template match="*">
-		<!-- This is only needed for testing, so ... freeze:remove="yes" -->
-		<xsl:param name="currentPage" select="$currentPage" freeze:remove="yes" />
+		<xsl:param name="isSitemap" select="$mode = 'sitemap'" />
+		<xsl:variable name="isCurrentPage" select="@id = $currentPage/@id" />
+		<xsl:variable name="hasCurrentPageBelow" select="descendant::*[@id = $currentPage/@id]" />
 		<li>
-			<xsl:if test="descendant-or-self::*[@id = $currentPage/@id]"><xsl:attribute name="class">selected</xsl:attribute></xsl:if>
+			<!-- Add the selected class if needed -->
+			<xsl:if test="not($mode = 'breadcrumb') and ($isCurrentPage or $hasCurrentPageBelow)"><xsl:attribute name="class">selected</xsl:attribute></xsl:if>
 			<a href="{&linkURL;}">
 				<xsl:value-of select="&linkName;" />
 			</a>
+			<xsl:if test="$isSitemap and &page;">
+				<ul>
+					<xsl:apply-templates select="&page;"><xsl:with-param name="isSitemap" select="true()" freeze:remove="yes" /></xsl:apply-templates>
+				</ul>
+			</xsl:if>
 		</li>
 	</xsl:template>
 
