@@ -9,3 +9,10 @@ So this is actually mostly a test to see if I'll use this myself. I always write
 really identical to the previous one I wrote.
 
 `_NavigationHelper.xslt` was extracted from various navigations I've built (the reusable parts, anyway) and intended to use as an include for your own.
+
+## Usage
+
+The easiest way to use Navigation Helper with Umbraco, is to create a Macro called "Navigation" and point it to the _NavigationHelper.xslt file - then add a Macro Parameter with the allias `mode` and you're good to go. To add subnavigation to a template just add the `<umbraco:Macro>` server control, like this:
+
+	<umbraco:Macro alias="Navigation" mode="subnav" runat="server" />
+	
