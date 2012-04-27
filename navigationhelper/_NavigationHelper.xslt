@@ -42,14 +42,14 @@
 	<xsl:template match="*" mode="mainnav">
 		<xsl:variable name="siteRoot" select="ancestor-or-self::&homeNode;" />
 		
-		<xsl:apply-templates select="$siteRoot/&page;" />
+		<xsl:apply-templates select="$siteRoot/&subPages;" />
 	</xsl:template>
 	
 	<!-- Sub navigation -->
 	<xsl:template match="*" mode="subnav">
 		<xsl:variable name="currentSection" select="ancestor-or-self::*[parent::&homeNode;]" />
 		
-		<xsl:apply-templates select="$currentSection/&page;" />
+		<xsl:apply-templates select="$currentSection/&subPages;" />
 	</xsl:template>
 	
 	<!-- Breadcrumb -->
@@ -73,9 +73,9 @@
 			<a href="{&linkURL;}">
 				<xsl:value-of select="&linkName;" />
 			</a>
-			<xsl:if test="$isSitemap and &page;">
+			<xsl:if test="$isSitemap and &subPages;">
 				<ul>
-					<xsl:apply-templates select="&page;"><xsl:with-param name="isSitemap" select="true()" freeze:remove="yes" /></xsl:apply-templates>
+					<xsl:apply-templates select="&subPages;"><xsl:with-param name="isSitemap" select="true()" freeze:remove="yes" /></xsl:apply-templates>
 				</ul>
 			</xsl:if>
 		</li>
