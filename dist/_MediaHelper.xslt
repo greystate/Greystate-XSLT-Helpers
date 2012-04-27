@@ -4,6 +4,7 @@
 	
 	Enables simple retrieval of media by handling the GetMedia() call and error-checking
 -->
+<?umbraco-package "XSLT Helpers for Umbraco (v0.7)"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:get="urn:Exslt.ExsltMath" xmlns:make="urn:schemas-microsoft-com:xslt" xmlns:cropup="urn:Eksponent.CropUp" version="1.0" exclude-result-prefixes="umb get make cropup">
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>

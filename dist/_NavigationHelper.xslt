@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:freeze="http://xmlns.greystate.dk/2012/freezer" version="1.0" exclude-result-prefixes="freeze">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:freeze="http://xmlns.greystate.dk/2012/freezer" version="1.0" exclude-result-prefixes="umb freeze">
+
+	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
 
 	<xsl:param name="currentPage" select="/.."/>
 	
@@ -10,6 +12,9 @@
 	* subnav    	- children of the "current section" (typically the siblings of the selected node)
 	* breadcrumb	- ancestors of "current page" 
 	* sitemap    	- "exploded" view of all pages and their children
+	
+	You can set this from the outside OR if you're using Umbraco, set it to "/macro/mode" and then create a
+	Macro Parameter called "mode", so you're able to set the mode when you insert the macro.
 -->
 	<xsl:param name="mode" select="'mainnav'"/>
 	
