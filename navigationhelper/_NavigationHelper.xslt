@@ -6,9 +6,12 @@
 <xsl:stylesheet
 	version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:umb="urn:umbraco.library"
 	xmlns:freeze="http://xmlns.greystate.dk/2012/freezer"
-	exclude-result-prefixes="freeze"
+	exclude-result-prefixes="umb freeze"
 >
+
+	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
 
 	<xsl:param name="currentPage" select="/.." />
 	
