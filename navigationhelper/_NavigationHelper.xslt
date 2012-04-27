@@ -22,6 +22,9 @@
 	* subnav    	- children of the "current section" (typically the siblings of the selected node)
 	* breadcrumb	- ancestors of "current page" 
 	* sitemap    	- "exploded" view of all pages and their children
+	
+	You can set this from the outside OR if you're using Umbraco, set it to "/macro/mode" and then create a
+	Macro Parameter called "mode", so you're able to set the mode when you insert the macro.
 -->
 	<xsl:param name="mode" select="'mainnav'" />
 	
