@@ -23,7 +23,7 @@
 
 	<!-- Identity transform -->
 	<xsl:template match="/">
-		<xsl:apply-templates select="* | text() | comment() | processing-instruction()" />
+		<xsl:apply-templates select="* | text() | comment() | processing-instruction('umbraco-package')" />
 	</xsl:template>
 		
 	<xsl:template match="* | text()">
@@ -47,9 +47,26 @@
 -->
 	<xsl:template match="processing-instruction('umbraco-package')">
 		<xsl:processing-instruction name="umbraco-package">
-			<xsl:text>"&XSLTHelpersVersionHeader;"</xsl:text>
+			<xsl:text>&XSLTHelpersVersionHeader;</xsl:text>
+			<xsl:apply-templates select="following-sibling::processing-instruction()" />
 		</xsl:processing-instruction>
 		<xsl:text>&#x0A;</xsl:text>
+	</xsl:template>
+	
+	<xsl:template match="processing-instruction('MediaHelperVersion')">
+		<xsl:text> - MediaHelper v&MediaHelperVersion;</xsl:text>
+	</xsl:template>
+	
+	<xsl:template match="processing-instruction('PaginationHelperVersion')">
+		<xsl:text> - PaginationHelper v&PaginationHelperVersion;</xsl:text>
+	</xsl:template>
+	
+	<xsl:template match="processing-instruction('NavigationHelperVersion')">
+		<xsl:text> - NavigationHelper v&NavigationHelperVersion;</xsl:text>
+	</xsl:template>
+	
+	<xsl:template match="processing-instruction('GroupingHelperVersion')">
+		<xsl:text> - GroupingHelper v&GroupingHelperVersion;</xsl:text>
 	</xsl:template>
 	
 </xsl:stylesheet>

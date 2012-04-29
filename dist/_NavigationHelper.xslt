@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<?umbraco-package XSLT Helpers for Umbraco (v0.7) - NavigationHelper v1.0?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:freeze="http://xmlns.greystate.dk/2012/freezer" version="1.0" exclude-result-prefixes="umb freeze">
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
