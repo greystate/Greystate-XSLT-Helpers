@@ -8,25 +8,24 @@
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
 
-	<xsl:variable name="currentPage" />
+	<xsl:variable name="currentPage" select="//*[@id = 1501]" />
 	<xsl:variable name="siteRoot" select="$currentPage/ancestor-or-self::*[@level = 1]" />
 
 	<xsl:template match="/">
-
-		<ul id="#main">
-			<xsl:apply-templates select="$siteRoot/*[@isDoc]" mode="mainnav" />
+		<ul id="mainnav">
+			<xsl:apply-templates select="$currentPage" mode="mainnav" />
 		</ul>
 		
-		<ul id="#breadcrumb">
+		<ul id="breadcrumb">
 			<xsl:apply-templates select="$currentPage" mode="breadcrumb" />
 		</ul>
 		
-		<ul id="#subnav">
+		<ul id="subnav">
 			<xsl:apply-templates select="$currentPage" mode="subnav" />
 		</ul>
 		
-		<ul id="#sitemap">
-			<xsl:apply-templates select="$currentPage" mode="sitemap" />
+		<ul id="sitemap">
+			<xsl:apply-templates select="$siteRoot" mode="sitemap" />
 		</ul>
 	</xsl:template>
 	

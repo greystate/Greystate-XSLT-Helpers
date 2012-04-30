@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Website id="1100">
+<Website id="1100" level="1" nodeName="HOME">
 	<Textpage id="1200" nodeName="Page A">
 		<Textpage id="1201" nodeName="Page A1"></Textpage>
 		<Textpage id="1202" nodeName="Page A2"></Textpage>
