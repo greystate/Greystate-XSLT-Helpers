@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<x:description
+	stylesheet="NavigationHelperSample.xslt"
+	xslt-version="1.0"
+	xmlns:x="http://www.jenitennison.com/xslt/xspec"
+>
+	<x:scenario label="processing the fixture file with the sample XSLT">
+		<x:context href="fixtures/simple-site.xml">
+			<x:param name="currentPage" select="//*[@id = 1501]" />
+		</x:context>
+		<x:expect label="it should produce a mainnav,">
+			<ul id="#mainnav">...</ul>
+		</x:expect>
+		<x:expect label="a subnav,">
+			<ul id="#subnav">...</ul>
+		</x:expect>
+		<x:expect label="a breadcrumb">
+			<ul id="#breadcrumb">...</ul>
+		</x:expect>
+		<x:expect label="and a sitemap">
+			<ul id="#sitemap">...</ul>
+		</x:expect>
+	</x:scenario>
+
+</x:description>
