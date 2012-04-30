@@ -30,6 +30,6 @@
 		</ul>
 	</xsl:template>
 	
-	<xsl:include href="_NavigationHelper.xslt" />
+	<xsl:include href="../_NavigationHelper.xslt" />
 
 </xsl:stylesheet>
