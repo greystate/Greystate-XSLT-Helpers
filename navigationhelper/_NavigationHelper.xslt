@@ -15,75 +15,56 @@
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
 
-	<xsl:param name="currentPage" select="/.." />
-	
-<!--
-	The `mode` parameter decides which kind of navigation to create. Currently four exist:
-	
-	* mainnav   	- children of `$siteRoot`
-	* subnav    	- children of the "current section" (typically the siblings of the selected node)
-	* breadcrumb	- ancestors of "current page" 
-	* sitemap    	- "exploded" view of all pages and their children
-	
-	You can set this from the outside OR if you're using Umbraco, set it to "/macro/mode" and then create a
-	Macro Parameter called "mode", so you're able to set the mode when you insert the macro.
--->
-	<xsl:param name="mode" select="'mainnav'" />
-	
-<!-- :: Templates :: -->
-
-	<!-- Root template -->
-	<xsl:template match="/" name="Navigation">
-		<!-- Enable testing in specific mode -->
-		<xsl:param name="mode" select="$mode" />
-		<xsl:param name="context" select="$currentPage" />
-		
-		<!-- Mutually Exclusive xsl:choose Avoidance Hack (TM) -->
-		<xsl:apply-templates select="$context[$mode = 'subnav']" mode="subnav" />
-		<xsl:apply-templates select="$context[$mode = 'mainnav']" mode="mainnav" />
-		<xsl:apply-templates select="$context[$mode = 'sitemap']" mode="sitemap" />
-		<xsl:apply-templates select="$context[$mode = 'breadcrumb']" mode="breadcrumb" />
-		
-	</xsl:template>
+	<!-- CSS class for selected/active items -->
+	<xsl:variable name="selectedClass" select="'selected'" />
 	
 	<!-- Main navigation -->
 	<xsl:template match="*" mode="mainnav">
+		<!-- Find the top-level node -->
 		<xsl:variable name="siteRoot" select="ancestor-or-self::&homeNode;" />
 		
-		<xsl:apply-templates select="$siteRoot/&subPages;" />
+		<xsl:apply-templates select="$siteRoot/&subPages;" mode="nav" />
 	</xsl:template>
 	
 	<!-- Sub navigation -->
 	<xsl:template match="*" mode="subnav">
 		<xsl:variable name="currentSection" select="ancestor-or-self::*[parent::&homeNode;]" />
 		
-		<xsl:apply-templates select="$currentSection/&subPages;" />
+		<xsl:apply-templates select="$currentSection/&subPages;" mode="nav" />
 	</xsl:template>
 	
 	<!-- Breadcrumb -->
 	<xsl:template match="*" mode="breadcrumb">
-		<xsl:apply-templates select="ancestor-or-self::*[ancestor::&homeNode;]" />
+		<xsl:apply-templates select="ancestor-or-self::*[ancestor::&homeNode;]" mode="nav" />
 	</xsl:template>
 	
 	<!-- Sitemap -->
 	<xsl:template match="*" mode="sitemap">
-		<xsl:apply-templates select="."><xsl:with-param name="isSitemap" select="true()" freeze:remove="yes" /></xsl:apply-templates>
+		<xsl:apply-templates select="." mode="nav">
+			<xsl:with-param name="recurse" select="true()" />
+		</xsl:apply-templates>
 	</xsl:template>
-	
-	<!-- Generic template for creating the links -->
-	<xsl:template match="*">
-		<xsl:param name="isSitemap" select="$mode = 'sitemap'" />
+
+	<!-- Generic template for nav items -->
+	<xsl:template match="*" mode="nav">
+		<xsl:param name="recurse" />
 		<xsl:variable name="isCurrentPage" select="@id = $currentPage/@id" />
 		<xsl:variable name="hasCurrentPageBelow" select="descendant::*[@id = $currentPage/@id]" />
 		<li>
 			<!-- Add the selected class if needed -->
-			<xsl:if test="not($mode = 'breadcrumb') and ($isCurrentPage or $hasCurrentPageBelow)"><xsl:attribute name="class">selected</xsl:attribute></xsl:if>
-			<a href="{&linkURL;}">
+			<xsl:if test="$isCurrentPage or $hasCurrentPageBelow"><xsl:attribute name="class"><xsl:value-of select="$selectedClass" /></xsl:attribute></xsl:if>
+
+			<!-- Generate link -->
+			<a href="{&linkURL;}" title="{&linkName;}">
 				<xsl:value-of select="&linkName;" />
 			</a>
-			<xsl:if test="$isSitemap and &subPages;">
+
+			<!-- Recurse if needed (and there are pages to show) -->
+			<xsl:if test="$recurse and &subPages;">
 				<ul>
-					<xsl:apply-templates select="&subPages;"><xsl:with-param name="isSitemap" select="true()" freeze:remove="yes" /></xsl:apply-templates>
+					<xsl:apply-templates select="&subPages;" mode="nav">
+						<xsl:with-param name="recurse" select="true()" />
+					</xsl:apply-templates>
 				</ul>
 			</xsl:if>
 		</li>
