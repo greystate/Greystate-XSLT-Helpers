@@ -29,9 +29,9 @@
 			</ul>
 			
 			<ul id="subnav">
-			  <li class="selected"><a href="1501" title="Page D1">Page D1</a></li>
+			  <li><a href="1501" title="Page D1">Page D1</a></li>
 			  <li><a href="1502" title="Page D2">Page D2</a></li>
-			  <li>
+			  <li class="selected">
 			    <a href="1503" title="Page D3">Page D3</a>
 				<ul>
 					<li><a href="1504" title="Page D3a">Page D3a</a></li>
