@@ -34,7 +34,9 @@
 	
 	<!-- Breadcrumb -->
 	<xsl:template match="*" mode="breadcrumb">
-		<xsl:apply-templates select="ancestor-or-self::*[ancestor::&homeNode;]" mode="nav" />
+		<xsl:apply-templates select="ancestor-or-self::*[ancestor::&homeNode;]" mode="nav">
+			<xsl:with-param name="highlight" select="false()" />
+		</xsl:apply-templates>
 	</xsl:template>
 	
 	<!-- Sitemap -->
@@ -47,11 +49,12 @@
 	<!-- Generic template for nav items -->
 	<xsl:template match="*" mode="nav">
 		<xsl:param name="recurse" />
+		<xsl:param name="highlight" select="true()" />
 		<xsl:variable name="isCurrentPage" select="@id = $currentPage/@id" />
 		<xsl:variable name="hasCurrentPageBelow" select="descendant::*[@id = $currentPage/@id]" />
 		<li>
 			<!-- Add the selected class if needed -->
-			<xsl:if test="$isCurrentPage or $hasCurrentPageBelow"><xsl:attribute name="class"><xsl:value-of select="$selectedClass" /></xsl:attribute></xsl:if>
+			<xsl:if test="$highlight and ($isCurrentPage or $hasCurrentPageBelow)"><xsl:attribute name="class"><xsl:value-of select="$selectedClass" /></xsl:attribute></xsl:if>
 
 			<!-- Generate link -->
 			<a href="{&linkURL;}" title="{&linkName;}">
