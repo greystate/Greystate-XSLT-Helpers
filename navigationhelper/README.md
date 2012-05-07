@@ -12,7 +12,24 @@ really identical to the previous one I wrote.
 
 ## Usage
 
-The easiest way to use Navigation Helper with Umbraco, is to create a Macro called "Navigation" and point it to the _NavigationHelper.xslt file - then add a Macro Parameter with the allias `mode` and you're good to go. To add subnavigation to a template just add the `<umbraco:Macro>` server control, like this:
+The Navigation Helper makes it very easy to create four of the most common navigation types: **Main Navigation**, **Sub Navigation**, **Breadcrumb** & **Sitemap** - you simply apply templates to `$currentPage` in the desired mode, e.g.:
 
-	<umbraco:Macro alias="Navigation" mode="subnav" runat="server" />
-	
+	<nav id="main">
+		<ul>
+			<xsl:apply-templates select="$currentPage" mode="navigation.main" />
+		</ul>
+	</nav>
+
+Note that Navigation Helper renders all the `<li>` and `<a>` elements for you - but you need to wrap your own <ul> and/or <div>, <nav> etc. around them - this gives you maximum flexibility in shaping as many class/id/wrapper combinations as possible.
+
+The available modes are:
+
+* **navigation.main** 	: Main site navigation (children of the *Home* node)
+* **navigation.sub** 	: Subnavigation (children of the selected node in Main)
+* **navigation.crumb** 	: Breadcrumb trail - currentPage, it's parent, parent's parent etc. Does *not* render the top node (see below)
+* **navigation.map**	: Traditional Sitemap - the full tree below *Home* in an exploded view
+
+
+
+
+
