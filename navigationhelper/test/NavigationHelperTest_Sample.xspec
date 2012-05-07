@@ -19,7 +19,7 @@
 			</ul>	
 		</x:expect>
 
-		<x:expect label="it should produce a subnav," test="//ul[@id = 'subnav']">
+		<x:expect label="it should produce a subnav, expanding the current branch" test="//ul[@id = 'subnav']">
 			<ul id="subnav">
 				<li><a href="1501" title="Page D1">Page D1</a></li>
 				<li><a href="1502" title="Page D2">Page D2</a></li>
@@ -34,14 +34,14 @@
 			</ul>
 		</x:expect>
 
-		<x:expect label="a breadcrumb," test="//ul[@id = 'breadcrumb']">
+		<x:expect label="a breadcrumb with no &quot;selected&quot; classes" test="//ul[@id = 'breadcrumb']">
 			<ul id="breadcrumb">
 				<li><a href="1500" title="Page D">Page D</a></li>
 				<li><a href="1503" title="Page D3">Page D3</a></li>
 			</ul>
 		</x:expect>
 
-		<x:expect label="and a sitemap," test="//ul[@id = 'sitemap']">
+		<x:expect label="and a sitemap with no &quot;selected&quot; classes" test="//ul[@id = 'sitemap']">
 			<ul id="sitemap">
 				<li>
 					<a href="1100" title="HOME">HOME</a>

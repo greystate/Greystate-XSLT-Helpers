@@ -32,11 +32,13 @@
 	
 	<!-- Sub navigation -->
 	<xsl:template match="*" mode="subnav">
-		<xsl:param name="levels" select="concat($topLevel, '-')" />
+		<xsl:param name="levels" select="concat($topLevel, '-', &maxLevel;)" />
 		<xsl:variable name="topLevelNode" select="ancestor-or-self::*[../@level = $topLevel]" />
 		<xsl:variable name="currentSection" select="($topLevelNode | ancestor-or-self::*[../@level = substring-before($levels, '-')])[last()]" />
 		
-		<xsl:apply-templates select="$currentSection/&subPages;" mode="nav" />
+		<xsl:apply-templates select="$currentSection/&subPages;" mode="nav">
+			<xsl:with-param name="endLevel" select="substring-after($levels, '-')" />
+		</xsl:apply-templates>
 	</xsl:template>
 	
 	<!-- Breadcrumb -->
@@ -56,8 +58,7 @@
 
 	<!-- Generic template for nav items -->
 	<xsl:template match="*" mode="nav">
-		<xsl:param name="startLevel" select="&topLevel;" />
-		<xsl:param name="endLevel" select="&maxLevel;" />
+		<xsl:param name="endLevel" select="0" />
 		<xsl:param name="highlight" select="&YES;" />
 		<xsl:param name="recurse" />
 		<xsl:variable name="hasCurrentPageInBranch" select="descendant-or-self::*[@id = $currentPage/@id]" />
@@ -71,10 +72,11 @@
 			</a>
 
 			<!-- Recurse if needed (and there are pages to show) -->
-			<xsl:if test="($recurse or (@level &lt; $endLevel)) and &subPages;">
+			<xsl:if test="($recurse or ($endLevel and @level &lt; $endLevel)) and &subPages;">
 				<ul>
 					<xsl:apply-templates select="&subPages;" mode="nav">
 						<xsl:with-param name="recurse" select="$recurse" />
+						<xsl:with-param name="endLevel" select="$endLevel" />
 						<xsl:with-param name="highlight" select="$highlight" />
 					</xsl:apply-templates>
 				</ul>
