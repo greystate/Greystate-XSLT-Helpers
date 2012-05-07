@@ -8,7 +8,7 @@
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
 
-	<xsl:variable name="currentPage" select="//*[@id = 1501]" />
+	<xsl:variable name="currentPage" select="//*[@id = 1503]" />
 	<xsl:variable name="siteRoot" select="$currentPage/ancestor-or-self::*[@level = 1]" />
 
 	<xsl:template match="/">
@@ -26,6 +26,14 @@
 		
 		<ul id="sitemap">
 			<xsl:apply-templates select="$siteRoot" mode="sitemap" />
+		</ul>
+	</xsl:template>
+	
+	<xsl:template name="subNavLevels3to4">
+		<ul id="subnav">
+			<xsl:apply-templates select="$currentPage" mode="subnav">
+				<xsl:with-param name="levels" select="'3-4'" />
+			</xsl:apply-templates>
 		</ul>
 	</xsl:template>
 	
