@@ -13,25 +13,25 @@
 
 	<xsl:template match="/">
 		<ul id="mainnav">
-			<xsl:apply-templates select="$currentPage" mode="mainnav" />
+			<xsl:apply-templates select="$currentPage" mode="navigation.main" />
 		</ul>
 		
 		<ul id="breadcrumb">
-			<xsl:apply-templates select="$currentPage" mode="breadcrumb" />
+			<xsl:apply-templates select="$currentPage" mode="navigation.crumb" />
 		</ul>
 		
 		<ul id="subnav">
-			<xsl:apply-templates select="$currentPage" mode="subnav" />
+			<xsl:apply-templates select="$currentPage" mode="navigation.sub" />
 		</ul>
 		
 		<ul id="sitemap">
-			<xsl:apply-templates select="$siteRoot" mode="sitemap" />
+			<xsl:apply-templates select="$siteRoot" mode="navigation.map" />
 		</ul>
 	</xsl:template>
 	
 	<xsl:template name="subNavLevels3to4">
 		<ul id="subnav">
-			<xsl:apply-templates select="$currentPage" mode="subnav">
+			<xsl:apply-templates select="$currentPage" mode="navigation.sub">
 				<xsl:with-param name="levels" select="'3-4'" />
 			</xsl:apply-templates>
 		</ul>

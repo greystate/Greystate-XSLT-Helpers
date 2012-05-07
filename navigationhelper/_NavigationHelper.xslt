@@ -23,41 +23,41 @@
 	
 <!-- :: Templates :: -->
 	<!-- Main navigation -->
-	<xsl:template match="*" mode="mainnav">
+	<xsl:template match="*" mode="navigation.main">
 		<!-- Find the top-level node -->
 		<xsl:variable name="siteRoot" select="ancestor-or-self::&homeNode;" />
 		
-		<xsl:apply-templates select="$siteRoot/&subPages;" mode="nav" />
+		<xsl:apply-templates select="$siteRoot/&subPages;" mode="navigation.link" />
 	</xsl:template>
 	
 	<!-- Sub navigation -->
-	<xsl:template match="*" mode="subnav">
+	<xsl:template match="*" mode="navigation.sub">
 		<xsl:param name="levels" select="concat($topLevel, '-', &maxLevel;)" />
 		<xsl:variable name="topLevelNode" select="ancestor-or-self::*[@level = $topLevel]" />
 		<xsl:variable name="currentSection" select="($topLevelNode | ancestor-or-self::*[@level = substring-before($levels, '-') - 1])[last()]" />
 
-		<xsl:apply-templates select="$currentSection/&subPages;" mode="nav">
+		<xsl:apply-templates select="$currentSection/&subPages;" mode="navigation.link">
 			<xsl:with-param name="endLevel" select="substring-after($levels, '-')" />
 		</xsl:apply-templates>
 	</xsl:template>
 	
 	<!-- Breadcrumb -->
-	<xsl:template match="*" mode="breadcrumb">
-		<xsl:apply-templates select="ancestor-or-self::*[ancestor::&homeNode;]" mode="nav">
+	<xsl:template match="*" mode="navigation.crumb">
+		<xsl:apply-templates select="ancestor-or-self::*[ancestor::&homeNode;]" mode="navigation.link">
 			<xsl:with-param name="highlight" select="&NO;" />
 		</xsl:apply-templates>
 	</xsl:template>
 	
 	<!-- Sitemap -->
-	<xsl:template match="*" mode="sitemap">
-		<xsl:apply-templates select="." mode="nav">
+	<xsl:template match="*" mode="navigation.map">
+		<xsl:apply-templates select="." mode="navigation.link">
 			<xsl:with-param name="recurse" select="&YES;" />
 			<xsl:with-param name="highlight" select="&NO;" />
 		</xsl:apply-templates>
 	</xsl:template>
 
 	<!-- Generic template for nav items -->
-	<xsl:template match="*" mode="nav">
+	<xsl:template match="*" mode="navigation.link">
 		<xsl:param name="endLevel" select="0" />
 		<xsl:param name="highlight" select="&YES;" />
 		<xsl:param name="recurse" />
@@ -74,7 +74,7 @@
 			<!-- Recurse if needed (and there are pages to show) -->
 			<xsl:if test="($recurse or (@level &lt; $endLevel and $hasCurrentPageInBranch)) and &subPages;">
 				<ul>
-					<xsl:apply-templates select="&subPages;" mode="nav">
+					<xsl:apply-templates select="&subPages;" mode="navigation.link">
 						<xsl:with-param name="recurse" select="$recurse" />
 						<xsl:with-param name="endLevel" select="$endLevel" />
 						<xsl:with-param name="highlight" select="$highlight" />
