@@ -14,13 +14,17 @@ really identical to the previous one I wrote.
 
 The Navigation Helper makes it very easy to create four of the most common navigation types: **Main Navigation**, **Sub Navigation**, **Breadcrumb** & **Sitemap** - you simply apply templates to `$currentPage` in the desired mode, e.g.:
 
-	<nav id="main">
-		<ul>
-			<xsl:apply-templates select="$currentPage" mode="navigation.main" />
-		</ul>
-	</nav>
+	<xsl:template match="/">
+		<nav id="main">
+			<ul>
+				<xsl:apply-templates select="$currentPage" mode="navigation.main" />
+			</ul>
+		</nav>
+	</xsl:template>
+	
+	<xsl:include href="_NavigationHelper.xslt" />
 
-Note that Navigation Helper renders all the `<li>` and `<a>` elements for you - but you need to wrap your own <ul> and/or <div>, <nav> etc. around them - this gives you maximum flexibility in shaping as many class/id/wrapper combinations as possible.
+Note that Navigation Helper renders all the `<li>` and `<a>` elements for you - but you need to wrap your own `<ul>` and/or `<div>`, `<nav>` etc. around them - this gives you maximum flexibility in shaping as many class/id/wrapper combinations as possible.
 
 The available modes are:
 
@@ -29,6 +33,9 @@ The available modes are:
 * **navigation.crumb** 	: Breadcrumb trail - currentPage, it's parent, parent's parent etc. Does *not* render the top node (see below)
 * **navigation.map**	: Traditional Sitemap - the full tree below *Home* in an exploded view
 
+## Customization
+
+As with most of the other helpers in this package, you can send a couple of parameters along when you invoke the templates.
 
 
 
