@@ -35,7 +35,23 @@ The available modes are:
 
 ## Customization
 
-As with most of the other helpers in this package, you can send a couple of parameters along when you invoke the templates.
+As with most of the other helpers in this package, you can send a couple of parameters along when you invoke the templates, to tailor the output:
+
+### Turn off *higlighting* selected nodes
+
+By default, the **main** and **sub** modes will add the "selected" class to nodes on the $currentPage branch, but you can turn that off by sending `false()` into the `higlight` parameter:
+
+```xslt
+<xsl:template match="/">
+	<ul>
+		<xsl.apply-templates selecte="$currentPage">
+			<!-- Client does not want highlighting for main items -->
+			<xsl:with-param name="highlight" select="false()" />
+		</xsl.apply-template>
+	</ul>
+</xsl:template>
+```
+
 
 
 
