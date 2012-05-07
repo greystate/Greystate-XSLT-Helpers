@@ -76,6 +76,23 @@
 			</ul>
 		</x:expect>
 
+		<x:scenario label="when using the $levels parameter on a subnav">
+			<x:call template="subNavLevels3to4" />
+			<x:expect label="it should confine the subnav to the specified levels">
+				<ul id="subnav">
+					<li><a href="1501" title="Page D1">Page D1</a></li>
+					<li><a href="1502" title="Page D2">Page D2</a></li>
+					<li class="selected">
+						<a href="1503" title="Page D3">Page D3</a>
+						<ul>
+							<li><a href="1504" title="Page D3a">Page D3a</a></li>
+							<li><a href="1505" title="Page D3b">Page D3b</a></li>
+							<li><a href="1506" title="Page D3c">Page D3c</a></li>
+						</ul>
+					</li>
+				</ul>
+			</x:expect>
+		</x:scenario>
 	</x:scenario>
 
 </x:description>
