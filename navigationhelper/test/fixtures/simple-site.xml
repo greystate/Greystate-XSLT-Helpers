@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Website id="1100" level="1" nodeName="HOME">
-	<Textpage id="1200" nodeName="Page A">
-		<Textpage id="1201" nodeName="Page A1"></Textpage>
-		<Textpage id="1202" nodeName="Page A2"></Textpage>
-		<Textpage id="1203" nodeName="Page A3"></Textpage>
+	<Textpage id="1200" level="2" nodeName="Page A">
+		<Textpage id="1201" level="3" nodeName="Page A1"></Textpage>
+		<Textpage id="1202" level="3" nodeName="Page A2"></Textpage>
+		<Textpage id="1203" level="3" nodeName="Page A3"></Textpage>
 	</Textpage>
-	<Textpage id="1300" nodeName="Page B"></Textpage>
-	<Textpage id="1400" nodeName="Page C"></Textpage>
-	<Textpage id="1500" nodeName="Page D">
-		<Textpage id="1501" nodeName="Page D1"></Textpage>
-		<Textpage id="1502" nodeName="Page D2"></Textpage>
-		<Textpage id="1503" nodeName="Page D3">
-			<Textpage id="1504" nodeName="Page D3a"></Textpage>
-			<Textpage id="1505" nodeName="Page D3b"></Textpage>
-			<Textpage id="1506" nodeName="Page D3c"></Textpage>
+	<Textpage id="1300" level="2" nodeName="Page B"></Textpage>
+	<Textpage id="1400" level="2" nodeName="Page C"></Textpage>
+	<Textpage id="1500" level="2" nodeName="Page D">
+		<Textpage id="1501" level="3" nodeName="Page D1"></Textpage>
+		<Textpage id="1502" level="3" nodeName="Page D2"></Textpage>
+		<Textpage id="1503" level="3" nodeName="Page D3">
+			<Textpage id="1504" level="4" nodeName="Page D3a"></Textpage>
+			<Textpage id="1505" level="4" nodeName="Page D3b"></Textpage>
+			<Textpage id="1506" level="4" nodeName="Page D3c"></Textpage>
 		</Textpage>
 	</Textpage>
 </Website>
