@@ -33,9 +33,9 @@
 	<!-- Sub navigation -->
 	<xsl:template match="*" mode="subnav">
 		<xsl:param name="levels" select="concat($topLevel, '-', &maxLevel;)" />
-		<xsl:variable name="topLevelNode" select="ancestor-or-self::*[../@level = $topLevel]" />
-		<xsl:variable name="currentSection" select="($topLevelNode | ancestor-or-self::*[../@level = substring-before($levels, '-')])[last()]" />
-		
+		<xsl:variable name="topLevelNode" select="ancestor-or-self::*[@level = $topLevel]" />
+		<xsl:variable name="currentSection" select="($topLevelNode | ancestor-or-self::*[@level = substring-before($levels, '-') - 1])[last()]" />
+
 		<xsl:apply-templates select="$currentSection/&subPages;" mode="nav">
 			<xsl:with-param name="endLevel" select="substring-after($levels, '-')" />
 		</xsl:apply-templates>
@@ -72,7 +72,7 @@
 			</a>
 
 			<!-- Recurse if needed (and there are pages to show) -->
-			<xsl:if test="($recurse or ($endLevel and @level &lt; $endLevel)) and &subPages;">
+			<xsl:if test="($recurse or (@level &lt; $endLevel and $hasCurrentPageInBranch)) and &subPages;">
 				<ul>
 					<xsl:apply-templates select="&subPages;" mode="nav">
 						<xsl:with-param name="recurse" select="$recurse" />
