@@ -24,26 +24,28 @@ line of code to get what you want - the following use cases illustrate how:
 
 In Umbraco you can use this simple boilerplate for most of the following examples:
 
-	<xsl:stylesheet
-		version="1.0"
-		xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns:umb="urn:umbraco.library"
-		exclude-result-prefixes="umb"
-	>
+```xslt
+<xsl:stylesheet
+	version="1.0"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:umb="urn:umbraco.library"
+	exclude-result-prefixes="umb"
+>
 
-		<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
-	
-		<xsl:template match="/">
+	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
 
-			<!-- Add the sample code here -->
+	<xsl:template match="/">
 
-		</xsl:template>
-		
-		<!-- Include helpers -->
-		<xsl:include href="_MediaHelper.xslt" />
+		<!-- Add the sample code here -->
+
+	</xsl:template>
 	
-	</xsl:stylesheet>
-	
+	<!-- Include helpers -->
+	<xsl:include href="_MediaHelper.xslt" />
+
+</xsl:stylesheet>
+```
+
 **NOTE:** *All of the following scenarios "just works", even if you're using the [Digibiz Advanced Media Picker][DAMP] (DAMP) for selecting images (magic!)*
 
 
