@@ -42,7 +42,7 @@
 			</ul>
 			
 			<ul id="sitemap">
-			  <li class="selected">
+			  <li>
 			    <a href="1100" title="HOME">HOME</a>
 			    <ul>
 			      <li>
@@ -55,12 +55,12 @@
 			      </li>
 			      <li><a href="1300" title="Page B">Page B</a></li>
 			      <li><a href="1400" title="Page C">Page C</a></li>
-			      <li class="selected">
+			      <li>
 			        <a href="1500" title="Page D">Page D</a>
 			        <ul>
 			          <li><a href="1501" title="Page D1">Page D1</a></li>
 			          <li><a href="1502" title="Page D2">Page D2</a></li>
-			          <li class="selected">
+			          <li>
 			            <a href="1503" title="Page D3">Page D3</a>
 			            <ul>
 			              <li><a href="1504" title="Page D3a">Page D3a</a></li>
