@@ -10,11 +10,10 @@
 	<x:scenario label="processing the fixture file with the sample XSLT">
 		<x:context href="fixtures/simple-site.xml" />
 
-		<x:expect label="it should produce a mainnav" test="//ul[@id = 'mainnav']">
+		<x:expect label="it should produce a mainnav, excluding the 'Page C' node" test="//ul[@id = 'mainnav']">
 			<ul id="mainnav">
 				<li><a href="1200" title="Page A">Page A</a></li>
 				<li><a href="1300" title="Page B">Page B</a></li>
-				<li><a href="1400" title="Page C">Page C</a></li>
 				<li class="selected"><a href="1500" title="Page D">Page D</a></li>
 			</ul>	
 		</x:expect>
@@ -50,12 +49,10 @@
 							<a href="1200" title="Page A">Page A</a>
 							<ul>
 								<li><a href="1201" title="Page A1">Page A1</a></li>
-								<li><a href="1202" title="Page A2">Page A2</a></li>
 								<li><a href="1203" title="Page A3">Page A3</a></li>
 							</ul>
 						</li>
 						<li><a href="1300" title="Page B">Page B</a></li>
-						<li><a href="1400" title="Page C">Page C</a></li>
 						<li>
 							<a href="1500" title="Page D">Page D</a>
 							<ul>

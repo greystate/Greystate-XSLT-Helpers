@@ -12,7 +12,7 @@
 	<!ENTITY linkURL "@id">
 	<!ENTITY linkName "@nodeName">
 	<!ENTITY homeNode "Website">
-	<!ENTITY subPages "Textpage">
+	<!ENTITY subPages "Textpage[not(umbracoNaviHide = 1)]">
 ]]>
 
 <!ENTITY topLevel "2">
