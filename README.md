@@ -8,7 +8,7 @@ the low-level implementation, when moved from one system to another.
 
 ## Installation
 
-There's an installable package in the works but for now, here's how you should install the helpers:
+There's an installable package in the works, but for now, here's how you should install the helpers:
 
 * Grab all of the files in the `dist` folder and put them alongside your other XSLT files (i.e., the `xslt` folder if you're using Umbraco).
 
