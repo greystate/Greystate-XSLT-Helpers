@@ -44,7 +44,7 @@ A self-contained clip-on solution for pagination of node-sets.
 
 ### [Navigation Helper][NAVIGATION]
 
-Simple generation of Navigation.
+Simple Navigation generation - almost too easy. Supports the four most commonly needed navigations: Main navigation, Sub navigation, Bradcrumb and Sitemap.
 
 ### [Grouping Helper][GROUPING]
 
