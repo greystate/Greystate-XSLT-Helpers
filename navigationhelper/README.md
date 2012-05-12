@@ -32,8 +32,8 @@ The available modes are:
 
 * **navigation.main** 	: Main site navigation (children of the *Home* node)
 * **navigation.sub** 	: Subnavigation (children of the selected node in Main)
-* **navigation.crumb** 	: Breadcrumb trail - currentPage, it's parent, parent's parent etc. Does *not* render the top node (see below)
-* **navigation.map**	: Traditional Sitemap - the full tree below *Home* in an exploded view
+* **navigation.crumb** 	: Breadcrumb trail - *$currentPage*, it's parent, parent's parent etc. Does *not* render the top node (see below)
+* **navigation.map**	: Traditional Sitemap - the full tree below the node it's applied to, in an exploded view
 
 ## Customization
 
@@ -46,7 +46,7 @@ By default, the **main** and **sub** modes will add the "selected" class to node
 ```xslt
 <xsl:template match="/">
 	<ul>
-		<xsl.apply-templates selecte="$currentPage">
+		<xsl.apply-templates select="$currentPage" mode="navigation.main">
 			<!-- Client does not want highlighting for main items -->
 			<xsl:with-param name="highlight" select="false()" />
 		</xsl.apply-template>
