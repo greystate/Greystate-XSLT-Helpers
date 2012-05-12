@@ -57,7 +57,7 @@
 			<xsl:if test="$highlight and $hasCurrentPageInBranch"><xsl:attribute name="class"><xsl:value-of select="$selectedClass"/></xsl:attribute></xsl:if>
 
 			<!-- Generate link -->
-			<a href="{umb:NiceUrl}" title="{@nodeName}">
+			<a href="{umb:NiceUrl(@id)}" title="{@nodeName}">
 				<xsl:value-of select="@nodeName"/>
 			</a>
 

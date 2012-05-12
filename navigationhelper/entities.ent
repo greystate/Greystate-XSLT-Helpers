@@ -2,7 +2,7 @@
 <!ENTITY % use.in.textmate "INCLUDE">
 
 <![ %use.in.umbraco; [
-	<!ENTITY linkURL "umb:NiceUrl">
+	<!ENTITY linkURL "umb:NiceUrl(@id)">
 	<!ENTITY linkName "@nodeName">
 	<!ENTITY homeNode "*[@level = $topLevel]/..">
 	<!ENTITY subPages "*[@isDoc][not(umbracoNaviHide = 1)]">
