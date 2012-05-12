@@ -60,7 +60,7 @@ You can create a single XSLT macro to render all of your site's navigations like
 
 1. Create a new XSLT file - use the "Clean" template and name it "Navigation"
 2. Add a `mode` Macro Parameter of type `textstring`
-3. Replace the XSLT with the following code and Save the file:
+3. Replace the XSLT with the following code and Save the file (if you're editing in the Umbraco UI you need to check the **Skip testing (ignore errors)** checkbox before saving):
 
 ```xslt
 <?xml version="1.0" encoding="utf-8" ?>
@@ -92,7 +92,7 @@ You can create a single XSLT macro to render all of your site's navigations like
 
 (Remember to put the `dist/_NavigationHelper.xslt` file in the xslt folder as well)
 
-Now, in your templates, you can just call the add the Navigation macro and choose the appropriate mode
+Now, in your templates, you can just add the **Navigation** macro and choose the appropriate mode
 (you should use the mode names inside the squarebrackets above), e.g.:
 
 ```html
