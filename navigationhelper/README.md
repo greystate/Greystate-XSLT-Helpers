@@ -46,10 +46,10 @@ By default, the **main** and **sub** modes will add the "selected" class to node
 ```xslt
 <xsl:template match="/">
 	<ul>
-		<xsl.apply-templates select="$currentPage" mode="navigation.main">
+		<xsl:apply-templates select="$currentPage" mode="navigation.main">
 			<!-- Client does not want highlighting for main items -->
 			<xsl:with-param name="highlight" select="false()" />
-		</xsl.apply-template>
+		</xsl:apply-templates>
 	</ul>
 </xsl:template>
 ```
