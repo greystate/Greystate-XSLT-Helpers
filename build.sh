@@ -24,7 +24,7 @@ sed -i "" "s/$TMON/$TMOFF/" paginationhelper/entities.ent
 sed -i "" "s/$TMON/$TMOFF/" groupinghelper/entities.ent
 sed -i "" "s/$TMON/$TMOFF/" navigationhelper/entities.ent
 
-# Transform the development XSLT into the release file
+# Transform the development XSLT into the release files
 xsltproc --novalid --output package/_PaginationHelper.xslt lib/freezeEntities.xslt paginationhelper/_PaginationHelper.xslt
 xsltproc --novalid --output package/_NavigationHelper.xslt lib/freezeEntities.xslt navigationhelper/_NavigationHelper.xslt
 xsltproc --novalid --output package/_GroupingHelper.xslt lib/freezeEntities.xslt groupinghelper/_GroupingHelper.xslt

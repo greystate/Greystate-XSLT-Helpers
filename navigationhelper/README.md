@@ -41,7 +41,7 @@ As with most of the other helpers in this package, you can send a couple of para
 
 ### Turn off *higlighting* selected nodes
 
-By default, the **main** and **sub** modes will add the "selected" class to nodes on the $currentPage branch, but you can turn that off by sending `false()` into the `higlight` parameter:
+By default, the **main** and **sub** modes will add the "selected" class to nodes on the $currentPage branch, but you can turn that off by sending `false()` into the `highlight` parameter:
 
 ```xslt
 <xsl:template match="/">
@@ -54,7 +54,59 @@ By default, the **main** and **sub** modes will add the "selected" class to node
 </xsl:template>
 ```
 
+### How to render all navigations from a single macro in Umbraco
 
+You can create a single XSLT macro to render all of your site's navigations like this:
 
+1. Create a new XSLT file - use the "Clean" template and name it "Navigation"
+2. Add a `mode` Macro Parameter of type `textstring`
+3. Replace the XSLT with the following code and Save the file:
 
+```xslt
+<?xml version="1.0" encoding="utf-8" ?>
+<xsl:stylesheet
+	version="1.0"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:umb="urn:umbraco.library"
+	exclude-result-prefixes="umb"
+>
+
+	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
+
+	<xsl:param name="currentPage" />
+	
+	<xsl:variable name="mode" select="/macro/mode" />
+	
+	<xsl:template match="/">
+		<!-- Use The MEXAH, Luke ... -->
+		<xsl:apply-templates select="$currentPage[$mode = 'mainnav']" mode="navigation.main" />
+		<xsl:apply-templates select="$currentPage[$mode = 'subnav']" mode="navigation.sub" />
+		<xsl:apply-templates select="$currentPage[$mode = 'breadcrumb']" mode="navigation.crumb" />
+		<xsl:apply-templates select="$currentPage[$mode = 'sitemap']" mode="navigation.map" />
+	</xsl:template>
+
+	<xsl:include href="_NavigationHelper.xslt" />
+
+</xsl:stylesheet>
+```
+
+(Remember to put the `dist/_NavigationHelper.xslt` file in the xslt folder as well)
+
+Now, in your templates, you can just call the add the Navigation macro and choose the appropriate mode
+(you should use the mode names inside the squarebrackets above), e.g.:
+
+```html
+<asp:Content PlaceHolderId="bodyContent" runat="server">
+	
+	<ul id="mainnav">
+		<umbraco:Macro alias="Navigation" mode="mainnav" runat="server" />
+	</ul>
+	
+	<ul>
+		<li><a href="/">Home</a></li>
+		<umbraco:Macro alias="Navigation" mode="breadcrumb" runat="server" />
+	</ul>
+	
+</asp:Content>
+```
 
