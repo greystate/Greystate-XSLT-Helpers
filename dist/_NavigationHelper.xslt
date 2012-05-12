@@ -8,14 +8,14 @@
 	<!-- CSS class for selected/active items -->
 	<xsl:variable name="selectedClass" select="'selected'"/>
 	
-	<!-- Top level -->
+	<!-- Top level to output -->
 	<xsl:variable name="topLevel" select="2"/>
 	
 <!-- :: Templates :: -->
 	<!-- Main navigation -->
 	<xsl:template match="*" mode="navigation.main">
 		<!-- Find the top-level node -->
-		<xsl:variable name="siteRoot" select="ancestor-or-self::*[@level = $topLevel]"/>
+		<xsl:variable name="siteRoot" select="ancestor-or-self::*[@level = $topLevel]/.."/>
 		
 		<xsl:apply-templates select="$siteRoot/*[@isDoc][not(umbracoNaviHide = 1)]" mode="navigation.link"/>
 	</xsl:template>
@@ -33,7 +33,7 @@
 	
 	<!-- Breadcrumb -->
 	<xsl:template match="*" mode="navigation.crumb">
-		<xsl:apply-templates select="ancestor-or-self::*[ancestor::*[@level = $topLevel]]" mode="navigation.link">
+		<xsl:apply-templates select="ancestor-or-self::*[@level &gt;= $topLevel]" mode="navigation.link">
 			<xsl:with-param name="highlight" select="false()"/>
 		</xsl:apply-templates>
 	</xsl:template>

@@ -18,7 +18,7 @@
 	<!-- CSS class for selected/active items -->
 	<xsl:variable name="selectedClass" select="'selected'" />
 	
-	<!-- Top level -->
+	<!-- Top level to output -->
 	<xsl:variable name="topLevel" select="&topLevel;" />
 	
 <!-- :: Templates :: -->
@@ -43,7 +43,7 @@
 	
 	<!-- Breadcrumb -->
 	<xsl:template match="*" mode="navigation.crumb">
-		<xsl:apply-templates select="ancestor-or-self::*[ancestor::&homeNode;]" mode="navigation.link">
+		<xsl:apply-templates select="ancestor-or-self::*[@level &gt;= $topLevel]" mode="navigation.link">
 			<xsl:with-param name="highlight" select="&NO;" />
 		</xsl:apply-templates>
 	</xsl:template>
