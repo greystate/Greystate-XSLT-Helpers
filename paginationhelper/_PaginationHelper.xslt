@@ -36,6 +36,11 @@
 	<xsl:variable name="optionString" select="&CompleteQueryString;" />
 	
 	<!--
+		We also need the base page's URL without QueryString params
+	-->
+	<xsl:variable name="pageURL" select="&GetPageURL;" />
+	
+	<!--
 		Build an `options` variable of all the query string params for easy lookup,
 		e.g.: If you need to pass a search-string (q=xslt) along to all pages, it
 		will be available as $options[@key = 'q']
@@ -93,7 +98,7 @@
 
 		<!-- Build the base query (i.e. the page's URL with any non-paging params) -->
 		<xsl:variable name="query">
-			<xsl:value-of select="&GetPageURL;" />
+			<xsl:value-of select="$pageURL" />
 			<xsl:for-each select="$options[not(@key = $pagerParam)]">
 				<xsl:if test="position() = 1">?</xsl:if>
 				<xsl:if test="not(preceding-sibling::*[@key = current()/@key])">

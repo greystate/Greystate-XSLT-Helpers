@@ -54,10 +54,12 @@ can manually output the controls by calling `RenderPager`, using the same `selec
 The actual pagination is done with a *QueryString* parameter named `p`, which can be changed if you need to - it&#8217;s
 defined in the *variable* `pagerParam` right at the top of the file. Here you can also change the wording of the
 *Previous* and *Next* links generated, and the number of results per page (default is 10). You can even change the function that
-retrieves the options for the current page, which defaults to Umbraco&#8217;s `umbraco.library:RequestQueryString`
-but if you&#8217;re not using this with Umbraco you&#8217;re bound to get that from some other extension function.
-It assumes the standard query string `key=value&otherkey=othervalue` format.
+retrieves the options for the current page, which defaults to the server variable `QUERY_STRING`
+(using `umbraco.library:RequestServerVariables()`)  but if you&#8217;re not using this with Umbraco you&#8217;re bound to
+get that from some other extension function. It assumes the standard query string `key=value&otherkey=othervalue` format.
 
+Also, there's a variable to hold the current page's URL - again, you can set it any way you like; the default uses Umbraco's
+`NiceUrl()` extension.
 
 ### Paginating search results
 
