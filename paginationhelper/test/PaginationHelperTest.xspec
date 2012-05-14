@@ -6,6 +6,7 @@
 	<!ENTITY nextPage "Next &#8250;">
 	<!ENTITY lastPage "&#187;">
 	<!ENTITY pagerParam "p">
+	<!ENTITY testURL "/">
 ]>
 <x:description
 	stylesheet="PaginationHelperSample.xslt"
@@ -51,8 +52,8 @@
 			<ul class="pager">
 				<li class="prev">&prevPage;</li>
 				<li class="current">1</li>
-				<li><a href="?&pagerParam;=2">2</a></li>
-				<li class="next"><a href="?&pagerParam;=2">&nextPage;</a></li>
+				<li><a href="&testURL;?&pagerParam;=2">2</a></li>
+				<li class="next"><a href="&testURL;?&pagerParam;=2">&nextPage;</a></li>
 			</ul>
 		</x:expect>
 	</x:scenario>
@@ -66,8 +67,8 @@
 			<ul class="pager">
 				<li class="prev">&prevPage;</li>
 				<li class="current">1</li>
-				<li><a href="?&pagerParam;=2">2</a></li>
-				<li class="next"><a href="?&pagerParam;=2">&nextPage;</a></li>
+				<li><a href="&testURL;?&pagerParam;=2">2</a></li>
+				<li class="next"><a href="&testURL;?&pagerParam;=2">&nextPage;</a></li>
 			</ul>
 		</x:expect>
 	</x:scenario>
@@ -79,12 +80,13 @@
 		</x:call>
 		<x:expect label="it should produce the pager for page 2">
 			<ul class="pager">
-				<li class="prev"><a href="?&pagerParam;=1">&prevPage;</a></li>
-				<li><a href="?&pagerParam;=1">1</a></li>
+				<li class="prev"><a href="&testURL;">&prevPage;</a></li>
+				<li><a href="&testURL;">1</a></li>
 				<li class="current">2</li>
 				<li class="next">&nextPage;</li>
 			</ul>
 		</x:expect>
+		<x:expect label="it should not add &pagerParam;=1 to the Page 1 link (issue #7)" test="not(//a[@href, '&pagerParam;=1'])" />
 	</x:scenario>
 
 	<x:scenario label="when calling RenderPager for page 3 of 'lots-of-people.xml'">
