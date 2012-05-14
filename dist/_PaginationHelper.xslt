@@ -17,6 +17,11 @@
 	<xsl:variable name="optionString" select="umb:RequestServerVariables('QUERY_STRING')"/>
 	
 	<!--
+		We also need the base page's URL without QueryString params
+	-->
+	<xsl:variable name="pageURL" select="umb:NiceUrl($currentPage/@id)"/>
+	
+	<!--
 		Build an `options` variable of all the query string params for easy lookup,
 		e.g.: If you need to pass a search-string (q=xslt) along to all pages, it
 		will be available as $options[@key = 'q']
@@ -72,13 +77,30 @@
 		<xsl:variable name="total" select="count($selection)"/>
 		<xsl:variable name="lastPageNum" select="ceiling($total div $perPage)"/>
 
+		<!-- Build the base query (i.e. the page's URL with any non-paging params) -->
+		<xsl:variable name="query">
+			<xsl:value-of select="$pageURL"/>
+			<xsl:for-each select="$options[not(@key = $pagerParam)]">
+				<xsl:if test="position() = 1">?</xsl:if>
+				<xsl:if test="not(preceding-sibling::*[@key = current()/@key])">
+					<xsl:value-of select="concat(@key, '=', .)"/>
+					<xsl:if test="not(position() = last())">&amp;</xsl:if>
+				</xsl:if>
+			</xsl:for-each>
+		</xsl:variable>
+		<xsl:variable name="sep" select="substring('&amp;|?', not($options[not(@key = $pagerParam)]) * 2 + 1, 1)"/>
+
 		<ul class="pager">
 			<!-- Create the "Previous" link -->
 			<li class="prev">
 				<xsl:choose>
 					<xsl:when test="$page = 1"><xsl:value-of select="$prevPage"/></xsl:when>
+					<!-- Avoid duplicate content by not linking p=1 (issue #7) -->
+					<xsl:when test="$page = 2">
+						<a href="{$query}"><xsl:value-of select="$prevPage"/></a>
+					</xsl:when>
 					<xsl:otherwise>
-						<a href="?{$pagerParam}={$page - 1}"><xsl:value-of select="$prevPage"/></a>
+						<a href="{$query}{$sep}{$pagerParam}={$page - 1}"><xsl:value-of select="$prevPage"/></a>
 					</xsl:otherwise>
 				</xsl:choose>
 			</li>
@@ -90,8 +112,12 @@
 							<xsl:attribute name="class">current</xsl:attribute>
 							<xsl:value-of select="position()"/>
 						</xsl:when>
+						<!-- Avoid duplicate content by not linking p=1 (issue #7) -->
+						<xsl:when test="position() = 1">
+							<a href="{$query}">1</a>
+						</xsl:when>
 						<xsl:otherwise>
-							<a href="?{$pagerParam}={position()}">
+							<a href="{$query}{$sep}{$pagerParam}={position()}">
 								<xsl:value-of select="position()"/>
 							</a>
 						</xsl:otherwise>
@@ -102,7 +128,7 @@
 				<xsl:choose>
 					<xsl:when test="$page = $lastPageNum"><xsl:value-of select="$nextPage"/></xsl:when>
 					<xsl:otherwise>
-						<a href="?{$pagerParam}={$page + 1}"><xsl:value-of select="$nextPage"/></a>
+						<a href="{$query}{$sep}{$pagerParam}={$page + 1}"><xsl:value-of select="$nextPage"/></a>
 					</xsl:otherwise>
 				</xsl:choose>
 			</li>			
