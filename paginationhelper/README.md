@@ -16,25 +16,31 @@ There&#8217;s very little work involved in using the Pagination Helper, basicall
 
 1. Include `_PaginationHelper.xslt` in your main XSLT file (e.g. an Umbraco macro XSLT file)
 
-		<xsl:include href="_PaginationHelper.xslt" />
+```xslt
+<xsl:include href="_PaginationHelper.xslt" />
+```
 
 2. Create a *template* for a single item to be rendered (e.g. a search result or a thumbnail image)
 
-		<xsl:template match="Textpage">
-			<li>
-				<a href="{umbraco.library:NiceUrl(@id)}">
-					<img src="{pageImageThumbnail}" width="100" height="80" alt="{@nodeName}" />
-				</a>
-			</li>
-		</xsl:template>
+```xslt
+<xsl:template match="Textpage">
+	<li>
+		<a href="{umbraco.library:NiceUrl(@id)}">
+			<img src="{pageImageThumbnail}" width="100" height="80" alt="{@nodeName}" />
+		</a>
+	</li>
+</xsl:template>
+```
 
 3. Call the `PaginateSelection` template where you want the paged result to appear 
 
-		<xsl:template match="/">
-			<xsl:call-template name="PaginateSelection">
-				<xsl:with-param name="selection" select="$currentPage/Textpage" />
-			</xsl:call-template>
-		</xsl:template>
+```xslt
+<xsl:template match="/">
+	<xsl:call-template name="PaginateSelection">
+		<xsl:with-param name="selection" select="$currentPage/Textpage" />
+	</xsl:call-template>
+</xsl:template>
+```
 
 Simple, huh?
 
