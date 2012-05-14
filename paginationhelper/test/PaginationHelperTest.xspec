@@ -86,7 +86,7 @@
 				<li class="next">&nextPage;</li>
 			</ul>
 		</x:expect>
-		<x:expect label="it should not add &pagerParam;=1 to the Page 1 link (issue #7)" test="not(//a[@href, '&pagerParam;=1'])" />
+		<x:expect label="it should not add &pagerParam;=1 to the Page 1 link (issue #7)" test="not(//a[contains(@href, '&pagerParam;=1')])" />
 	</x:scenario>
 
 	<x:scenario label="when calling RenderPager for page 3 of 'lots-of-people.xml'">
