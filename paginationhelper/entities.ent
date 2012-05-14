@@ -10,6 +10,7 @@
 	<!ENTITY QueryString "umb:RequestQueryString">
 	<!ENTITY token "token">
 	<!ENTITY tokenize "str:split">
+	<!ENTITY GetPageURL "umb:NiceUrl($currentPage/@id)">
 	<!ENTITY GetQueryStringValueForKey "&QueryString;($key)">
 	<!ENTITY CompleteQueryString "umb:RequestServerVariables('QUERY_STRING')">
 	<!ENTITY MakeNodesetOfOptions "make:node-set($optionsProxy)/options/option">
@@ -24,6 +25,7 @@
 	<!ENTITY QueryString "string">	
 	<!ENTITY token "token">
 	<!ENTITY tokenize "str:split">
+	<!ENTITY GetPageURL "'/'">
 	<!ENTITY GetQueryStringValueForKey "substring-after(., '=')">
 	<!ENTITY CompleteQueryString "''">
 	<!ENTITY MakeNodesetOfOptions "document('test/fixtures/nooptions.xml')/options/option">
