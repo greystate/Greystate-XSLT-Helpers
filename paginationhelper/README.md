@@ -49,6 +49,12 @@ output, you can turn them off with the `showPager` parameter by supplying `false
 can manually output the controls by calling `RenderPager`, using the same `selection` parameter as you called the
 `PaginateSelection` template with, to get the paging controls where you want them.
 
+## QueryString options
+
+The pager links rendered will include all existing querystring options on the original page (i.e., "page 1"), so if
+that page was the result of a search, e.g.: `?search=pagination+in+xslt`, the page parameter will just be tacked on to that
+so everything works as expected.
+
 ## Customization
 
 The actual pagination is done with a *QueryString* parameter named `p`, which can be changed if you need to - it&#8217;s
@@ -61,7 +67,7 @@ get that from some other extension function. It assumes the standard query strin
 Also, there's a variable to hold the current page's URL - again, you can set it any way you like; the default uses Umbraco's
 `NiceUrl()` extension.
 
-### Paginating search results
+### Paginating a sorted set
 
 TODO
 
