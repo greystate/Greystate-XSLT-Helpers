@@ -14,13 +14,13 @@ to paginate this set..." feeling.
 
 There&#8217;s very little work involved in using the Pagination Helper, basically you do three things:
 
-1. Include `_PaginationHelper.xslt` in your main XSLT file (e.g. an Umbraco macro XSLT file)
+* Include `_PaginationHelper.xslt` in your main XSLT file (e.g. an Umbraco macro XSLT file)
 
 ```xslt
 <xsl:include href="_PaginationHelper.xslt" />
 ```
 
-2. Create a *template* for a single item to be rendered (e.g. a search result or a thumbnail image)
+* Create a *template* for a single item to be rendered (e.g. a search result or a thumbnail image)
 
 ```xslt
 <xsl:template match="Textpage">
@@ -32,7 +32,7 @@ There&#8217;s very little work involved in using the Pagination Helper, basicall
 </xsl:template>
 ```
 
-3. Call the `PaginateSelection` template where you want the paged result to appear 
+* Call the `PaginateSelection` template where you want the paged result to appear 
 
 ```xslt
 <xsl:template match="/">
