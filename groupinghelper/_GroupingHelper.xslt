@@ -15,11 +15,13 @@
 		<xsl:param name="selection" select="/.." />
 		<xsl:param name="&groupSizeParam;" select="5" />
 		<xsl:param name="&elementParam;" select="'div'" />
+		<xsl:param name="class" />
 		
 		<xsl:apply-templates select="$selection[position() mod $&groupSizeParam; = 1]" mode="group">
 			<xsl:with-param name="selection" select="$selection" />
 			<xsl:with-param name="&groupSizeParam;" select="$&groupSizeParam;" />
 			<xsl:with-param name="&elementParam;" select="$&elementParam;" />
+			<xsl:with-param name="class" select="$class" />
 		</xsl:apply-templates>
 		
 	</xsl:template>
@@ -29,7 +31,9 @@
 		<xsl:param name="selection" select="/.." />
 		<xsl:param name="&groupSizeParam;" />
 		<xsl:param name="&elementParam;" />
+		<xsl:param name="class" />
 		<xsl:element name="{$&elementParam;}">
+			<xsl:if test="$class"><xsl:attribute name="class"><xsl:value-of select="$class" /></xsl:attribute></xsl:if>
 			<xsl:variable name="pos" select="position()" />
 			<xsl:variable name="first" select="$&groupSizeParam; * ($pos - 1) + 1" />
 			<xsl:variable name="last" select="$pos * $&groupSizeParam;" />
