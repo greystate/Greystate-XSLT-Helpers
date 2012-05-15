@@ -43,17 +43,6 @@
 					<p>...</p>
 				</div>
 			</x:expect>
-			
-			<x:scenario label="when adding the class parameter">
-				<x:call>
-					<x:param name="class" select="'lost-people'" />
-				</x:call>
-				<x:expect label="it should add the class to every group's wrapper element">
-					<div class="lost-people">...</div>
-					<div class="lost-people">...</div>
-					<div class="lost-people">...</div>
-				</x:expect>
-			</x:scenario>
 		</x:scenario>
 
 		<x:scenario label="with a group size of 2">
