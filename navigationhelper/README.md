@@ -65,12 +65,27 @@ By default, the **main** and **sub** modes will add the "selected" class to node
 I have always used the CSS class name "selected" - if you're used to something different,
 you can change the name in the `$selectedClass` variable. *Note: This is the only class Navigation Helper applies - CSS is pretty smart these days, and besides, I've not had the need myself for any additional classes (e.g. "first", "last", "inPath" etc.) - if you're on a project with requirements like that, you need to modify the template in mode "navigation.link".*
 
+### Why do you exclude the Home node in the breadcrumb mode?
+
+The main reason for this is that in 98% of all cases you'll want to change it anyway; Umbraco will usually give you a link like this:
+
+```html
+<li><a href="/clientsite-com">ClientSite.com</a></li>
+```
+
+But you want the link to be to the root ("/") and the text to be something like "Front", "Home", "&#x2191;", e.g.:
+
+```html
+<li><a href="/">Home</a></li>
+```
+
+
 ### How to render all navigations from a single macro in Umbraco
 
 You can create a single XSLT macro to render all of your site's navigations like this:
 
 1. Create a new XSLT file - use the "Clean" template and name it "Navigation"
-2. Add a `mode` Macro Parameter of type `textstring`
+2. Find the "Navigation" Macro and add a Macro Parameter called `mode` of type `text`
 3. Replace the XSLT with the following code and Save the file (if you're editing in the Umbraco UI you need to check the **Skip testing (ignore errors)** checkbox before saving):
 
 ```xslt
