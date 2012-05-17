@@ -79,6 +79,14 @@ But you want the link to be to the root ("/") and the text to be something like 
 <li><a href="/">Home</a></li>
 ```
 
+So to create breadcrumbs with Navigation Helper, just do like this:
+
+```xslt
+<ul class="breadcrumb">
+	<li><a href="/" title="Go to the home page">Home</a></li>
+	<xsl:apply-templates select="$currentPage" mode="navigation.crumb" />
+</ul>
+```
 
 ### How to render all navigations from a single macro in Umbraco
 
