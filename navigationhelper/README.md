@@ -35,13 +35,19 @@ The available modes are:
 * **navigation.crumb** 	: Breadcrumb trail - *$currentPage*, it's parent, parent's parent etc. Does *not* render the top node (see below)
 * **navigation.map**	: Traditional Sitemap - the full tree below the node it's applied to, in an exploded view
 
+There's a fifth mode called **navigation.link** which is the one all of the others use for rendering the actual `<li><a href="...">...</a></li>` combo.
+You can use that mode if you've got a custom menu where all the items are *hand-picked*
+(e.g. using a [Multi-Node Tree Picker][MNTP] in Umbraco) - and then you'd get all the behavior you get from the others, like automatic 'selected' class if applicable.
+
+[MNTP]: http://ucomponents.codeplex.com/documentation/
+
 ## Customization
 
 As with most of the other helpers in this package, you can send a couple of parameters along when you invoke the templates, to tailor the output:
 
 ### Turn off *higlighting* selected nodes
 
-By default, the **main** and **sub** modes will add the "selected" class to nodes on the $currentPage branch, but you can turn that off by sending `false()` into the `highlight` parameter:
+By default, the **main** and **sub** modes will add the "selected" class to nodes on the `$currentPage` branch, but you can turn that off by sending `false()` into the `highlight` parameter:
 
 ```xslt
 <xsl:template match="/">
@@ -53,6 +59,11 @@ By default, the **main** and **sub** modes will add the "selected" class to node
 	</ul>
 </xsl:template>
 ```
+
+### CSS class for selected nodes
+
+I have always used the CSS class name "selected" - if you're used to something different,
+you can change the name in the `$selectedClass` variable. *Note: This is the only class Navigation Helper applies - CSS is pretty smart these days, and besides, I've not had the need myself for any additional classes (e.g. "first", "last", "inPath" etc.) - if you're on a project with requirements like that, you need to modify the template in mode "navigation.link".*
 
 ### How to render all navigations from a single macro in Umbraco
 
