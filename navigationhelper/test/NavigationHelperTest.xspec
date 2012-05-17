@@ -7,6 +7,30 @@
 	
 	<x:variable name="currentPage" select="document('fixtures/simple-site.xml', /)//*[@id = 1503]" />
 
+	<x:scenario label="when processing an element in mode 'navigation.link'">
+		<x:context mode="navigation.link">
+			<Textpage isDoc="" id="1337" nodeName="Our Core Values"></Textpage>
+		</x:context>
+		<x:expect label="it should produce a list-item with a link">
+			<li><a href="1337" title="Our Core Values">Our Core Values</a></li>
+		</x:expect>
+	</x:scenario>
+	
+	<x:scenario label="when processing a node-set in mode 'navigation.link'">
+		<x:context mode="navigation.link">
+			<Website isDoc="" id="1335" nodeName="Home"></Website>
+			<Textpage isDoc="" id="1336" nodeName="About Us"></Textpage>
+			<NewsItem isDoc="" id="1337" nodeName="The first post"></NewsItem>
+			<EventsFolder isDoc="" id="1338" nodeName="Calendar"></EventsFolder>
+		</x:context>
+		<x:expect label="it should produce a nav link for every element">
+			<li><a href="..." title="Home">Home</a></li>
+			<li><a href="..." title="About Us">About Us</a></li>
+			<li><a href="..." title="The first post">The first post</a></li>
+			<li><a href="..." title="Calendar">Calendar</a></li>
+		</x:expect>
+	</x:scenario>
+
 	<x:scenario label="processing the fixture file with the sample XSLT">
 		<x:context href="fixtures/simple-site.xml" />
 
