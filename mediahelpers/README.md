@@ -9,7 +9,9 @@ called `GetMedia()` which takes the id and a boolean (whether to return childnod
 And here's the problem: Because most things in Umbraco are easy and simple, newcomers usually think that they can do something 
 similar to this, and "magically" get an `<img>` tag with the selected image:
 
-	<xsl:value-of select="umbraco.library:GetMedia(pageImage, 0)" />
+```xslt
+<xsl:value-of select="umbraco.library:GetMedia(pageImage, 0)" />
+```
 
 There are multiple problems with this - *first of all:* The extension function returns the XML for the media item, so one has to dig
 into that and find the various bits needed (e.g.: `<umbracoFile>` and `<umbracoWidth>` etc.). *Second:* If the editor hasn't yet chosen
@@ -119,9 +121,11 @@ Of course, you can combine this with the `size`, `class` and `id` parameters. An
 If you use cropping with the built-in `Image Cropper` (or the one in the [Image Extras][EXTRAS] package), you can grap a specific crop very easy;
 just add the `crop` parameter:
 
-	<xsl:apply-templates select="$currentPage/pageImage" mode="media">
-		<xsl:with-param name="crop" select="'GalleryThumb'" />
-	</xsl:apply-templates>
+```xslt
+<xsl:apply-templates select="$currentPage/pageImage" mode="media">
+	<xsl:with-param name="crop" select="'GalleryThumb'" />
+</xsl:apply-templates>
+```
 
 By default, this will create an `<img>` element with empty `width` and `height` attributes, because that info is not available in the crop XML.
 However, you can create a config file for the Media Helper to use, if you would like to generate the correct dimension attributes (which can
@@ -129,10 +133,12 @@ eliminate potential reflow during rendering, not to mention protecting against t
 
 Just edit the included sample XML file called `cropping-config.xml` in the XSLT directory and specify the names and sizes you've set up for the crops, e.g.:
 
-	<crops>
-		<crop name="Large" size="800x600" />
-		<crop name="Small" size="320x480" />
-	</crops>
+```xml
+<crops>
+	<crop name="Large" size="800x600" />
+	<crop name="Small" size="320x480" />
+</crops>
+```
 
 That's it - the helpers will make sure to consult your config file before writing the `width` and `height` of crops. 
 
@@ -142,7 +148,9 @@ The [Eksponent.CropUp cropper][CROPUP] is a very cool cropper, and you should of
 
 You can tell the helper to use CropUp when a crop is requested by editing the `useCropUp` variable at the top of the `_MediaHelper.xslt` file:
 
-	<xsl:variable name="useCropUp" select="true()" />
+```xslt
+<xsl:variable name="useCropUp" select="true()" />
+```
 
 Once you've enabled CropUp support, the `crop` parameter functions as the `args` you can send to CropUp, so if you send a crop name (or its alias) you will get the predefined crop size from the config file, but you can also send a custom crop format, like `600x-` to get an image cropped to 600 pixels wide, keeping the aspect ratio. You can check out the various options on the [CropUp project page.][CROPUP]
 
@@ -152,24 +160,25 @@ Once you've enabled CropUp support, the `crop` parameter functions as the `args`
 If you need to further change the HTML that gets rendered for e.g. an Image, you can do so by overriding the `Image` template in your own XSLT
 file - *after* the include statement. For example, here's a way to render a `<figure>` element instead:
 
-	<xsl:template match="/">
-		<!-- Render my figure element here, thank you: -->
-		<xsl:apply-templates select="$currentPage/pageImage" mode="media" />
-	</xsl:template>
-	
-	<!-- Include helpers -->
-	<xsl:include href="_MediaHelper.xslt" />
+```xslt
+<xsl:template match="/">
+	<!-- Render my figure element here, thank you: -->
+	<xsl:apply-templates select="$currentPage/pageImage" mode="media" />
+</xsl:template>
 
-	<!-- Override Image template -->
-	<xsl:template match="Image">
-		<figure>
-			<img src="{umbracoFile}" />
-			<figcaption>
-				<xsl:value-of select="Fig.: {caption}" />
-			</figcaption>
-		</figure>
-	</xsl:template>
+<!-- Include helpers -->
+<xsl:include href="_MediaHelper.xslt" />
 
+<!-- Override Image template -->
+<xsl:template match="Image">
+	<figure>
+		<img src="{umbracoFile}" />
+		<figcaption>
+			<xsl:value-of select="Fig.: {caption}" />
+		</figcaption>
+	</figure>
+</xsl:template>
+```
 This gives you the ability to leverage all the error- and parameter-handling of the helper file, but to use your own actual output templates.
 
 ### Supporting custom Media Types 
@@ -179,21 +188,23 @@ This is almost the exact same as the above - except you'll not be overriding, bu
 Imagine a Media Type called **DownloadItem** - it has a simple *Upload* property, a *Size in bytes* property and a *Description* property - you know
 it will be used for PDF files and ZIP files, so you create a template to render both and the rest is just like before:
 
-	<xsl:template match="/">
-		<!-- Render the download item here -->
-		<xsl:apply-templates select="$currentPage/downloadItem" mode="media" />
-	</xsl:template>
-	
-	<!-- Include helpers -->
-	<xsl:include href="_MediaHelper.xslt" />
+```xslt
+<xsl:template match="/">
+	<!-- Render the download item here -->
+	<xsl:apply-templates select="$currentPage/downloadItem" mode="media" />
+</xsl:template>
 
-	<!-- Custom template for DownloadItem Media Type -->
-	<xsl:template match="DownloadItem">
-		<p>
-			<xsl:value-of select="description" />
-		</p>
-		<a class="download {umbracoExtension}file" href="{umbracoFile}" title="Download {@nodeName} ({umbracoBytes} bytes)">Download</a>
-	</xsl:template>
+<!-- Include helpers -->
+<xsl:include href="_MediaHelper.xslt" />
+
+<!-- Custom template for DownloadItem Media Type -->
+<xsl:template match="DownloadItem">
+	<p>
+		<xsl:value-of select="description" />
+	</p>
+	<a class="download {umbracoExtension}file" href="{umbracoFile}" title="Download {@nodeName} ({umbracoBytes} bytes)">Download</a>
+</xsl:template>
+```
 
 
 
