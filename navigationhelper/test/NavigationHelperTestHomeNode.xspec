@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<x:description
+	stylesheet="NavigationHelperSample.xslt"
+	xslt-version="1.0"
+	xmlns:x="http://www.jenitennison.com/xslt/xspec"
+>
+	
+	<x:variable name="currentPage" select="document('fixtures/simple-site.xml', /)//*[@id = 1100]" />
+
+	<x:scenario label="processing the fixture file with the sample XSLT">
+		<x:context href="fixtures/simple-site.xml" />
+
+		<x:expect label="it should produce a mainnav, excluding the 'Page C' node" test="//ul[@id = 'mainnav']">
+			<ul id="mainnav">
+				<li><a href="1200" title="Page A">Page A</a></li>
+				<li><a href="1300" title="Page B">Page B</a></li>
+				<li><a href="1500" title="Page D">Page D</a></li>
+			</ul>	
+		</x:expect>
+
+		<x:expect label="an empty breadcrumb" test="//ul[@id = 'breadcrumb']">
+			<ul id="breadcrumb">
+			</ul>
+		</x:expect>
+
+		<x:expect label="and a sitemap with no &quot;selected&quot; classes" test="//ul[@id = 'sitemap']">
+			<ul id="sitemap">
+				<li>
+					<a href="1100" title="HOME">HOME</a>
+					<ul>
+						<li>
+							<a href="1200" title="Page A">Page A</a>
+							<ul>
+								<li><a href="1201" title="Page A1">Page A1</a></li>
+								<li><a href="1203" title="Page A3">Page A3</a></li>
+							</ul>
+						</li>
+						<li><a href="1300" title="Page B">Page B</a></li>
+						<li>
+							<a href="1500" title="Page D">Page D</a>
+							<ul>
+								<li><a href="1501" title="Page D1">Page D1</a></li>
+								<li><a href="1502" title="Page D2">Page D2</a></li>
+								<li>
+									<a href="1503" title="Page D3">Page D3</a>
+									<ul>
+										<li><a href="1504" title="Page D3a">Page D3a</a></li>
+										<li><a href="1505" title="Page D3b">Page D3b</a></li>
+										<li><a href="1506" title="Page D3c">Page D3c</a></li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</x:expect>
+	</x:scenario>
+
+</x:description>
