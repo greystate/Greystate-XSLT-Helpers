@@ -4,18 +4,17 @@
 <![ %use.in.umbraco; [
 	<!ENTITY linkURL "umb:NiceUrl(@id)">
 	<!ENTITY linkName "@nodeName">
-	<!ENTITY homeNode "*[@level = $topLevel]/..">
 	<!ENTITY subPages "*[@isDoc][not(umbracoNaviHide = 1)]">
 ]]>
 
 <![ %use.in.textmate; [
 	<!ENTITY linkURL "@id">
 	<!ENTITY linkName "@nodeName">
-	<!ENTITY homeNode "*[@level = $topLevel]/..">
 	<!ENTITY subPages "Textpage[not(umbracoNaviHide = 1)]">
 ]]>
 
 <!ENTITY topLevel "2">
 <!ENTITY maxLevel "99">
 <!ENTITY YES "true()">
+<!ENTITY homeNode "*[@level = $topLevel - 1]">
 <!ENTITY NO "false()">
