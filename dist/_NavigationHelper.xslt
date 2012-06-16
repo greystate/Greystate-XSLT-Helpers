@@ -15,7 +15,7 @@
 	<!-- Main navigation -->
 	<xsl:template match="*" mode="navigation.main">
 		<!-- Find the top-level node -->
-		<xsl:variable name="siteRoot" select="ancestor-or-self::*[@level = $topLevel]/.."/>
+		<xsl:variable name="siteRoot" select="ancestor-or-self::*[@level = $topLevel - 1]"/>
 		
 		<xsl:apply-templates select="$siteRoot/*[@isDoc][not(umbracoNaviHide = 1)]" mode="navigation.link"/>
 	</xsl:template>
