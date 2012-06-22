@@ -2,6 +2,9 @@
 <!DOCTYPE xsl:stylesheet [
 	<!ENTITY % version SYSTEM "../version.ent">
 	%version;
+	
+	<!ENTITY indent "&#x09;">
+	<!ENTITY newline "&#x0a;">
 ]>
 <!--
 	The development versions of the XSLT Helpers relies on a solid set of entity definitions.
@@ -23,6 +26,9 @@
 
 	<!-- Identity transform -->
 	<xsl:template match="/">
+		<xsl:if test="//processing-instruction('ENTITY')">
+			<xsl:call-template name="GenerateDoctype" />
+		</xsl:if>
 		<xsl:apply-templates select="* | text() | comment() | processing-instruction('umbraco-package')" />
 	</xsl:template>
 		
@@ -48,9 +54,9 @@
 	<xsl:template match="processing-instruction('umbraco-package')">
 		<xsl:processing-instruction name="umbraco-package">
 			<xsl:text>&XSLTHelpersVersionHeader;</xsl:text>
-			<xsl:apply-templates select="following-sibling::processing-instruction()" />
+			<xsl:apply-templates select="following-sibling::processing-instruction()[not(name() = 'ENTITY')]" />
 		</xsl:processing-instruction>
-		<xsl:text>&#x0A;</xsl:text>
+		<xsl:text>&newline;</xsl:text>
 	</xsl:template>
 	
 	<xsl:template match="processing-instruction('MediaHelperVersion')">
@@ -67,6 +73,24 @@
 	
 	<xsl:template match="processing-instruction('GroupingHelperVersion')">
 		<xsl:text> - GroupingHelper v&GroupingHelperVersion;</xsl:text>
+	</xsl:template>
+	
+	<!-- Major trickery here - NOT recommended, but the only way to do what I want using XSLT 1.0 -->
+	<xsl:template name="GenerateDoctype">
+		<xsl:text disable-output-escaping="yes"><![CDATA[<!DOCTYPE xsl:stylesheet []]></xsl:text>
+			<xsl:text>&newline;</xsl:text>
+			<xsl:apply-templates select="/processing-instruction('ENTITY')" />
+		<xsl:text disable-output-escaping="yes"><![CDATA[]>]]></xsl:text>
+		<xsl:text>&newline;</xsl:text>
+	</xsl:template>
+	
+	<!-- Creates the equivalent of an ENTITY declaration in the result tree -->
+	<xsl:template match="processing-instruction('ENTITY')">
+		<xsl:text>&indent;</xsl:text>
+		<xsl:text disable-output-escaping="yes"><![CDATA[<!ENTITY ]]></xsl:text>
+		<xsl:value-of select="." disable-output-escaping="yes" />
+		<xsl:text disable-output-escaping="yes"><![CDATA[>]]></xsl:text>
+		<xsl:text>&newline;</xsl:text>
 	</xsl:template>
 	
 </xsl:stylesheet>
