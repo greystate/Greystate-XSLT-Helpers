@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<calendar>
+<!--
+	To localize the calendar, copy the <months> and <weekdays> sections,
+	change the xml:lang attribute, and edit the texts (no need to edit the attributes).
+-->
+	<months xml:lang="en">
+		<month id="01" days="31">January</month>
+		<month id="02" days="28">February</month>
+		<month id="03" days="31">March</month>
+		<month id="04" days="30">April</month>
+		<month id="05" days="31">May</month>
+		<month id="06" days="30">June</month>
+		<month id="07" days="31">July</month>
+		<month id="08" days="31">August</month>
+		<month id="09" days="30">September</month>
+		<month id="10" days="31">October</month>
+		<month id="11" days="30">November</month>
+		<month id="12" days="31">December</month>
+	</months>
+	<months xml:lang="da">
+		<month id="01" days="31">Januar</month>
+		<month id="02" days="28">Februar</month>
+		<month id="03" days="31">Marts</month>
+		<month id="04" days="30">April</month>
+		<month id="05" days="31">Maj</month>
+		<month id="06" days="30">Juni</month>
+		<month id="07" days="31">Juli</month>
+		<month id="08" days="31">August</month>
+		<month id="09" days="30">September</month>
+		<month id="10" days="31">Oktober</month>
+		<month id="11" days="30">November</month>
+		<month id="12" days="31">December</month>
+	</months>
+
+	<weekdays xml:lang="en">
+		<weekday id="1">Sun</weekday>
+		<weekday id="2">Mon</weekday>
+		<weekday id="3">Tue</weekday>
+		<weekday id="4">Wed</weekday>
+		<weekday id="5">Thu</weekday>
+		<weekday id="6">Fri</weekday>
+		<weekday id="7">Sat</weekday>
+	</weekdays>
+	<weekdays xml:lang="da">
+		<weekday id="1">Søn</weekday>
+		<weekday id="2">Man</weekday>
+		<weekday id="3">Tir</weekday>
+		<weekday id="4">Ons</weekday>
+		<weekday id="5">Tor</weekday>
+		<weekday id="6">Fre</weekday>
+		<weekday id="7">Lør</weekday>
+	</weekdays>
+
+<!-- :: == == == == == == == == == == == == :: -->
+	<!-- Don't edit these :-) -->
+	<days>
+		<dummy id="0" />
+		<dummy id="0" />
+		<dummy id="0" />
+		<dummy id="0" />
+		<dummy id="0" />
+		<dummy id="0" />
+		<day id="01" />
+		<day id="02" />
+		<day id="03" />
+		<day id="04" />
+		<day id="05" />
+		<day id="06" />
+		<day id="07" />
+		<day id="08" />
+		<day id="09" />
+		<day id="10" />
+		<day id="11" />
+		<day id="12" />
+		<day id="13" />
+		<day id="14" />
+		<day id="15" />
+		<day id="16" />
+		<day id="17" />
+		<day id="18" />
+		<day id="19" />
+		<day id="20" />
+		<day id="21" />
+		<day id="22" />
+		<day id="23" />
+		<day id="24" />
+		<day id="25" />
+		<day id="26" />
+		<day id="27" />
+		<day id="28" />
+		<day id="29" />
+		<day id="30" />
+		<day id="31" />
+	</days>
+	
+</calendar>
