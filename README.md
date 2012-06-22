@@ -50,6 +50,15 @@ Simple Navigation generation - almost too easy. Supports the four most commonly 
 
 Just like pagination - but for grouping sets into chunks of *n* elements.
 
+### [Calendar Helper][CALENDAR]
+
+Easy as pie generation of that monthly calendar view you always need for your events/news section.
+*Yes* to all of these:
+
+> Can I use my own translations for the weekdays?
+
+> Can I *please* have monday be the first day?
+
 ### [Media Helpers][MEDIA]
 
 A bunch of well-tested templates for handling Media items in Umbraco - if you've asked some of the following questions, this is definitely for you:
@@ -64,4 +73,5 @@ A bunch of well-tested templates for handling Media items in Umbraco - if you've
 [PAGINATION]: https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/paginationhelper
 [NAVIGATION]: https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/navigationhelper
 [GROUPING]: https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/groupinghelper
+[CALENDAR]: https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/calendarhelper
 [MEDIA]: https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/mediahelpers
