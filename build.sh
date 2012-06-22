@@ -29,6 +29,10 @@ xsltproc --novalid --output package/_PaginationHelper.xslt lib/freezeEntities.xs
 xsltproc --novalid --output package/_NavigationHelper.xslt lib/freezeEntities.xslt navigationhelper/_NavigationHelper.xslt
 xsltproc --novalid --output package/_GroupingHelper.xslt lib/freezeEntities.xslt groupinghelper/_GroupingHelper.xslt
 xsltproc --novalid --output package/_MediaHelper.xslt lib/freezeEntities.xslt mediahelpers/_MediaHelper.xslt
+
+# Fix transformed entity references in attributes
+sed -i "" "s/\&amp;\(.*\);/\&\1;/" package/_NavigationHelper.xslt
+
 cp mediahelpers/cropping-config.xml package/cropping-config.xml
 
 # Transform the package.xml file, pulling in the README
