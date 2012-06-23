@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE xsl:stylesheet [
-	<!ENTITY dates-ns-uri "urn:Exslt.ExsltDatesAndTimes">
-	<!ENTITY nodeset-ns-uri "urn:schemas-microsoft-com:xslt">
-	
-	<!ENTITY day-in-week "date:dayinweek">
-	<!ENTITY today "date:date">
-	<!ENTITY SUNDAY "1">
+	<!ENTITY % entities SYSTEM "entities.ent">
+	%entities;
 	
 	<!-- You need to set this to the name of the property/attribute on your event nodes that holds the "date" value -->
 	<!ENTITY eventDate "eventStartDateTime">
@@ -24,7 +20,7 @@
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
 	
 <!-- :: Configuration :: -->
-	<xsl:variable name="config" select="document('calendar-config.xml')/calendar" />
+	<xsl:variable name="config" select="document('&config-file;')/calendar" />
 	
 	<!-- Remember you can grab this from somewhere else, if necessary -->
 	<xsl:variable name="language" select="'da'" />
