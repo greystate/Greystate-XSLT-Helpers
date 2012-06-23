@@ -59,6 +59,9 @@ Easy as pie generation of that monthly calendar view you always need for your ev
 
 > Can I *please* have monday be the first day?
 
+> Can I show events on the dates?
+
+
 ### [Media Helpers][MEDIA]
 
 A bunch of well-tested templates for handling Media items in Umbraco - if you've asked some of the following questions, this is definitely for you:
