@@ -1,0 +1,21 @@
+<!ENTITY % use.in.umbraco "IGNORE">
+<!ENTITY % use.in.textmate "INCLUDE">
+
+<!ENTITY SUNDAY "1">
+<!ENTITY today "date:date">
+<!ENTITY config-file "calendar-config.xml">
+
+
+<![ %use.in.umbraco; [
+	<!ENTITY dates-ns-uri "urn:Exslt.ExsltDatesAndTimes">
+	<!ENTITY nodeset-ns-uri "urn:schemas-microsoft-com:xslt">
+	<!ENTITY day-in-week "date:dayinweek">
+	<!ENTITY NiceUrl "umb:NiceUrl">
+]]>
+
+<![ %use.in.textmate; [
+	<!ENTITY dates-ns-uri "http://exslt.org/dates-and-times">
+	<!ENTITY nodeset-ns-uri "http://exslt.org/common">
+	<!ENTITY day-in-week "date:day-in-week">
+	<!ENTITY NiceUrl "string">
+]]>
