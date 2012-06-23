@@ -69,4 +69,8 @@
 		<xsl:text> - GroupingHelper v&GroupingHelperVersion;</xsl:text>
 	</xsl:template>
 	
+	<xsl:template match="processing-instruction('CalendarHelperVersion')">
+		<xsl:text> - CalendarHelper v&CalendarHelperVersion;</xsl:text>
+	</xsl:template>
+	
 </xsl:stylesheet>

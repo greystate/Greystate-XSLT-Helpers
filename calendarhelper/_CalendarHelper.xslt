@@ -10,6 +10,8 @@
 	<!-- You need to set this to the name of the property/attribute on your event nodes that holds the "date" value -->
 	<!ENTITY eventDate "eventStartDateTime">
 ]>
+<?umbraco-package This is a dummy for the packageVersion entity - see ../lib/freezeEntities.xslt ?>
+<?CalendarHelperVersion ?>
 <xsl:stylesheet
 	version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
