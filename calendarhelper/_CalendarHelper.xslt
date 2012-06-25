@@ -48,7 +48,7 @@
 		- Pass `false()` into `caption` to turn the caption off.
 	-->
 	<xsl:template name="buildCalendar">
-		<xsl:param name="date" select="&today;()" /><!-- Default to today -->
+		<xsl:param name="date" select="&today;" /><!-- Default to today -->
 		<xsl:param name="events" select="/.." /><!-- Default to an empty nodeset -->
 		<xsl:param name="caption" select="true()" />
 		<xsl:param name="firstDayOfWeekIsMonday" select="$firstDayOfWeekIsMonday" />
@@ -58,7 +58,7 @@
 		
 		<!-- Calculate all the tricky bits -->
 		<xsl:variable name="firstDayOfMonth" select="concat(substring($date, 1, 7), '-01')" />
-		<xsl:variable name="weekdayFirstDayOfMonth" select="&day-in-week;($firstDayOfMonth)" />
+		<xsl:variable name="weekdayFirstDayOfMonth" select="&day-in-week;" />
 		<xsl:variable name="emptyDaysBeforeFirstInMonth">
 			<xsl:choose>
 				<xsl:when test="$firstDayOfWeekIsMonday and $weekdayFirstDayOfMonth = &SUNDAY;"><xsl:value-of select="6" /></xsl:when>
