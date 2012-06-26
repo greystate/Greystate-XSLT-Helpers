@@ -29,7 +29,7 @@
 							<td class="empty">...</td>
 							<td class="empty">...</td>
 							<td class="empty">...</td>
-							<td>1</td>
+							<td class="today">1</td>
 							<td>2</td>
 							<td>3</td>
 						</tr>
