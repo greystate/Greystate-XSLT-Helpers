@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <calendar>
 <!--
-	To localize the calendar, copy the <months> and <weekdays> sections,
+	To localize the calendar, copy the english <months> and <weekdays> sections,
 	change the xml:lang attribute, and edit the texts (no need to edit the attributes).
 -->
 	<months xml:lang="en">
