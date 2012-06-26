@@ -47,7 +47,7 @@
 		- Pass in `class` and/or `id` to add those attributes to the <table>.
 		- Pass `false()` into `caption` to turn the caption off.
 	-->
-	<xsl:template name="buildCalendar">
+	<xsl:template name="BuildCalendar">
 		<xsl:param name="date" select="&today;" /><!-- Default to today -->
 		<xsl:param name="events" select="/.." /><!-- Default to an empty nodeset -->
 		<xsl:param name="caption" select="true()" />

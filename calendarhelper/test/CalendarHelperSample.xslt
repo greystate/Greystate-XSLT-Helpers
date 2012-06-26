@@ -8,7 +8,7 @@
 
 	<xsl:template match="/">
 		
-		<xsl:call-template name="buildCalendar" />
+		<xsl:call-template name="BuildCalendar" />
 		
 	</xsl:template>
 

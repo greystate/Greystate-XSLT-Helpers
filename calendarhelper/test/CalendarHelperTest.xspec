@@ -5,8 +5,8 @@
 	xmlns:x="http://www.jenitennison.com/xslt/xspec"
 >
 
-	<x:scenario label="when calling buildCalendar">
-		<x:call template="buildCalendar" />
+	<x:scenario label="when calling BuildCalendar">
+		<x:call template="BuildCalendar" />
 
 		<x:scenario label="with no parameters">
 			<x:expect label="it should produce a calendar for the current month (June 2012 in testing)">
