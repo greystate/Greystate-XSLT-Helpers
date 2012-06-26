@@ -10,4 +10,13 @@ from various others :-)
 
 ## Usage
 
-TODO
+### Getting a calendar for the current month
+
+This is the simplest thing you can do with the Calendar Helper - you simply call the BuildCalendar named template, e.g.:
+
+```xslt
+<div id="calendar">
+	<xsl:call-template name="BuildCalendar" />
+</div>
+```
+
