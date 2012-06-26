@@ -9,8 +9,44 @@
 		<x:call template="buildCalendar" />
 
 		<x:scenario label="with no parameters">
-			<x:expect label="it should produce a calendar for the current month">
-				<table>...</table>
+			<x:expect label="it should produce a calendar for the current month (June 2012 in testing)">
+				<table>
+					<caption>...</caption>
+					<thead>
+						<tr>
+							<th>Man</th>
+							<th>...</th>
+							<th>...</th>
+							<th>...</th>
+							<th>...</th>
+							<th>...</th>
+							<th>...</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="empty">...</td>
+							<td class="empty">...</td>
+							<td class="empty">...</td>
+							<td class="empty">...</td>
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
+						</tr>
+						<tr>...</tr>
+						<tr>...</tr>
+						<tr>...</tr>
+						<tr>
+							<td>25</td>
+							<td>26</td>
+							<td>27</td>
+							<td>28</td>
+							<td>29</td>
+							<td>30</td>
+							<td class="empty">...</td>
+						</tr>
+					</tbody>
+				</table>
 			</x:expect>
 		</x:scenario>
 
