@@ -58,8 +58,18 @@ To highlight a specific date in the calendar you specify the `selectedDate` para
 
 The date will get a `class="selected"` so you can do the styling yourself.
 
+### Setting first day of week to Sunday
 
+If you're not from around here (I live in Denmark), you may want to change the order of the days
+to having Sunday as the first day of the week - there's a global setting for that called `$firstDayOfWeekIsMonday`, that you would then set to `false()` (it's at the top of the file).
 
+But if you need to set it for a specific calendar on a page, you can do so with a parameter of the same name:
+
+```xslt
+<xsl:call-template name="BuildCalendar">
+	<xsl:with-param name="firstDayOfWeekIsMonday" select="false()" />
+</xsl:call-template>
+```
 
 
 
