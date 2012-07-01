@@ -71,6 +71,77 @@ But if you need to set it for a specific calendar on a page, you can do so with 
 </xsl:call-template>
 ```
 
+## Advanced usage
+
+One of the reasons to have a calendar on a webpage very often is to be able to browse
+news or events of some sort, and to do that we take advantage of XSLT's template mechanism,
+where you create a template for how you'd like your events rendered inside the calendar - and
+then you just pass your events into the **BuildCalendar** template, e.g.:
+
+```xslt
+<xsl:call-template name="BuildCalendar">
+	<xsl:with-param name="events" select="$siteRoot/News//NewsItem" />
+</xsl:call-template>
+```
+
+The helper will issue an `<xsl:apply-templates />` instruction on any date that you have events
+for and wrap the output in a `<div class="events_today">`.
+
+### How does Calendar Helper know which dates to put events on?
+
+Good question! - OK, for this to work, you need to tell the helper where you store the *date* on your events. At the top of the `_CalendarHelper.xslt` file there's a line that looks like this:
+
+```xml
+<!ENTITY eventDate "newsDate">
+```
+
+You can change the *newsDate* part to match your XML - if you have event nodes that look like this:
+
+```xml
+<Events>
+	<Event datetime="2012-06-13T22:02:12+0200">
+		<title>We're building something great</title>
+		<bodyText>...</bodyText>
+	</Event>
+	<Event datetime="2012-07-01T14:20:35+0200">
+		<title>It's almost here</title>
+		<bodyText>...</bodyText>
+	</Event>
+</Events>
+```
+
+\- you should change it to this:
+
+```xml
+<!ENTITY eventDate "@datetime">
+```
+
+On the other hand, if you had some News nodes looking like these:
+
+```xml
+<News>
+	<NewsItem>
+		<categories>breaking,local</categories>
+		<dates>
+			<pubDate>2011-08-19T14:00:00+0200</pubDate>
+			<regDate>2011-08-17T03:27:01+0200</regDate>
+			<offlineDate></offlineDate>
+		</dates>
+		...
+	</NewsItem>
+</News>
+```
+
+\- you should set it to this:
+
+```xml
+<!ENTITY eventDate "dates/pubDate">
+```
+
+In other words: It's just an XPath for selecting the value on the event node, so you should be
+able to tailor it to your needs. Note that the date value itself MUST be a valid XML Date (but any system that outputs dates to an XML file should do that for your, regardless of how you work with it.)
+
+
 
 
 
