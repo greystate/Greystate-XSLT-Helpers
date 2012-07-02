@@ -34,6 +34,10 @@ month:
 </xsl:call-template>
 ```
 
+### Translating the names of the day headers
+
+*TODO*
+
 ### Specifying a class and/or id for the calendar
 
 To help with styling, you can specify a CSS class and/or id which will be attached to the 
