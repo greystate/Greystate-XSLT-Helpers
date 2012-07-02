@@ -5,6 +5,7 @@
 ]>
 <?umbraco-package This is a dummy for the packageVersion entity - see ../lib/freezeEntities.xslt ?>
 <?NavigationHelperVersion ?>
+<!-- You can change this to suit your environment -->
 <?ENTITY subPages "*[@isDoc][not(umbracoNaviHide = 1)]"?>
 <xsl:stylesheet
 	version="1.0"
