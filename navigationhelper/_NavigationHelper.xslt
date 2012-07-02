@@ -5,11 +5,13 @@
 ]>
 <?umbraco-package This is a dummy for the packageVersion entity - see ../lib/freezeEntities.xslt ?>
 <?NavigationHelperVersion ?>
+<?ENTITY subPages "*[@isDoc][not(umbracoNaviHide = 1)]"?>
 <xsl:stylesheet
 	version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:umb="urn:umbraco.library"
-	exclude-result-prefixes="umb"
+	xmlns:freeze="http://xmlns.greystate.dk/2012/freezer"
+	exclude-result-prefixes="umb freeze"
 >
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
@@ -27,7 +29,7 @@
 		<!-- Find the top-level node -->
 		<xsl:variable name="siteRoot" select="ancestor-or-self::&homeNode;" />
 		
-		<xsl:apply-templates select="$siteRoot/&subPages;" mode="navigation.link" />
+		<xsl:apply-templates select="$siteRoot/&subPages;" mode="navigation.link" freeze:keep-entity="subPages" />
 	</xsl:template>
 	
 	<!-- Sub navigation -->
@@ -36,7 +38,7 @@
 		<xsl:variable name="topLevelNode" select="ancestor-or-self::*[@level = $topLevel]" />
 		<xsl:variable name="currentSection" select="($topLevelNode | ancestor-or-self::*[@level = substring-before($levels, '-') - 1])[last()]" />
 
-		<xsl:apply-templates select="$currentSection/&subPages;" mode="navigation.link">
+		<xsl:apply-templates select="$currentSection/&subPages;" mode="navigation.link" freeze:keep-entity="subPages">
 			<xsl:with-param name="endLevel" select="substring-after($levels, '-')" />
 		</xsl:apply-templates>
 	</xsl:template>
@@ -72,9 +74,9 @@
 			</a>
 
 			<!-- Recurse if needed (and there are pages to show) -->
-			<xsl:if test="($recurse or (@level &lt; $endLevel and $hasCurrentPageInBranch)) and &subPages;">
+			<xsl:if test="($recurse or (@level &lt; $endLevel and $hasCurrentPageInBranch)) and &subPages;" freeze:keep-entity="subPages">
 				<ul>
-					<xsl:apply-templates select="&subPages;" mode="navigation.link">
+					<xsl:apply-templates select="&subPages;" mode="navigation.link" freeze:keep-entity="subPages">
 						<xsl:with-param name="recurse" select="$recurse" />
 						<xsl:with-param name="endLevel" select="$endLevel" />
 						<xsl:with-param name="highlight" select="$highlight" />

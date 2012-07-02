@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
+<!DOCTYPE xsl:stylesheet [
+	<!ENTITY subPages "*[@isDoc][not(umbracoNaviHide = 1)]">
+]>
 <?umbraco-package XSLT Helpers v0.7 - NavigationHelper v1.0?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" version="1.0" exclude-result-prefixes="umb">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:freeze="http://xmlns.greystate.dk/2012/freezer" version="1.0" exclude-result-prefixes="umb freeze">
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
 
@@ -17,7 +20,7 @@
 		<!-- Find the top-level node -->
 		<xsl:variable name="siteRoot" select="ancestor-or-self::*[@level = $topLevel - 1]"/>
 		
-		<xsl:apply-templates select="$siteRoot/*[@isDoc][not(umbracoNaviHide = 1)]" mode="navigation.link"/>
+		<xsl:apply-templates mode="navigation.link" select="$siteRoot/&subPages;"/>
 	</xsl:template>
 	
 	<!-- Sub navigation -->
@@ -26,7 +29,7 @@
 		<xsl:variable name="topLevelNode" select="ancestor-or-self::*[@level = $topLevel]"/>
 		<xsl:variable name="currentSection" select="($topLevelNode | ancestor-or-self::*[@level = substring-before($levels, '-') - 1])[last()]"/>
 
-		<xsl:apply-templates select="$currentSection/*[@isDoc][not(umbracoNaviHide = 1)]" mode="navigation.link">
+		<xsl:apply-templates mode="navigation.link" select="$currentSection/&subPages;">
 			<xsl:with-param name="endLevel" select="substring-after($levels, '-')"/>
 		</xsl:apply-templates>
 	</xsl:template>
@@ -62,9 +65,9 @@
 			</a>
 
 			<!-- Recurse if needed (and there are pages to show) -->
-			<xsl:if test="($recurse or (@level &lt; $endLevel and $hasCurrentPageInBranch)) and *[@isDoc][not(umbracoNaviHide = 1)]">
+			<xsl:if test="($recurse or (@level &lt; $endLevel and $hasCurrentPageInBranch)) and &subPages;">
 				<ul>
-					<xsl:apply-templates select="*[@isDoc][not(umbracoNaviHide = 1)]" mode="navigation.link">
+					<xsl:apply-templates mode="navigation.link" select="&subPages;">
 						<xsl:with-param name="recurse" select="$recurse"/>
 						<xsl:with-param name="endLevel" select="$endLevel"/>
 						<xsl:with-param name="highlight" select="$highlight"/>
