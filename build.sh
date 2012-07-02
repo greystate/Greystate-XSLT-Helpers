@@ -38,6 +38,7 @@ sed -i "" "s/\&amp;\(.*\);/\&\1;/" package/_NavigationHelper.xslt
 sed -i "" "s/\&amp;\(.*\);/\&\1;/" package/_CalendarHelper.xslt
 
 cp mediahelpers/cropping-config.xml package/cropping-config.xml
+cp calendarhelper/calendar-config.xml package/calendar-config.xml
 
 # Transform the package.xml file, pulling in the README
 # xsltproc --novalid --xinclude --output package/package.xml lib/freezeEntities.xslt src/package.xml
@@ -52,6 +53,7 @@ cp package/_GroupingHelper.xslt dist/_GroupingHelper.xslt
 cp package/_CalendarHelper.xslt dist/_CalendarHelper.xslt
 cp package/_MediaHelper.xslt dist/_MediaHelper.xslt
 cp package/cropping-config.xml dist/cropping-config.xml
+cp package/calendar-config.xml dist/calendar-config.xml
 
 # Go back to DEVELOPMENT versions again
 sed -i "" "s/$UMBON/$UMBOFF/" mediahelpers/entities.ent
