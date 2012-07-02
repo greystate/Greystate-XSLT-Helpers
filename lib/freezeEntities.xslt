@@ -47,6 +47,11 @@
 	<xsl:template match="comment() | processing-instruction()">
 		<xsl:copy-of select="." />
 	</xsl:template>
+
+	<!-- Comments immediately before an ENTITY processing-instruction -->
+	<xsl:template match="comment()[following-sibling::node()[1][self::processing-instruction('ENTITY')]]">
+		<!-- Remove - it's handled elsewhere -->
+	</xsl:template>
 	
 	<xsl:template match="*[@freeze:remove = 'yes']" priority="1">
 		<!-- Remove from output -->
@@ -134,6 +139,9 @@
 	
 	<!-- Creates the equivalent of an ENTITY declaration in the result tree -->
 	<xsl:template match="processing-instruction('ENTITY')">
+		<xsl:text>&indent;</xsl:text>
+		<!-- Copy the comment immediately before -->
+		<xsl:copy-of select="preceding-sibling::node()[1][self::comment()]" />
 		<xsl:text>&indent;</xsl:text>
 		<xsl:text disable-output-escaping="yes"><![CDATA[<!ENTITY ]]></xsl:text>
 		<xsl:value-of select="." disable-output-escaping="yes" />
