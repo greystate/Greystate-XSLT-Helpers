@@ -4,6 +4,9 @@
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
 	
+	<!-- Grab today's date - we probably need it, this being a calendar and all -->
+	<xsl:variable name="today" select="date:date()"/>
+	
 <!-- :: Configuration :: -->
 	<xsl:variable name="config" select="document('calendar-config.xml')/calendar"/>
 	
@@ -32,8 +35,8 @@
 		- Pass in `class` and/or `id` to add those attributes to the <table>.
 		- Pass `false()` into `caption` to turn the caption off.
 	-->
-	<xsl:template name="buildCalendar">
-		<xsl:param name="date" select="date:date()"/><!-- Default to today -->
+	<xsl:template name="BuildCalendar">
+		<xsl:param name="date" select="$today"/><!-- Default to today -->
 		<xsl:param name="events" select="/.."/><!-- Default to an empty nodeset -->
 		<xsl:param name="caption" select="true()"/>
 		<xsl:param name="firstDayOfWeekIsMonday" select="$firstDayOfWeekIsMonday"/>
@@ -112,17 +115,15 @@
 		<xsl:param name="events"/>
 		<xsl:param name="selectedDate"/>
 		<xsl:variable name="eventsOnThisDay" select="$events[substring(eventStartDateTime, 9, 2) = current()/@id]"/>
+		<xsl:variable name="classes">
+			<xsl:if test="number(@id) = number(substring($today, 9, 2))">today</xsl:if>
+			<xsl:if test="$eventsOnThisDay"> eventDay</xsl:if>			
+			<xsl:if test="number(@id) = number($selectedDate)"> selected</xsl:if>
+		</xsl:variable>
 		<td>
-			<xsl:if test="$eventsOnThisDay"><xsl:attribute name="class">eventDay</xsl:attribute></xsl:if>
-			<xsl:if test="number(@id) = number($selectedDate)">
-				<xsl:attribute name="class">
-					<xsl:text>selected</xsl:text>
-					<xsl:if test="$eventsOnThisDay">
-						<xsl:text> eventDay</xsl:text>
-					</xsl:if>
-				</xsl:attribute>				
+			<xsl:if test="normalize-space($classes)">
+				<xsl:attribute name="class"><xsl:value-of select="normalize-space($classes)"/></xsl:attribute>
 			</xsl:if>
-
 			<!-- Render any events for this day  -->
 			<xsl:if test="$eventsOnThisDay">
 				<xsl:apply-templates select="." mode="events">
