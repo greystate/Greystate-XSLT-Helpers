@@ -3,18 +3,20 @@
 	<!ENTITY % entities SYSTEM "entities.ent">
 	%entities;
 	
-	<!-- You need to set this to the name of the property/attribute on your event nodes that holds the "date" value -->
 	<!ENTITY eventDate "eventStartDateTime">
 ]>
 <?umbraco-package This is a dummy for the packageVersion entity - see ../lib/freezeEntities.xslt ?>
 <?CalendarHelperVersion ?>
+<!-- You need to set this to the name of the property/attribute on your event nodes that holds the "date" value -->
+<?ENTITY eventDate "eventStartDateTime"?>
 <xsl:stylesheet
 	version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:umb="urn:umbraco.library"
+	xmlns:freeze="http://xmlns.greystate.dk/2012/freezer"
 	xmlns:date="&dates-ns-uri;"
 	xmlns:make="&nodeset-ns-uri;"
-	exclude-result-prefixes="umb date make"
+	exclude-result-prefixes="umb date make freeze"
 >
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
@@ -101,7 +103,7 @@
 					<xsl:with-param name="selectedDate" select="$selectedDate" />
 					<xsl:with-param name="last" select="$daysInMonth" />
 					<!-- Only pass on the events of the month we're showing -->
-					<xsl:with-param name="events" select="$events[starts-with(&eventDate;, substring($date, 1, 7))]" />
+					<xsl:with-param name="events" select="$events[starts-with(&eventDate;, substring($date, 1, 7))]" freeze:keep-entity="eventDate" />
 				</xsl:apply-templates>
 			</tbody>
 		</table>
@@ -129,7 +131,7 @@
 	<xsl:template match="day" mode="day">
 		<xsl:param name="events" />
 		<xsl:param name="selectedDate" />
-		<xsl:variable name="eventsOnThisDay" select="$events[substring(&eventDate;, 9, 2) = current()/@id]" />
+		<xsl:variable name="eventsOnThisDay" select="$events[substring(&eventDate;, 9, 2) = current()/@id]" freeze:keep-entity="eventDate" />
 		<xsl:variable name="classes">
 			<xsl:if test="number(@id) = number(substring($today, 9, 2))">today</xsl:if>
 			<xsl:if test="$eventsOnThisDay"> eventDay</xsl:if>			
@@ -156,7 +158,7 @@
 		<xsl:param name="events" />
 		<div class="events_today">
 			<xsl:apply-templates select="$events">
-				<xsl:sort select="&eventDate;" data-type="text" order="ascending" />
+				<xsl:sort select="&eventDate;" data-type="text" order="ascending" freeze:keep-entity="eventDate" />
 			</xsl:apply-templates>					
 		</div>
 	</xsl:template>
