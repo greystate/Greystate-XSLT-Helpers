@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE xsl:stylesheet [
+	<!-- You can change this to suit your environment -->
 	<!ENTITY subPages "*[@isDoc][not(umbracoNaviHide = 1)]">
 ]>
 <?umbraco-package XSLT Helpers v0.7 - NavigationHelper v1.0?>
