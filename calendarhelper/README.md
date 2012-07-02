@@ -34,9 +34,13 @@ month:
 </xsl:call-template>
 ```
 
-### Translating the names of the day headers
+### Localizing the calendar
 
-*TODO*
+Alongside the `_CalendarHelper.xslt` file you'll find a file named `calendar-config.xml`, which
+contains some easy to understand XML for localizing the calendar. You can add your own language
+if you want (*fork, edit, pull request* anyone?), or you can change what you need to get the
+output you want. If, say, you needed a very compact calendar&#8212;you could change all the
+weekday headers to just the first letter.
 
 ### Specifying a class and/or id for the calendar
 
