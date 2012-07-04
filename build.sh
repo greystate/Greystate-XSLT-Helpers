@@ -41,7 +41,7 @@ cp mediahelpers/cropping-config.xml package/cropping-config.xml
 cp calendarhelper/calendar-config.xml package/calendar-config.xml
 
 # Transform the package.xml file, pulling in the README
-# xsltproc --novalid --xinclude --output package/package.xml lib/freezeEntities.xslt src/package.xml
+xsltproc --novalid --xinclude --output package/package.xml lib/freezeEntities.xslt package.xml
 
 # Build the ZIP file 
 zip -j dist/XSLTHelpers package/* -x \*.DS_Store

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE umbPackage [
+	<!ENTITY % version SYSTEM "version.ent">
+
+	%version;
+	
+	<!ENTITY helperPath "/xslt">
+]>
+<umbPackage>
+	<files>
+		<file>
+			<guid>_CalendarHelper.xslt</guid>
+			<orgPath>&helperPath;</orgPath>
+			<orgName>_CalendarHelper.xslt</orgName>
+		</file>
+		<file>
+			<guid>_GroupingHelper.xslt</guid>
+			<orgPath>&helperPath;</orgPath>
+			<orgName>_GroupingHelper.xslt</orgName>
+		</file>
+		<file>
+			<guid>_MediaHelper.xslt</guid>
+			<orgPath>&helperPath;</orgPath>
+			<orgName>_MediaHelper.xslt</orgName>
+		</file>
+		<file>
+			<guid>_NavigationHelper.xslt</guid>
+			<orgPath>&helperPath;</orgPath>
+			<orgName>_NavigationHelper.xslt</orgName>
+		</file>
+		<file>
+			<guid>_PaginationHelper.xslt</guid>
+			<orgPath>&helperPath;</orgPath>
+			<orgName>_PaginationHelper.xslt</orgName>
+		</file>
+	</files>
+	
+	<info>
+		<package>
+			<name>XSLT Helpers</name>
+			<version>&packageVersion;</version>
+			<license url="http://greystate.mit-license.org/">MIT license</license>
+			<url>https://github.com/greystate/Greystate-XSLT-Helpers/</url>
+			<requirements>
+				<major>4</major>
+				<minor>5</minor>
+				<patch>2</patch>
+			</requirements>
+		</package>
+		<author>
+			<name>Chriztian Steinmeier</name>
+			<website>http://greystate.dk/who/</website>
+		</author>
+		<readme><include xmlns="http://www.w3.org/2001/XInclude" href="README.md" parse="text" /></readme>
+	</info>
+	
+	<DocumentTypes />
+	<Templates />
+	<Stylesheets />
+	<Macros />
+	<DictionaryItems />
+	<Languages />
+	<DataTypes />
+</umbPackage>
