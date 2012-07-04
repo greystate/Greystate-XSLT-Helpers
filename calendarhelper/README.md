@@ -7,6 +7,10 @@ month.
 It's fully localizable and you don't have to put up with the "but Sunday *is* the first day of the week"
 from various others :-)
 
+## Credits
+
+This helper was originally written for a specific project, and thus partly paid for by [Udbrud](http://udbrud.nu).
+They agreed to open-source the code so we can all benefit from it - [#h5yr](http://h5yr.com)
 
 ## Usage
 
