@@ -23,13 +23,13 @@ Using these helpers usually just require the same 2 steps:
 
 2.	Perform one of the following actions:
 	
-	1. Applying templates in a specific mode
+	1. Applying templates in a specific mode, e.g.:
 
 		`<xsl:apply-templates select="$currentPage/pageImage" mode="media" />`
 
-	2. Calling a named template
+	2. Calling a named template, e.g.:
 
-		`<xsl:call-template name="PageinateSelection" />`
+		`<xsl:call-template name="PaginateSelection" />`
 
 
 ## Helpers
