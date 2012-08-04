@@ -107,7 +107,7 @@ Good question! - OK, for this to work, you need to tell the helper where you sto
 <!ENTITY eventDate "eventStartDateTime">
 ```
 
-You can change the *newsDate* part to match your XML - if you have event nodes that look like this:
+You can change the *eventStartDateTime* part to match your XML - if you have event nodes that look like this:
 
 ```xml
 <Events>
