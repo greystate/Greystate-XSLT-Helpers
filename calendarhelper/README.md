@@ -104,7 +104,7 @@ for and wrap the output in a `<div class="events_today">`.
 Good question! - OK, for this to work, you need to tell the helper where you store the *date* on your events. At the top of the `_CalendarHelper.xslt` file there's a line that looks like this:
 
 ```xml
-<!ENTITY eventDate "newsDate">
+<!ENTITY eventDate "eventStartDateTime">
 ```
 
 You can change the *newsDate* part to match your XML - if you have event nodes that look like this:
