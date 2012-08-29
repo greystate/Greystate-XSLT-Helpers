@@ -179,7 +179,44 @@ file - *after* the include statement. For example, here's a way to render a `<fi
 	</figure>
 </xsl:template>
 ```
-This gives you the ability to leverage all the error- and parameter-handling of the helper file, but to use your own actual output templates.
+
+This gives you the ability to leverage all the error- and parameter-handling of the helper file, but to use your own actual output templates. Your template will even get the parameters you send in the original mode="media" call, so you just need to have your template "accept" them - let's use that same example, asking for a specific crop:
+
+```xslt
+<xsl:template match="/">
+	<!-- Render my figure element here, using the 'bantha' class: -->
+	<xsl:apply-templates select="$currentPage/pageImage" mode="media">
+		<xsl:with-param name="class" select="'bantha'" />
+	</xsl:apply-templates>
+</xsl:template>
+
+<!-- Include helpers -->
+<xsl:include href="_MediaHelper.xslt" />
+
+<!-- Override Image template -->
+<xsl:template match="Image">
+	<xsl:param name="class" />
+	<figure>
+		<img src="{umbracoFile}" class="{$class}">
+		<figcaption>
+			<xsl:value-of select="Fig.: {caption}" />
+		</figcaption>
+	</figure>
+</xsl:template>
+```
+
+### Reusing the class, id, size and crop logic for your custom 'Image' types
+
+If you have custom Media Types that are essentially copies of the basic Image type (i.e., with the standard properties
+`umbracoFile` and `umbracoWidth` etc.) and you'd like to use the existing logic for getting the crop or overriding width
+and height, you can tell the Media Helper to handle them by modifying the *ENTITY* defined at the top:
+
+```xml
+<!-- Add your custom Image Media Type aliases here -->
+<!ENTITY CustomImageTypes "GalleryImage | CustomImage">
+```
+
+Just add your types to the list, separated with a pipe character.
 
 ### Supporting custom Media Types 
 
