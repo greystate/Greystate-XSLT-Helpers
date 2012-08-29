@@ -1,11 +1,15 @@
 <?xml version="1.0"?>
+<!DOCTYPE xsl:stylesheet [
+	<!-- Add your custom Media Type aliases here -->
+	<!ENTITY CustomMediaTypeNames "GalleryImage | CustomImage">
+]>
 <!--
 	_MediaHelper.xslt
 	
 	Enables simple retrieval of media by handling the GetMedia() call and error-checking
 -->
 <?umbraco-package XSLT Helpers v0.7 - MediaHelper v1.0?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:get="urn:Exslt.ExsltMath" xmlns:make="urn:schemas-microsoft-com:xslt" xmlns:cropup="urn:Eksponent.CropUp" version="1.0" exclude-result-prefixes="umb get make cropup">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:freeze="http://xmlns.greystate.dk/2012/freezer" xmlns:get="urn:Exslt.ExsltMath" xmlns:make="urn:schemas-microsoft-com:xslt" xmlns:cropup="urn:Eksponent.CropUp" version="1.0" exclude-result-prefixes="umb get make cropup freeze">
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
 
@@ -111,7 +115,7 @@
 	</xsl:template>
 	
 	<!-- Template for a Media Image -->
-	<xsl:template match="Image">
+	<xsl:template match="Image" name="GenericImage">
 		<xsl:param name="class"/>
 		<xsl:param name="crop"/>
 		<xsl:param name="id"/>
@@ -215,6 +219,21 @@
 		<!-- Call the extension -->
 		<xsl:value-of select="cropup:UrlByMediaId(@id, $cropUpArgs)"/>
 		
+	</xsl:template>
+	
+	<!-- Template for easier support of custom Media Types -->
+	<xsl:template match="&CustomMediaTypeNames;">
+		<xsl:param name="class"/>
+		<xsl:param name="crop"/>
+		<xsl:param name="id"/>
+		<xsl:param name="size"/>
+
+		<xsl:call-template name="GenericImage">
+			<xsl:with-param name="class" select="$class"/>
+			<xsl:with-param name="crop" select="$crop"/>
+			<xsl:with-param name="id" select="$id"/>
+			<xsl:with-param name="size" select="$size"/>
+		</xsl:call-template>
 	</xsl:template>
 	
 </xsl:stylesheet>
