@@ -10,7 +10,7 @@ really identical to the previous one I wrote.
 
 `_NavigationHelper.xslt` was extracted from various navigations I've built (the reusable parts, anyway) and intended to use as an include for your own.
 
-## Usage
+## Basic Usage
 
 The Navigation Helper makes it very easy to create four of the most common navigation types: **Main Navigation**, **Sub Navigation**, **Breadcrumb** & **Sitemap** - you simply apply templates to `$currentPage` in the desired mode, e.g.:
 
@@ -58,6 +58,19 @@ By default, the **main** and **sub** modes will add the "selected" class to node
 		</xsl:apply-templates>
 	</ul>
 </xsl:template>
+```
+
+### Specifying levels to output
+
+By default, the **sub** mode renders the children of the selected node in the main navigation, but it lets you specify a *start-* and *endlevel* for those times where you need something a little different, e.g.:    
+
+```xslt
+<ul id="subnav">
+	<xsl:apply-templates select="$currentPage" mode="navigation.sub">
+		<!-- Confine subnav to levels 3 and 4 -->
+		<xsl:with-param name="levels" select="'3-4'" />
+	</xsl:apply-templates>
+</ul>
 ```
 
 ### CSS class for selected nodes
