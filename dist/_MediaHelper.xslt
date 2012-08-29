@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xsl:stylesheet [
-	<!-- Add your custom Media Type aliases here -->
-	<!ENTITY CustomMediaTypeNames "GalleryImage | CustomImage">
+	<!-- Add your custom Image Media Type aliases here -->
+	<!ENTITY CustomImageTypes "GalleryImage | CustomImage">
 ]>
 <!--
 	_MediaHelper.xslt
@@ -222,7 +222,7 @@
 	</xsl:template>
 	
 	<!-- Template for easier support of custom Media Types -->
-	<xsl:template match="&CustomMediaTypeNames;">
+	<xsl:template match="&CustomImageTypes;">
 		<xsl:param name="class"/>
 		<xsl:param name="crop"/>
 		<xsl:param name="id"/>
