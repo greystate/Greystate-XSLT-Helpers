@@ -4,7 +4,7 @@
 <![ %use.in.umbraco; [
 	<!ENTITY linkURL "umb:NiceUrl(@id)">
 	<!ENTITY linkName "@nodeName">
-	<!ENTITY subPages "*[@isDoc][not(umbracoNaviHide = 1)]">
+	<!ENTITY subPages "*[@isDoc][not(@template = 0) and not(umbracoNaviHide = 1)]">
 ]]>
 
 <![ %use.in.textmate; [

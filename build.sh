@@ -36,7 +36,9 @@ xsltproc --novalid --output package/_MediaHelper.xslt lib/freezeEntities.xslt me
 # Fix transformed entity references in attributes
 sed -i "" "s/\&amp;\(.*\);/\&\1;/" package/_NavigationHelper.xslt
 sed -i "" "s/\&amp;\(.*\);/\&\1;/" package/_CalendarHelper.xslt
+sed -i "" "s/\&amp;\(.*\);/\&\1;/" package/_MediaHelper.xslt
 
+# Copy configs
 cp mediahelpers/cropping-config.xml package/cropping-config.xml
 cp calendarhelper/calendar-config.xml package/calendar-config.xml
 

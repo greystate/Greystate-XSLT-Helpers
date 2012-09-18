@@ -78,6 +78,25 @@
 		
 	</x:scenario>
 	
+	<x:scenario label="when processing a custom Media Type element in mode=&quot;media&quot;">
+		<x:context mode="media">
+			<pageImage>3200</pageImage>
+		</x:context>
+		<x:expect label="it should produce an img element with the correct attributes">
+			<img src="/media/3468/test2234.png" width="1440" height="900" alt="My first Banner" />
+		</x:expect>
+
+		<x:scenario label="and a class parameter">
+			<x:context mode="media">
+				<x:param name="class" select="'className'" />
+			</x:context>
+		
+			<x:expect label="it should add the class attribute">
+				<img class="className" src="..." width="..." height="..." alt="..." />
+			</x:expect>
+		</x:scenario>
+	</x:scenario>
+	
 	<x:scenario label="when processing an element in mode=&quot;media.url&quot;">
 		
 		<x:scenario label="with no content">
