@@ -22,6 +22,11 @@
 			<ul id="breadcrumb">
 			</ul>
 		</x:expect>
+		
+		<x:expect label="an empty subnav" test="//ul[@id = 'subnav']">
+			<ul id="subnav">
+			</ul>
+		</x:expect>
 
 		<x:expect label="and a sitemap with no &quot;selected&quot; classes" test="//ul[@id = 'sitemap']">
 			<ul id="sitemap">
