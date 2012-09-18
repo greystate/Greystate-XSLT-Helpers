@@ -39,9 +39,12 @@
 		<xsl:variable name="topLevelNode" select="ancestor-or-self::*[@level = $topLevel]" />
 		<xsl:variable name="currentSection" select="($topLevelNode | ancestor-or-self::*[@level = substring-before($levels, '-') - 1])[last()]" />
 
-		<xsl:apply-templates select="$currentSection/&subPages;" mode="navigation.link" freeze:keep-entity="subPages">
-			<xsl:with-param name="endLevel" select="substring-after($levels, '-')" />
-		</xsl:apply-templates>
+		<!-- No output on the home node -->
+		<xsl:if test="not(generate-id($currentSection) = generate-id(ancestor-or-self::&homeNode;))">
+			<xsl:apply-templates select="$currentSection/&subPages;" mode="navigation.link" freeze:keep-entity="subPages">
+				<xsl:with-param name="endLevel" select="substring-after($levels, '-')" />
+			</xsl:apply-templates>
+		</xsl:if>
 	</xsl:template>
 	
 	<!-- Breadcrumb -->
