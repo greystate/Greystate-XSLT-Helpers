@@ -4,6 +4,7 @@
 	%version;
 	
 	<!ENTITY helperPath "/xslt">
+	<!ENTITY templatePath "/umbraco/xslt/templates/Schema2">
 ]>
 <umbPackage>
 	<files>
@@ -31,6 +32,11 @@
 			<guid>_PaginationHelper.xslt</guid>
 			<orgPath>&helperPath;</orgPath>
 			<orgName>_PaginationHelper.xslt</orgName>
+		</file>
+		<file>
+			<guid>UsePagination.xslt</guid>
+			<orgPath>&templatePath;</orgPath>
+			<orgName>UsePagination.xslt</orgName>
 		</file>
 	</files>
 	
