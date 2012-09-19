@@ -42,6 +42,9 @@ sed -i "" "s/\&amp;\(.*\);/\&\1;/" package/_MediaHelper.xslt
 cp mediahelpers/cropping-config.xml package/cropping-config.xml
 cp calendarhelper/calendar-config.xml package/calendar-config.xml
 
+# Copy default templates
+cp templates/Use*.xslt package/
+
 # Transform the package.xml file, pulling in the README
 xsltproc --novalid --xinclude --output package/package.xml lib/freezeEntities.xslt package.xml
 
