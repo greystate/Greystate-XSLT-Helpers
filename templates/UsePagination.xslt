@@ -2,7 +2,6 @@
 <!--
 	Sample use of the _PaginationHelper.xslt
 	Paginates the visible children of $currentPage.
-	No. of items per page is configurable in the helper file.
 -->
 <xsl:stylesheet
 	version="1.0" 
