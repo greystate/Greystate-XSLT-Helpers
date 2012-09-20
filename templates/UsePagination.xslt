@@ -21,6 +21,7 @@
 	<xsl:template match="/">
 		<xsl:call-template name="PaginateSelection">
 			<xsl:with-param name="selection" select="$currentPage/*[@isDoc][not(umbracoNaviHide = 1)]" />
+			<xsl:with-param name="perPage" select="3" />
 			<xsl:with-param name="showPager" select="true()" />
 		</xsl:call-template>
 	</xsl:template>
