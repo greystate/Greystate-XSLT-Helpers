@@ -25,7 +25,7 @@
 
 	<!-- Config constants -->
 	<xsl:variable name="pagerParam" select="'&pagerParam;'" /><!-- Name of QueryString parameter for 'page' -->
-	<xsl:variable name="perPage" select="&perPage;" /><!-- Number of items on a page -->
+	<xsl:variable name="perPage" select="&perPage;" /><!-- Default number of items on a page -->
 	<xsl:variable name="prevPage" select="'&prevPage;'" />
 	<xsl:variable name="nextPage" select="'&nextPage;'" />
 	
@@ -67,6 +67,9 @@
 		
 		<!-- This is to allow forcing a specific page without using QueryString  -->
 		<xsl:param name="page" select="$page" />
+		
+		<!-- This is the number of results you want per page -->
+		<xsl:param name="perPage" select="$perPage" />
 
 		<!-- Also, allow forcing specific options -->
 		<xsl:param name="options" select="$options" />
@@ -85,6 +88,7 @@
 			<xsl:call-template name="RenderPager">
 				<xsl:with-param name="selection" select="$selection" />
 				<xsl:with-param name="page" select="$page" />
+				<xsl:with-param name="perPage" select="$perPage" />
 			</xsl:call-template>
 		</xsl:if>
 	</xsl:template>
@@ -92,6 +96,7 @@
 	<xsl:template name="RenderPager">
 		<xsl:param name="selection" select="*" />
 		<xsl:param name="page" select="$page" />
+		<xsl:param name="perPage" select="$perPage" />
 		
 		<xsl:variable name="total" select="count($selection)" />
 		<xsl:variable name="lastPageNum" select="ceiling($total div $perPage)" />
