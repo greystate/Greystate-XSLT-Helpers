@@ -2,7 +2,7 @@
 <!--
 	Sample use of the _GroupingHelper.xslt
 	Will render clickable thumbnails of all images in a folder selected
-	by a Media Picker, as listitems in groups of 4 wrapped in a <ul class="slide">.
+	by a Media Picker, as list items in groups of 4 wrapped in a <ul class="slide">.
 -->
 <xsl:stylesheet
 	version="1.0" 

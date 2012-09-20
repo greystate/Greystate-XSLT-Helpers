@@ -38,6 +38,11 @@
 			<orgPath>&templatePath;</orgPath>
 			<orgName>UsePagination.xslt</orgName>
 		</file>
+		<file>
+			<guid>UseGrouping.xslt</guid>
+			<orgPath>&templatePath;</orgPath>
+			<orgName>UseGrouping.xslt</orgName>
+		</file>
 	</files>
 	
 	<info>
