@@ -10,4 +10,4 @@ A simple starter template for using the **Pagination Helper.** Easy to modify ex
 
 ## Use Grouping Helper
 
-Starts you off with a way to use the Grouping Helper to output media in chunks of 4.
+Starts you off with a way to use the **Grouping Helper** to output media in chunks of 4. Creates thumbnails that link to the original image.
