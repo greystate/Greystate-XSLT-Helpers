@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<?umbraco-package XSLT Helpers v0.8 - PaginationHelper v1.0?>
+<?umbraco-package XSLT Helpers v0.8.1 - PaginationHelper v1.1?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:str="urn:Exslt.ExsltStrings" xmlns:make="urn:schemas-microsoft-com:xslt" version="1.0" exclude-result-prefixes="umb str make">
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
 
 	<!-- Config constants -->
 	<xsl:variable name="pagerParam" select="'p'"/><!-- Name of QueryString parameter for 'page' -->
-	<xsl:variable name="perPage" select="10"/><!-- Number of items on a page -->
+	<xsl:variable name="perPage" select="10"/><!-- Default number of items on a page -->
 	<xsl:variable name="prevPage" select="'&#x2039; Previous'"/>
 	<xsl:variable name="nextPage" select="'Next &#x203A;'"/>
 	
@@ -48,6 +48,9 @@
 		
 		<!-- This is to allow forcing a specific page without using QueryString  -->
 		<xsl:param name="page" select="$page"/>
+		
+		<!-- This is the number of results you want per page -->
+		<xsl:param name="perPage" select="$perPage"/>
 
 		<!-- Also, allow forcing specific options -->
 		<xsl:param name="options" select="$options"/>
@@ -66,6 +69,7 @@
 			<xsl:call-template name="RenderPager">
 				<xsl:with-param name="selection" select="$selection"/>
 				<xsl:with-param name="page" select="$page"/>
+				<xsl:with-param name="perPage" select="$perPage"/>
 			</xsl:call-template>
 		</xsl:if>
 	</xsl:template>
@@ -73,6 +77,7 @@
 	<xsl:template name="RenderPager">
 		<xsl:param name="selection" select="*"/>
 		<xsl:param name="page" select="$page"/>
+		<xsl:param name="perPage" select="$perPage"/>
 		
 		<xsl:variable name="total" select="count($selection)"/>
 		<xsl:variable name="lastPageNum" select="ceiling($total div $perPage)"/>

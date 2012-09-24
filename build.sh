@@ -14,17 +14,8 @@ UMBON="umbraco \"INCLUDE\""
 TMOFF="textmate \"IGNORE\""
 TMON="textmate \"INCLUDE\""
 
-sed -i "" "s/$UMBOFF/$UMBON/" mediahelpers/entities.ent
-sed -i "" "s/$UMBOFF/$UMBON/" paginationhelper/entities.ent
-sed -i "" "s/$UMBOFF/$UMBON/" groupinghelper/entities.ent
-sed -i "" "s/$UMBOFF/$UMBON/" navigationhelper/entities.ent
-sed -i "" "s/$UMBOFF/$UMBON/" calendarhelper/entities.ent
-
-sed -i "" "s/$TMON/$TMOFF/" mediahelpers/entities.ent
-sed -i "" "s/$TMON/$TMOFF/" paginationhelper/entities.ent
-sed -i "" "s/$TMON/$TMOFF/" groupinghelper/entities.ent
-sed -i "" "s/$TMON/$TMOFF/" navigationhelper/entities.ent
-sed -i "" "s/$TMON/$TMOFF/" calendarhelper/entities.ent
+sed -i "" "s/$UMBOFF/$UMBON/" */entities.ent
+sed -i "" "s/$TMON/$TMOFF/" */entities.ent
 
 # Transform the development XSLT into the release files
 xsltproc --novalid --output package/_PaginationHelper.xslt lib/freezeEntities.xslt paginationhelper/_PaginationHelper.xslt
@@ -42,6 +33,9 @@ sed -i "" "s/\&amp;\(.*\);/\&\1;/" package/_MediaHelper.xslt
 cp mediahelpers/cropping-config.xml package/cropping-config.xml
 cp calendarhelper/calendar-config.xml package/calendar-config.xml
 
+# Copy default templates
+cp templates/Use*.xslt package/
+
 # Transform the package.xml file, pulling in the README
 xsltproc --novalid --xinclude --output package/package.xml lib/freezeEntities.xslt package.xml
 
@@ -58,14 +52,5 @@ cp package/cropping-config.xml dist/cropping-config.xml
 cp package/calendar-config.xml dist/calendar-config.xml
 
 # Go back to DEVELOPMENT versions again
-sed -i "" "s/$UMBON/$UMBOFF/" mediahelpers/entities.ent
-sed -i "" "s/$UMBON/$UMBOFF/" paginationhelper/entities.ent
-sed -i "" "s/$UMBON/$UMBOFF/" groupinghelper/entities.ent
-sed -i "" "s/$UMBON/$UMBOFF/" navigationhelper/entities.ent
-sed -i "" "s/$UMBON/$UMBOFF/" calendarhelper/entities.ent
-
-sed -i "" "s/$TMOFF/$TMON/" mediahelpers/entities.ent
-sed -i "" "s/$TMOFF/$TMON/" paginationhelper/entities.ent
-sed -i "" "s/$TMOFF/$TMON/" groupinghelper/entities.ent
-sed -i "" "s/$TMOFF/$TMON/" navigationhelper/entities.ent
-sed -i "" "s/$TMOFF/$TMON/" calendarhelper/entities.ent
+sed -i "" "s/$UMBON/$UMBOFF/" */entities.ent
+sed -i "" "s/$TMOFF/$TMON/" */entities.ent
