@@ -240,6 +240,6 @@
 		
 	</x:scenario>
 
-	<!-- <x:import href="TestDAMP.xspec" /> -->
+	<x:import href="TestDAMP.xspec" />
 	
 </x:description>

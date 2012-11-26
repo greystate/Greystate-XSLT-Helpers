@@ -68,11 +68,13 @@
 		<xsl:param name="crop" />
 		<xsl:param name="id" />
 		<xsl:param name="size" />
+		<xsl:param name="retinafy" />
 		<xsl:apply-templates select="DAMP/mediaItem/*[@id]">
 			<xsl:with-param name="class" select="$class" />
 			<xsl:with-param name="crop" select="$crop" />
 			<xsl:with-param name="id" select="$id" />
 			<xsl:with-param name="size" select="$size" />
+			<xsl:with-param name="retinafy" select="$retinafy" />
 		</xsl:apply-templates>
 	</xsl:template>
 	
@@ -96,11 +98,13 @@
 		<xsl:param name="class" />
 		<xsl:param name="crop" />
 		<xsl:param name="size" />
+		<xsl:param name="retinafy" />
 		<xsl:variable name="mediaFolder" select="&GetDAMPMediaFolder;" />
 		<xsl:apply-templates select="$mediaFolder[not(error)]">
 			<xsl:with-param name="class" select="$class" />
 			<xsl:with-param name="crop" select="$crop" />
 			<xsl:with-param name="size" select="$size" />
+			<xsl:with-param name="retinafy" select="$retinafy" />
 		</xsl:apply-templates>
 	</xsl:template>
 	
