@@ -105,7 +105,7 @@
 					</x:context>
 					
 					<x:expect label="it should use the fallback URL, but halve the dimensions from the config">
-						<img src="/media/896/homeworld.jpg" width="160" height="240" alt="HomeWorld" />
+						<img src="/media/896/homeworld.png" width="160" height="240" alt="HomeWorld" />
 					</x:expect>
 				</x:scenario>
 				
