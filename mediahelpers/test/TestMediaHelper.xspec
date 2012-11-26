@@ -64,6 +64,18 @@
 			<x:expect label="it should use the crop with that name">
 				<img src="/test2230_Large.png" width="800" height="600" alt="My first Banner" />
 			</x:expect>
+
+			<x:scenario label="and the retinafy parameter">
+				<x:context mode="media">
+					<x:param name="retinafy" select="true()" />
+					<pageImage>2230</pageImage>
+				</x:context>
+				<x:expect label="it should use the named crop with it's dimensions halved">
+					<img src="/test2230_Large.png" width="400" height="300" alt="My first Banner" />
+				</x:expect>
+
+			</x:scenario>
+			
 		</x:scenario>
 		
 		<x:scenario label="with a crop name that has not been created">
@@ -105,6 +117,17 @@
 				<img class="className" src="..." width="..." height="..." alt="..." />
 			</x:expect>
 		</x:scenario>
+
+		<x:scenario label="with the retinafy parameter">
+			<x:context mode="media">
+				<x:param name="retinafy" select="true()" />
+			</x:context>
+		
+			<x:expect label="it should halve the width &amp; height">
+				<img src="..." width="720" height="450" alt="..." />
+			</x:expect>
+		</x:scenario>
+		
 	</x:scenario>
 	
 	<x:scenario label="when processing an element in mode=&quot;media.url&quot;">
@@ -161,6 +184,19 @@
 				<img src="..." width="..." height="..." alt="..." />
 				<img src="..." width="..." height="..." alt="..." />
 			</x:expect>
+			
+			<x:scenario label="using the retinafy parameter">
+				<x:context>
+					<x:param name="retinafy" select="true()" />
+				</x:context>
+				<x:expect label="it should render each Image in the folder with half dimensions">
+					<img src="..." width="800" height="400" alt="..." />
+					<img src="..." width="384" height="288" alt="..." />
+					<img src="..." width="160" height="90" alt="..." />
+					<img src="..." width="720" height="450" alt="..." />
+				</x:expect>
+			</x:scenario>
+			
 		</x:scenario>
 		
 		<x:scenario label="with a class parameter">
@@ -204,6 +240,6 @@
 		
 	</x:scenario>
 
-	<x:import href="TestDAMP.xspec" />
+	<!-- <x:import href="TestDAMP.xspec" /> -->
 	
 </x:description>

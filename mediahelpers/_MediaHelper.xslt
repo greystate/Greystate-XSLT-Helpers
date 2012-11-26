@@ -81,11 +81,13 @@
 		<xsl:param name="class" />
 		<xsl:param name="crop" />
 		<xsl:param name="size" />
+		<xsl:param name="retinafy" />
 		<xsl:variable name="mediaFolder" select="&GetMediaFolder;" />
 		<xsl:apply-templates select="$mediaFolder[not(error)]">
 			<xsl:with-param name="class" select="$class" />
 			<xsl:with-param name="crop" select="$crop" />
 			<xsl:with-param name="size" select="$size" />
+			<xsl:with-param name="retinafy" select="$retinafy" />
 		</xsl:apply-templates>
 	</xsl:template>
 	
@@ -123,10 +125,12 @@
 		<xsl:param name="class" />
 		<xsl:param name="crop" />
 		<xsl:param name="size" />
+		<xsl:param name="retinafy" />
 		<xsl:apply-templates select="*[@id]">
 			<xsl:with-param name="class" select="$class" />
 			<xsl:with-param name="crop" select="$crop" />
 			<xsl:with-param name="size" select="$size" />
+			<xsl:with-param name="retinafy" select="$retinafy" />
 		</xsl:apply-templates>
 	</xsl:template>
 	
@@ -162,9 +166,17 @@
 				</xsl:if>
 
 				<!-- Output the sizes (or clear them if none found) -->
-				<xsl:attribute name="width"><xsl:value-of select="substring-before($cropSize, 'x')" /></xsl:attribute>
-				<xsl:attribute name="height"><xsl:value-of select="substring-after($cropSize, 'x')" /></xsl:attribute>
+				<xsl:variable name="wValue" select="substring-before($cropSize, 'x')" />
+				<xsl:variable name="hValue" select="substring-after($cropSize, 'x')" />
+
+				<xsl:attribute name="width"><xsl:value-of select="$wValue" /></xsl:attribute>
+				<xsl:attribute name="height"><xsl:value-of select="$hValue" /></xsl:attribute>
 				
+				<!-- Cut them in half if 'retinafy' was specified  -->
+				<xsl:if test="$retinafy and $wValue and $hValue">
+					<xsl:attribute name="width"><xsl:value-of select="floor($wValue div 2)" /></xsl:attribute>
+					<xsl:attribute name="height"><xsl:value-of select="floor($hValue div 2)" /></xsl:attribute>
+				</xsl:if>
 			</xsl:if>
 			<!-- $size can override original + cropped sizes -->
 			<xsl:if test="$size">
@@ -249,12 +261,14 @@
 		<xsl:param name="crop"/>
 		<xsl:param name="id"/>
 		<xsl:param name="size"/>
+		<xsl:param name="retinafy" />
 
 		<xsl:call-template name="GenericImage">
 			<xsl:with-param name="class" select="$class"/>
 			<xsl:with-param name="crop" select="$crop"/>
 			<xsl:with-param name="id" select="$id" />
 			<xsl:with-param name="size" select="$size"/>
+			<xsl:with-param name="retinafy" select="$retinafy"/>
 		</xsl:call-template>
 	</xsl:template>
 	
