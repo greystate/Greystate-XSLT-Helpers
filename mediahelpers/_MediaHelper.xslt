@@ -3,7 +3,7 @@
 	<!ENTITY % entities SYSTEM "entities.ent">
 	%entities;
 	
-	<!ENTITY CustomImageTypes "GalleryImage | CustomImage">
+	<!ENTITY CustomImageTypes "*[@id and @nodeTypeAlias]">
 ]>
 <!--
 	_MediaHelper.xslt
@@ -13,7 +13,7 @@
 <?umbraco-package This is a dummy for the packageVersion entity - see ../lib/freezeEntities.xslt ?>
 <?MediaHelperVersion ?>
 <!-- Add your custom Image Media Type aliases here -->
-<?ENTITY CustomImageTypes "GalleryImage | CustomImage"?>
+<?ENTITY CustomImageTypes "*[@id and @nodeTypeAlias]"?>
 <xsl:stylesheet
 	version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -256,7 +256,7 @@
 	</xsl:template>
 	
 	<!-- Template for easier support of custom Media Types -->
-	<xsl:template match="&CustomImageTypes;" freeze:keep-entity="CustomImageTypes">
+	<xsl:template match="&CustomImageTypes;" priority="-1" freeze:keep-entity="CustomImageTypes">
 		<xsl:param name="class"/>
 		<xsl:param name="crop"/>
 		<xsl:param name="id"/>

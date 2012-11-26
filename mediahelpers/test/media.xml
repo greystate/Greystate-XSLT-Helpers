@@ -48,7 +48,7 @@
 		</Image>
 	</Folder>
 	<Folder id="3100" parentID="-1" level="1" writerID="0" creatorID="0" nodeType="1066" template="1051" sortOrder="3" createDate="2009-02-26T18:39:39" updateDate="2009-11-11T23:58:49" nodeName="Custom Images" urlName="custom-images" writerName="Administrator" creatorName="Administrator" path="-1,3100">
-		<CustomImage id="3200" parentID="3100" level="2" writerID="0" creatorID="0" nodeType="1066" template="1051" sortOrder="2" createDate="2009-02-26T18:39:39" updateDate="2009-11-11T23:58:49" nodeName="My first Banner" urlName="my" writerName="Administrator" creatorName="Administrator" path="2030,2040">
+		<CustomImage id="3200" parentID="3100" level="2" nodeTypeAlias="CustomImage" writerID="0" creatorID="0" nodeType="1066" template="1051" sortOrder="2" createDate="2009-02-26T18:39:39" updateDate="2009-11-11T23:58:49" nodeName="My first Banner" urlName="my" writerName="Administrator" creatorName="Administrator" path="2030,2040">
 			<umbracoFile>/media/3468/test2234.png</umbracoFile>
 			<umbracoWidth>1440</umbracoWidth>
 			<umbracoHeight>900</umbracoHeight>
