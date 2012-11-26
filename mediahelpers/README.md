@@ -154,7 +154,6 @@ You can tell the helper to use CropUp when a crop is requested by editing the `u
 
 Once you've enabled CropUp support, the `crop` parameter functions as the `args` you can send to CropUp, so if you send a crop name (or its alias) you will get the predefined crop size from the config file, but you can also send a custom crop format, like `600x-` to get an image cropped to 600 pixels wide, keeping the aspect ratio. You can check out the various options on the [CropUp project page.][CROPUP]
 
-
 ### Overriding the templates for Media Types
 
 If you need to further change the HTML that gets rendered for e.g. an Image, you can do so by overriding the `Image` template in your own XSLT
@@ -180,7 +179,7 @@ file - *after* the include statement. For example, here's a way to render a `<fi
 </xsl:template>
 ```
 
-This gives you the ability to leverage all the error- and parameter-handling of the helper file, but to use your own actual output templates. Your template will even get the parameters you send in the original mode="media" call, so you just need to have your template "accept" them - let's use that same example, specifying a CSS class:
+This gives you the ability to leverage all the error- and parameter-handling of the helper file, but to use your own actual output templates. Your template will even get the parameters you send in the original mode="media" call, so you just need to have your template "accept" them - let's use that same example, specifying a CSS class too:
 
 ```xslt
 <xsl:template match="/">
@@ -204,19 +203,6 @@ This gives you the ability to leverage all the error- and parameter-handling of 
 	</figure>
 </xsl:template>
 ```
-
-### Reusing the class, id, size and crop logic for your custom 'Image' types
-
-If you have custom Media Types that are essentially copies of the basic Image type (i.e., with the standard properties
-`umbracoFile` and `umbracoWidth` etc.) and you'd like to use the existing logic for getting the crop or overriding width
-and height, you can tell the Media Helper to handle them by modifying the *ENTITY* defined at the top:
-
-```xml
-<!-- Add your custom Image Media Type aliases here -->
-<!ENTITY CustomImageTypes "GalleryImage | CustomImage">
-```
-
-Just add your types to the list, separated with a pipe character.
 
 ### Supporting custom Media Types 
 
