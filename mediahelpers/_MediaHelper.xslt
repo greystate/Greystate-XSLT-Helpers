@@ -51,12 +51,14 @@
 		<xsl:param name="crop" />
 		<xsl:param name="id" />
 		<xsl:param name="size" />
+		<xsl:param name="retinafy" />
 		<xsl:variable name="mediaNode" select="&GetMediaFile;" />
 		<xsl:apply-templates select="$mediaNode[not(error)]">
 			<xsl:with-param name="class" select="$class" />
 			<xsl:with-param name="crop" select="$crop" />
 			<xsl:with-param name="id" select="$id" />
 			<xsl:with-param name="size" select="$size" />
+			<xsl:with-param name="retinafy" select="$retinafy" />
 		</xsl:apply-templates>
 	</xsl:template>
 	
@@ -134,7 +136,13 @@
 		<xsl:param name="crop" />
 		<xsl:param name="id" />
 		<xsl:param name="size" />
+		<xsl:param name="retinafy" />
 		<img src="{umbracoFile}" width="{umbracoWidth}" height="{umbracoHeight}" alt="{@nodeName}">
+			<!-- In retina mode use half dimensions -->
+			<xsl:if test="$retinafy">
+				<xsl:attribute name="width"><xsl:value-of select="floor(umbracoWidth div 2)" /></xsl:attribute>
+				<xsl:attribute name="height"><xsl:value-of select="floor(umbracoHeight div 2)" /></xsl:attribute>
+			</xsl:if>
 			<xsl:if test="$crop">
 				<xsl:variable name="cropConfig" select="($croppingSetup[@name = $crop] | $cropUpSetup[@name = $crop] | $cropUpSetup[@alias = $crop])[1]" />
 				<xsl:variable name="cropSize" select="concat($cropConfig/@size, $cropConfig/@width, $strings/x[$cropConfig/@width], $cropConfig/@height)" />

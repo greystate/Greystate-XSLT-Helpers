@@ -45,6 +45,16 @@
 				<img src="..." width="1234" height="567" alt="..." />
 			</x:expect>
 		</x:scenario>
+		
+		<x:scenario label="with the retinafy parameter">
+			<x:context mode="media">
+				<x:param name="retinafy" select="true()" />
+				<pageImage>2230</pageImage>
+			</x:context>
+			<x:expect label="it should output the dimensions to half of the image's own">
+				<img src="..." width="800" height="400" alt="..." />
+			</x:expect>
+		</x:scenario>
 
 		<x:scenario label="with a crop parameter">
 			<x:context mode="media">
