@@ -180,7 +180,7 @@ file - *after* the include statement. For example, here's a way to render a `<fi
 </xsl:template>
 ```
 
-This gives you the ability to leverage all the error- and parameter-handling of the helper file, but to use your own actual output templates. Your template will even get the parameters you send in the original mode="media" call, so you just need to have your template "accept" them - let's use that same example, asking for a specific crop:
+This gives you the ability to leverage all the error- and parameter-handling of the helper file, but to use your own actual output templates. Your template will even get the parameters you send in the original mode="media" call, so you just need to have your template "accept" them - let's use that same example, specifying a CSS class:
 
 ```xslt
 <xsl:template match="/">
