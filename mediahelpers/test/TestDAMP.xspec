@@ -61,6 +61,15 @@
 				</x:expect>
 			</x:scenario>
 			
+			<x:scenario label="with the retinafy parameter">
+				<x:context>
+					<x:param name="retinafy" select="true()" />
+				</x:context>
+				<x:expect label="it should halve the dimensions of the image">
+					<img src="..." width="512" height="512" alt="..." />
+				</x:expect>
+			</x:scenario>
+			
 			<x:scenario label="with a crop parameter">
 				<x:context mode="media">
 					<x:param name="crop" select="'Large'" />
@@ -69,6 +78,16 @@
 				<x:expect label="it should use the crop with that name">
 					<img src="/media/896/homeworld_Large.jpg" width="800" height="600" alt="HomeWorld" />
 				</x:expect>
+				
+				<x:scenario label="and the retinafy parameter">
+					<x:context>
+						<x:param name="retinafy" select="true()" />
+					</x:context>
+					
+					<x:expect label="it should cut the dimensions of the crop in half">
+						<img src="/media/896/homeworld_Large.jpg" width="400" height="300" alt="HomeWorld" />
+					</x:expect>
+				</x:scenario>
 			</x:scenario>
 		
 			<x:scenario label="with a crop name that has not been created">
@@ -79,6 +98,17 @@
 				<x:expect label="it should fallback to the original image URL but use the width &amp; height from the config file">
 					<img src="/media/896/homeworld.png" width="320" height="480" alt="HomeWorld" />
 				</x:expect>
+				
+				<x:scenario label="using the retinafy parameter">
+					<x:context>
+						<x:param name="retinafy" select="true()" />
+					</x:context>
+					
+					<x:expect label="it should use the fallback URL, but halve the dimensions from the config">
+						<img src="/media/896/homeworld.jpg" width="160" height="240" alt="HomeWorld" />
+					</x:expect>
+				</x:scenario>
+				
 			</x:scenario>
 				
 			<x:scenario label="with a crop name that exists but no config available">
@@ -213,7 +243,7 @@
 			
 				<x:scenario label="and a size parameter">
 					<x:context>
-						<x:param name="size" select="'256x128'" />					
+						<x:param name="size" select="'256x128'" />
 					</x:context>
 					<x:expect label="it should override the width and height attributes on all images in the folder">
 						<img class="master" src="..." width="256" height="128" alt="..." />
@@ -222,6 +252,19 @@
 						<img class="master" src="..." width="256" height="128" alt="..." />
 					</x:expect>
 				</x:scenario>
+				
+				<x:scenario label="and the retinafy parameter">
+					<x:context>
+						<x:param name="retinafy" select="true()" />
+					</x:context>
+					<x:expect label="it should halve the width and height attributes on all images in the folder">
+						<img class="master" src="..." width="800" height="400" alt="..." />
+						<img class="master" src="..." width="384" height="288" alt="..." />
+						<img class="master" src="..." width="160" height="90"  alt="..." />
+						<img class="master" src="..." width="720" height="450" alt="..." />
+					</x:expect>
+				</x:scenario>
+
 			</x:scenario>
 			
 			<x:scenario label="with a crop parameter">
