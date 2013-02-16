@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <!DOCTYPE xsl:stylesheet [
 	<!-- Add your custom Image Media Type aliases here -->
-	<!ENTITY CustomImageTypes "GalleryImage | CustomImage">
+	<!ENTITY CustomImageTypes "*[@id and @nodeTypeAlias]">
 ]>
 <!--
 	_MediaHelper.xslt
 	
 	Enables simple retrieval of media by handling the GetMedia() call and error-checking
 -->
-<?umbraco-package XSLT Helpers v0.8.1 - MediaHelper v1.1?>
+<?umbraco-package XSLT Helpers v0.8.2 - MediaHelper v1.2?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:freeze="http://xmlns.greystate.dk/2012/freezer" xmlns:get="urn:Exslt.ExsltMath" xmlns:make="urn:schemas-microsoft-com:xslt" xmlns:cropup="urn:Eksponent.CropUp" version="1.0" exclude-result-prefixes="umb get make cropup freeze">
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
@@ -37,12 +37,14 @@
 		<xsl:param name="crop"/>
 		<xsl:param name="id"/>
 		<xsl:param name="size"/>
+		<xsl:param name="retinafy"/>
 		<xsl:variable name="mediaNode" select="umb:GetMedia(., false())"/>
 		<xsl:apply-templates select="$mediaNode[not(error)]">
 			<xsl:with-param name="class" select="$class"/>
 			<xsl:with-param name="crop" select="$crop"/>
 			<xsl:with-param name="id" select="$id"/>
 			<xsl:with-param name="size" select="$size"/>
+			<xsl:with-param name="retinafy" select="$retinafy"/>
 		</xsl:apply-templates>
 	</xsl:template>
 	
@@ -52,11 +54,13 @@
 		<xsl:param name="crop"/>
 		<xsl:param name="id"/>
 		<xsl:param name="size"/>
+		<xsl:param name="retinafy"/>
 		<xsl:apply-templates select="DAMP/mediaItem/*[@id]">
 			<xsl:with-param name="class" select="$class"/>
 			<xsl:with-param name="crop" select="$crop"/>
 			<xsl:with-param name="id" select="$id"/>
 			<xsl:with-param name="size" select="$size"/>
+			<xsl:with-param name="retinafy" select="$retinafy"/>
 		</xsl:apply-templates>
 	</xsl:template>
 	
@@ -65,11 +69,13 @@
 		<xsl:param name="class"/>
 		<xsl:param name="crop"/>
 		<xsl:param name="size"/>
+		<xsl:param name="retinafy"/>
 		<xsl:variable name="mediaFolder" select="umb:GetMedia(., true())"/>
 		<xsl:apply-templates select="$mediaFolder[not(error)]">
 			<xsl:with-param name="class" select="$class"/>
 			<xsl:with-param name="crop" select="$crop"/>
 			<xsl:with-param name="size" select="$size"/>
+			<xsl:with-param name="retinafy" select="$retinafy"/>
 		</xsl:apply-templates>
 	</xsl:template>
 	
@@ -78,11 +84,13 @@
 		<xsl:param name="class"/>
 		<xsl:param name="crop"/>
 		<xsl:param name="size"/>
+		<xsl:param name="retinafy"/>
 		<xsl:variable name="mediaFolder" select="umb:GetMedia(DAMP/mediaItem/Folder/@id, true())"/>
 		<xsl:apply-templates select="$mediaFolder[not(error)]">
 			<xsl:with-param name="class" select="$class"/>
 			<xsl:with-param name="crop" select="$crop"/>
 			<xsl:with-param name="size" select="$size"/>
+			<xsl:with-param name="retinafy" select="$retinafy"/>
 		</xsl:apply-templates>
 	</xsl:template>
 	
@@ -107,10 +115,12 @@
 		<xsl:param name="class"/>
 		<xsl:param name="crop"/>
 		<xsl:param name="size"/>
+		<xsl:param name="retinafy"/>
 		<xsl:apply-templates select="*[@id]">
 			<xsl:with-param name="class" select="$class"/>
 			<xsl:with-param name="crop" select="$crop"/>
 			<xsl:with-param name="size" select="$size"/>
+			<xsl:with-param name="retinafy" select="$retinafy"/>
 		</xsl:apply-templates>
 	</xsl:template>
 	
@@ -120,7 +130,13 @@
 		<xsl:param name="crop"/>
 		<xsl:param name="id"/>
 		<xsl:param name="size"/>
+		<xsl:param name="retinafy"/>
 		<img src="{umbracoFile}" width="{umbracoWidth}" height="{umbracoHeight}" alt="{@nodeName}">
+			<!-- In retina mode use half dimensions -->
+			<xsl:if test="$retinafy">
+				<xsl:attribute name="width"><xsl:value-of select="floor(umbracoWidth div 2)"/></xsl:attribute>
+				<xsl:attribute name="height"><xsl:value-of select="floor(umbracoHeight div 2)"/></xsl:attribute>
+			</xsl:if>
 			<xsl:if test="$crop">
 				<xsl:variable name="cropConfig" select="($croppingSetup[@name = $crop] | $cropUpSetup[@name = $crop] | $cropUpSetup[@alias = $crop])[1]"/>
 				<xsl:variable name="cropSize" select="concat($cropConfig/@size, $cropConfig/@width, $strings/x[$cropConfig/@width], $cropConfig/@height)"/>
@@ -140,9 +156,17 @@
 				</xsl:if>
 
 				<!-- Output the sizes (or clear them if none found) -->
-				<xsl:attribute name="width"><xsl:value-of select="substring-before($cropSize, 'x')"/></xsl:attribute>
-				<xsl:attribute name="height"><xsl:value-of select="substring-after($cropSize, 'x')"/></xsl:attribute>
+				<xsl:variable name="wValue" select="substring-before($cropSize, 'x')"/>
+				<xsl:variable name="hValue" select="substring-after($cropSize, 'x')"/>
+
+				<xsl:attribute name="width"><xsl:value-of select="$wValue"/></xsl:attribute>
+				<xsl:attribute name="height"><xsl:value-of select="$hValue"/></xsl:attribute>
 				
+				<!-- Cut them in half if 'retinafy' was specified  -->
+				<xsl:if test="$retinafy and $wValue and $hValue">
+					<xsl:attribute name="width"><xsl:value-of select="floor($wValue div 2)"/></xsl:attribute>
+					<xsl:attribute name="height"><xsl:value-of select="floor($hValue div 2)"/></xsl:attribute>
+				</xsl:if>
 			</xsl:if>
 			<!-- $size can override original + cropped sizes -->
 			<xsl:if test="$size">
@@ -222,17 +246,19 @@
 	</xsl:template>
 	
 	<!-- Template for easier support of custom Media Types -->
-	<xsl:template match="&CustomImageTypes;">
+	<xsl:template priority="-1" match="&CustomImageTypes;">
 		<xsl:param name="class"/>
 		<xsl:param name="crop"/>
 		<xsl:param name="id"/>
 		<xsl:param name="size"/>
+		<xsl:param name="retinafy"/>
 
 		<xsl:call-template name="GenericImage">
 			<xsl:with-param name="class" select="$class"/>
 			<xsl:with-param name="crop" select="$crop"/>
 			<xsl:with-param name="id" select="$id"/>
 			<xsl:with-param name="size" select="$size"/>
+			<xsl:with-param name="retinafy" select="$retinafy"/>
 		</xsl:call-template>
 	</xsl:template>
 	
