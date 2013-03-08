@@ -50,6 +50,20 @@
 			</x:expect>
 		</x:scenario>
 
+		<x:scenario label="with the date 10th of July 2012">
+			<x:call template="BuildCalendar">
+				<x:param name="date" select="'2012-07-10'" />
+			</x:call>
+			<x:expect label="it should build a calendar for July 2012">
+				<table>
+					<caption>Juli 2012</caption>
+					<thead>...</thead>
+					<tbody>...</tbody>
+				</table>
+			</x:expect>
+			<x:expect label="it should not select the 1st (i.e., using the date of 'current date' — issue #12)" test="not(//td[@class = 'today'][text() = '1'])" />
+		</x:scenario>
+
 	</x:scenario>
 
 </x:description>
