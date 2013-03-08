@@ -7,6 +7,9 @@ if [[ ! -d package ]]
 	then mkdir package
 fi
 
+# Get the current version
+VERSION=`grep -o ' packageVersion \"\(.*\)\"' version.ent | awk '{print $2}' | sed 's/"//g'`
+
 # Make sure to use the PRODUCTION entities
 UMBOFF="umbraco \"IGNORE\""
 UMBON="umbraco \"INCLUDE\""
@@ -40,7 +43,7 @@ cp templates/Use*.xslt package/
 xsltproc --novalid --xinclude --output package/package.xml lib/freezeEntities.xslt package.xml
 
 # Build the ZIP file 
-zip -j dist/XSLTHelpers package/* -x \*.DS_Store
+zip -j "dist/XSLTHelpers-$VERSION.zip" package/* -x \*.DS_Store
 
 # Copy the release XSLT into the dist dir for upgraders
 cp package/_PaginationHelper.xslt dist/_PaginationHelper.xslt
