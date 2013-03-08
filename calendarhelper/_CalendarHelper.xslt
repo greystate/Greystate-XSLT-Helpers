@@ -73,6 +73,7 @@
 		</xsl:variable>
 		<xsl:variable name="month" select="substring($date, 6, 2)" />
 		<xsl:variable name="year" select="substring($date, 1, 4)" />
+		<xsl:variable name="isCurrentMonth" select="concat($year, '-', $month) = substring($today, 1, 7)" />
 		<xsl:variable name="isLeapYear" select="($year mod 4 = 0) and (not($year mod 100 = 0) or ($year mod 400 = 0))" />
 		<xsl:variable name="daysInMonth" select="$months[@id = $month]/@days + (1 * ($isLeapYear and $month = '02'))" />
 
@@ -102,6 +103,7 @@
 				<xsl:apply-templates select="$days[@id &lt;= $daysInMonth][position() &gt;= (7 - $emptyDaysBeforeFirstInMonth)][position() mod 7 = 1]" mode="week">
 					<xsl:with-param name="selectedDate" select="$selectedDate" />
 					<xsl:with-param name="last" select="$daysInMonth" />
+					<xsl:with-param name="isCurrentMonth" select="$isCurrentMonth" />
 					<!-- Only pass on the events of the month we're showing -->
 					<xsl:with-param name="events" select="$events[starts-with(&eventDate;, substring($date, 1, 7))]" freeze:keep-entity="eventDate" />
 				</xsl:apply-templates>
@@ -113,12 +115,15 @@
 	<xsl:template match="day | dummy" mode="week">
 		<xsl:param name="events" />
 		<xsl:param name="selectedDate" />
+		<!-- Need the $isCurrentMonth param to correctly highlight "today" (issue #12) -->
+		<xsl:param name="isCurrentMonth" />
 		<!-- Need the $last param because following-sibling:: works in the document (so not constrained to the initial node-set created) -->
 		<xsl:param name="last" />
 		<tr>
 			<xsl:apply-templates select=". | following-sibling::*[position() &lt; 7][@id &lt;= $last]" mode="day">
 				<xsl:with-param name="events" select="$events" />
 				<xsl:with-param name="selectedDate" select="$selectedDate" />
+				<xsl:with-param name="isCurrentMonth" select="$isCurrentMonth" />
 			</xsl:apply-templates>
 			<!-- If we're in the last week/row we probably need to add some dummies after the last day -->
 			<xsl:if test="@id + 6 &gt; $last">
@@ -131,9 +136,10 @@
 	<xsl:template match="day" mode="day">
 		<xsl:param name="events" />
 		<xsl:param name="selectedDate" />
+		<xsl:param name="isCurrentMonth" />
 		<xsl:variable name="eventsOnThisDay" select="$events[substring(&eventDate;, 9, 2) = current()/@id]" freeze:keep-entity="eventDate" />
 		<xsl:variable name="classes">
-			<xsl:if test="number(@id) = number(substring($today, 9, 2))">today</xsl:if>
+			<xsl:if test="number(@id) = number(substring($today, 9, 2)) and $isCurrentMonth">today</xsl:if>
 			<xsl:if test="$eventsOnThisDay"> eventDay</xsl:if>			
 			<xsl:if test="number(@id) = number($selectedDate)"> selected</xsl:if>
 		</xsl:variable>
