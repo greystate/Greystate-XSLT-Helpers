@@ -1,6 +1,6 @@
 # Create the dist directory if needed
 if [[ ! -d dist ]]
-	then mkdir dist
+	then mkdir dist dist/xslt dist/App_Code
 fi
 # Likewise, create the package dir
 if [[ ! -d package ]]
@@ -46,13 +46,13 @@ xsltproc --novalid --xinclude --output package/package.xml lib/freezeEntities.xs
 zip -j "dist/XSLTHelpers-$VERSION.zip" package/* -x \*.DS_Store
 
 # Copy the release XSLT into the dist dir for upgraders
-cp package/_PaginationHelper.xslt dist/_PaginationHelper.xslt
-cp package/_NavigationHelper.xslt dist/_NavigationHelper.xslt
-cp package/_GroupingHelper.xslt dist/_GroupingHelper.xslt
-cp package/_CalendarHelper.xslt dist/_CalendarHelper.xslt
-cp package/_MediaHelper.xslt dist/_MediaHelper.xslt
-cp package/cropping-config.xml dist/cropping-config.xml
-cp package/calendar-config.xml dist/calendar-config.xml
+cp package/_PaginationHelper.xslt dist/xslt/_PaginationHelper.xslt
+cp package/_NavigationHelper.xslt dist/xslt/_NavigationHelper.xslt
+cp package/_GroupingHelper.xslt dist/xslt/_GroupingHelper.xslt
+cp package/_CalendarHelper.xslt dist/xslt/_CalendarHelper.xslt
+cp package/_MediaHelper.xslt dist/xslt/_MediaHelper.xslt
+cp package/cropping-config.xml dist/App_Code/cropping-config.xml
+cp package/calendar-config.xml dist/App_Code/calendar-config.xml
 
 # Go back to DEVELOPMENT versions again
 sed -i "" "s/$UMBON/$UMBOFF/" */entities.ent
