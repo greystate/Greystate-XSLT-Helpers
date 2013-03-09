@@ -8,7 +8,7 @@
 	<!ENTITY random-ns-uri "urn:Exslt.ExsltMath">
 	<!ENTITY nodeset-ns-uri "urn:schemas-microsoft-com:xslt">
 	<!ENTITY makeNodeSetOfStrings "make:node-set($stringProxy)">
-	<!ENTITY config-file "cropping-config.xml">
+	<!ENTITY config-file "../App_Data/cropping-config.xml">
 	<!ENTITY cropUp-config-file "../config/Eksponent.CropUp.config">
 	<!ENTITY CropUpUrlByMediaId "cropup:UrlByMediaId(@id, $cropUpArgs)">
 ]]>
