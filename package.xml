@@ -5,6 +5,7 @@
 	
 	<!ENTITY helperPath "/xslt">
 	<!ENTITY templatePath "/umbraco/xslt/templates/Schema2">
+	<!ENTITY configPath "/config">
 ]>
 <umbPackage>
 	<files>
@@ -44,14 +45,14 @@
 			<orgName>UseGrouping.xslt</orgName>
 		</file>
 		<file>
-			<guid>cropping-config.xml</guid>
-			<orgPath>&helperPath;</orgPath>
-			<orgName>cropping-config.xml</orgName>
+			<guid>CroppingSettings.config</guid>
+			<orgPath>&configPath;</orgPath>
+			<orgName>CroppingSettings.config</orgName>
 		</file>
 		<file>
-			<guid>calendar-config.xml</guid>
-			<orgPath>&helperPath;</orgPath>
-			<orgName>calendar-config.xml</orgName>
+			<guid>CalendarSettings.config</guid>
+			<orgPath>&configPath;</orgPath>
+			<orgName>CalendarSettings.config</orgName>
 		</file>
 	</files>
 	

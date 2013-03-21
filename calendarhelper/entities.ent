@@ -2,7 +2,6 @@
 <!ENTITY % use.in.textmate "INCLUDE">
 
 <!ENTITY SUNDAY "1">
-<!ENTITY config-file "calendar-config.xml">
 
 <![ %use.in.umbraco; [
 	<!ENTITY today "date:date()">
@@ -10,6 +9,7 @@
 	<!ENTITY nodeset-ns-uri "urn:schemas-microsoft-com:xslt">
 	<!ENTITY day-in-week "date:dayinweek($firstDayOfMonth)">
 	<!ENTITY NiceUrl "umb:NiceUrl">
+	<!ENTITY config-file "../config/CalendarSettings.config">
 ]]>
 
 <![ %use.in.textmate; [
@@ -18,4 +18,5 @@
 	<!ENTITY nodeset-ns-uri "http://exslt.org/common">
 	<!ENTITY day-in-week "6">
 	<!ENTITY NiceUrl "string">
+	<!ENTITY config-file "CalendarSettings.config">
 ]]>

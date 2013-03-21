@@ -131,7 +131,7 @@ By default, this will create an `<img>` element with empty `width` and `height` 
 However, you can create a config file for the Media Helper to use, if you would like to generate the correct dimension attributes (which can
 eliminate potential reflow during rendering, not to mention protecting against the odd giant image uploaded by "somebody", wrecking the entire frontpage for an hour).
 
-Just edit the included sample XML file called `cropping-config.xml` in the XSLT directory and specify the names and sizes you've set up for the crops, e.g.:
+Just edit the included sample XML file called `CroppingSettings.config` in the *config* directory and specify the names and sizes you've set up for the crops, e.g.:
 
 ```xml
 <crops>
