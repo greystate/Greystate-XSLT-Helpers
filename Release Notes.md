@@ -7,7 +7,7 @@
 
 ## Calendar Helper
 
-* v1.1 Fix for issue #12, - implemented issue #11
+* v1.1 Fix for issue #12, - implement issue #11
 
 ## Grouping Helper
 
