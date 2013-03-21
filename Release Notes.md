@@ -13,7 +13,7 @@
 
 ## Media Helpers
 
-* v1.3 Move cropping-config.xml to App_Data folder - issue #11
+* v1.3 Move (and rename) cropping config file to config folder - issue #11
 * v1.2 Adding `retinafy` option
 
 ## Navigation Helper
