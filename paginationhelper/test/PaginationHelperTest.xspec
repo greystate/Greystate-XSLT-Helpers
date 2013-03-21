@@ -7,6 +7,7 @@
 	<!ENTITY lastPage "&#187;">
 	<!ENTITY pagerParam "p">
 	<!ENTITY testURL "/">
+	<!ENTITY gapFiller "...">
 ]>
 <x:description
 	stylesheet="PaginationHelperSample.xslt"
@@ -100,6 +101,34 @@
 		<x:expect label="and the Next link should also be active" test="boolean(/ul/li[last()]/a[contains(@href, '&pagerParam;=4')])" />
 	</x:scenario>
 	
+	<x:scenario label="when calling RenderPager for 'a-hell-of-a-lot-of-people.xml' (with 3 per page)">
+		<x:call template="RenderPager">
+			<x:param name="perPage" select="3" />
+			<x:param name="selection" select="document('a-hell-of-a-lot-of-people.xml', /)/people/person" />
+		</x:call>
+		<x:expect label="it should render links for pages 1—12 with a gap and then links for the final 2 pages">
+			<ul class="pager">
+				<li class="prev">&prevPage;</li>
+				<li class="current">1</li>
+				<li><a href="...">2</a></li>
+				<li><a href="...">3</a></li>
+				<li><a href="...">4</a></li>
+				<li><a href="...">5</a></li>
+				<li><a href="...">6</a></li>
+				<li><a href="...">7</a></li>
+				<li><a href="...">8</a></li>
+				<li><a href="...">9</a></li>
+				<li><a href="...">10</a></li>
+				<li><a href="...">11</a></li>
+				<li><a href="...">12</a></li>
+				<li class="gap">&gapFiller;</li>
+				<li><a href="...">19</a></li>
+				<li><a href="...">20</a></li>
+				<li class="next">&nextPage;</li>
+			</ul>
+		</x:expect>
+	</x:scenario>
+	
 	<x:scenario label="when specifying false() for the 'showPager' parameter">
 		<x:call template="PaginateSelection">
 			<x:param name="selection" select="document('fixtures/people.xml', /)/people/person" />
@@ -136,7 +165,6 @@
 			<p><a href="...">...</a></p>
 		</x:expect>
 	</x:scenario>
-	
 	
 	<x:scenario label="when parsing a 'token'">
 		<x:context mode="parse">

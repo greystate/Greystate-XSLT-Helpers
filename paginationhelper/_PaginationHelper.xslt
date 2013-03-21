@@ -7,8 +7,9 @@
 	<!ENTITY prevPage "&#8249; Previous">
 	<!ENTITY nextPage "Next &#8250;">
 
-	<!ENTITY pagerParam "p">		<!-- Name of QueryString parameter for 'page' -->
-	<!ENTITY perPage "10">			<!-- Number of items on a page -->
+	<!ENTITY pagerParam "p"><!-- Name of QueryString parameter for 'page' -->
+	<!ENTITY perPage "10"><!-- Number of items on a page -->
+	<!ENTITY pageLinksBeside "5"><!-- Number of pagination links to show before and after the current page -->
 ]>
 <?umbraco-package This is a dummy for the packageVersion entity - see ../lib/freezeEntities.xslt ?>
 <?PaginationHelperVersion ?>
@@ -28,6 +29,7 @@
 	<xsl:variable name="perPage" select="&perPage;" /><!-- Default number of items on a page -->
 	<xsl:variable name="prevPage" select="'&prevPage;'" />
 	<xsl:variable name="nextPage" select="'&nextPage;'" />
+	<xsl:variable name="pageLinksBeside" select="'&pageLinksBeside;'" /><!-- Number of pagination links to show before and after the current page -->
 	
 	<!--
 		This is where we get the options for the page, which defaults to the QueryString
@@ -97,6 +99,7 @@
 		<xsl:param name="selection" select="*" />
 		<xsl:param name="page" select="$page" />
 		<xsl:param name="perPage" select="$perPage" />
+		<xsl:param name="beside" select="$pageLinksBeside" />
 		
 		<xsl:variable name="total" select="count($selection)" />
 		<xsl:variable name="lastPageNum" select="ceiling($total div $perPage)" />
