@@ -1,6 +1,6 @@
 # Create the dist directory if needed
 if [[ ! -d dist ]]
-	then mkdir dist dist/xslt dist/App_Code
+	then mkdir dist dist/xslt dist/config
 fi
 # Likewise, create the package dir
 if [[ ! -d package ]]
@@ -33,8 +33,8 @@ sed -i "" "s/\&amp;\(.*\);/\&\1;/" package/_CalendarHelper.xslt
 sed -i "" "s/\&amp;\(.*\);/\&\1;/" package/_MediaHelper.xslt
 
 # Copy configs
-cp mediahelpers/cropping-config.xml package/cropping-config.xml
-cp calendarhelper/calendar-config.xml package/calendar-config.xml
+cp mediahelpers/CroppingSettings.config package/CroppingSettings.config
+cp calendarhelper/CalendarSettings.config package/CalendarSettings.config
 
 # Copy default templates
 cp templates/Use*.xslt package/
@@ -51,8 +51,8 @@ cp package/_NavigationHelper.xslt dist/xslt/_NavigationHelper.xslt
 cp package/_GroupingHelper.xslt dist/xslt/_GroupingHelper.xslt
 cp package/_CalendarHelper.xslt dist/xslt/_CalendarHelper.xslt
 cp package/_MediaHelper.xslt dist/xslt/_MediaHelper.xslt
-cp package/cropping-config.xml dist/App_Code/cropping-config.xml
-cp package/calendar-config.xml dist/App_Code/calendar-config.xml
+cp package/CroppingSettings.config dist/config/CroppingSettings.config
+cp package/CalendarSettings.config dist/config/CalendarSettings.config
 
 # Go back to DEVELOPMENT versions again
 sed -i "" "s/$UMBON/$UMBOFF/" */entities.ent
