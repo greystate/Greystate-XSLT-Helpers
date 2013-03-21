@@ -8,7 +8,7 @@
 	<!ENTITY random-ns-uri "urn:Exslt.ExsltMath">
 	<!ENTITY nodeset-ns-uri "urn:schemas-microsoft-com:xslt">
 	<!ENTITY makeNodeSetOfStrings "make:node-set($stringProxy)">
-	<!ENTITY config-file "../App_Data/cropping-config.xml">
+	<!ENTITY config-file "../config/CroppingSettings.config">
 	<!ENTITY cropUp-config-file "../config/Eksponent.CropUp.config">
 	<!ENTITY CropUpUrlByMediaId "cropup:UrlByMediaId(@id, $cropUpArgs)">
 ]]>
@@ -20,7 +20,7 @@
 	<!ENTITY random-ns-uri "http://exslt.org/math">
 	<!ENTITY nodeset-ns-uri "urn:otgonnaneed:it">
 	<!ENTITY makeNodeSetOfStrings "$stringProxy">
-	<!ENTITY config-file "cropping-config.xml">
+	<!ENTITY config-file "CroppingSettings.config">
 	<!ENTITY cropUp-config-file "test/Eksponent.CropUp.config">
 	<!ENTITY CropUpUrlByMediaId "concat('/Images/media/', $cropUpArgs, '/', substring-after(umbracoFile, '/media/'))">
 ]]>
