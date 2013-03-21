@@ -45,14 +45,14 @@
 			<orgName>UseGrouping.xslt</orgName>
 		</file>
 		<file>
-			<guid>cropping-config.xml</guid>
+			<guid>CroppingSettings.config</guid>
 			<orgPath>&configPath;</orgPath>
-			<orgName>cropping-config.xml</orgName>
+			<orgName>CroppingSettings.config</orgName>
 		</file>
 		<file>
 			<guid>CalendarSettings.config</guid>
 			<orgPath>&configPath;</orgPath>
-			<orgName>calendar-config.xml</orgName>
+			<orgName>CalendarSettings.config</orgName>
 		</file>
 	</files>
 	
