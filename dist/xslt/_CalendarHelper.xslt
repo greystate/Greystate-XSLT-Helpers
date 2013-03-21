@@ -12,7 +12,7 @@
 	<xsl:variable name="today" select="date:date()"/>
 	
 <!-- :: Configuration :: -->
-	<xsl:variable name="config" select="document('../App_Data/calendar-config.xml')/calendar"/>
+	<xsl:variable name="config" select="document('../config/CalendarSettings.config')/calendar"/>
 	
 	<!-- Remember you can grab this from somewhere else, if necessary -->
 	<xsl:variable name="language" select="'da'"/>

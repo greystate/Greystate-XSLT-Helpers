@@ -18,7 +18,7 @@
 
 	<!-- Set up some strings for later use -->
 	<xsl:variable name="stringProxy">
-		<defaultConfig>../App_Data/cropping-config.xml</defaultConfig>
+		<defaultConfig>../config/CroppingSettings.config</defaultConfig>
 		<cropUpConfig>../config/Eksponent.CropUp.config</cropUpConfig>
 		<x>x</x>
 	</xsl:variable>
