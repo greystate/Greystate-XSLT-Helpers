@@ -101,10 +101,10 @@
 		<x:expect label="and the Next link should also be active" test="boolean(/ul/li[last()]/a[contains(@href, '&pagerParam;=4')])" />
 	</x:scenario>
 	
-	<x:scenario label="when calling RenderPager for 'a-hell-of-a-lot-of-people.xml' (with 3 per page)">
+	<x:scenario label="when calling RenderPager for 'lots-of-people.xml' with 3 per page">
 		<x:call template="RenderPager">
 			<x:param name="perPage" select="3" />
-			<x:param name="selection" select="document('a-hell-of-a-lot-of-people.xml', /)/people/person" />
+			<x:param name="selection" select="document('fixtures/lots-of-people.xml', /)/people/person" />
 		</x:call>
 		<x:expect label="it should render links for pages 1—12 with a gap and then links for the final 2 pages">
 			<ul class="pager">
