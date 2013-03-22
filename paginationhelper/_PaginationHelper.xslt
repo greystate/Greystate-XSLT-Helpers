@@ -9,7 +9,7 @@
 
 	<!ENTITY pagerParam "p"><!-- Name of QueryString parameter for 'page' -->
 	<!ENTITY perPage "10"><!-- Number of items on a page -->
-	<!ENTITY pageLinksBeside "5"><!-- Number of pagination links to show before and after the current page -->
+	<!ENTITY pageLinksBeside "4"><!-- Number of pagination links to show before and after the current page -->
 ]>
 <?umbraco-package This is a dummy for the packageVersion entity - see ../lib/freezeEntities.xslt ?>
 <?PaginationHelperVersion ?>
@@ -131,26 +131,36 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</li>
+
+			<!-- Do we need to create page 1+2 with a "gap"? -->
+			<xsl:if test="$page &gt; 3 + $pageLinksBeside">
+				<li><a href="{$query}">1</a></li>
+				<li><a href="{$query}{$sep}{$pagerParam}=2">2</a></li>
+				<li class="gap">...</li>
+			</xsl:if>
+
 			<!-- Create links for each page available -->
 			<xsl:for-each select="$selection[position() &lt;= $lastPageNum]">
-				<li>
-					<xsl:choose>
-						<xsl:when test="$page = position()">
-							<xsl:attribute name="class">current</xsl:attribute>
+				<xsl:choose>
+					<xsl:when test="$page = position()">
+						<li class="current">
 							<xsl:value-of select="position()" />
-						</xsl:when>
-						<!-- Avoid duplicate content by not linking p=1 (issue #7) -->
-						<xsl:when test="position() = 1">
-							<a href="{$query}">1</a>
-						</xsl:when>
-						<xsl:otherwise>
+						</li>
+					</xsl:when>
+					<xsl:when test="position() - $page &lt;= $pageLinksBeside and position() - $page &gt;= -$pageLinksBeside">
+						<li>
 							<a href="{$query}{$sep}{$pagerParam}={position()}">
+								<!-- Avoid duplicate content by not linking p=1 (issue #7) -->
+								<xsl:if test="position() = 1">
+									<xsl:attribute name="href"><xsl:value-of select="$query" /></xsl:attribute>
+								</xsl:if>
 								<xsl:value-of select="position()" />
 							</a>
-						</xsl:otherwise>
-					</xsl:choose>
-				</li>
+						</li>
+					</xsl:when>
+				</xsl:choose>
 			</xsl:for-each>
+			<!-- Create the "Next" link -->
 			<li class="next">
 				<xsl:choose>
 					<xsl:when test="$page = $lastPageNum"><xsl:value-of select="$nextPage" /></xsl:when>
