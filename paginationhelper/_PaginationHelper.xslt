@@ -103,6 +103,8 @@
 		
 		<xsl:variable name="total" select="count($selection)" />
 		<xsl:variable name="lastPageNum" select="ceiling($total div $perPage)" />
+		
+		<xsl:variable name="needToRenderGaps" select="$lastPageNum &gt; 2 * $pageLinksBeside + 4" />
 
 		<!-- Build the base query (i.e. the page's URL with any non-paging params) -->
 		<xsl:variable name="query">
@@ -132,8 +134,8 @@
 				</xsl:choose>
 			</li>
 
-			<!-- Do we need to create page 1+2 with a "gap"? -->
-			<xsl:if test="$page &gt; 3 + $pageLinksBeside">
+			<!-- Do we need to create page 1 & 2 + a "gap"? -->
+			<xsl:if test="$needToRenderGaps and ($page &gt; 3 + $pageLinksBeside)">
 				<li><a href="{$query}">1</a></li>
 				<li><a href="{$query}{$sep}{$pagerParam}=2">2</a></li>
 				<li class="gap">...</li>
@@ -147,7 +149,7 @@
 							<xsl:value-of select="position()" />
 						</li>
 					</xsl:when>
-					<xsl:when test="position() - $page &lt;= $pageLinksBeside and position() - $page &gt;= -$pageLinksBeside">
+					<xsl:when test="not($needToRenderGaps)">
 						<li>
 							<a href="{$query}{$sep}{$pagerParam}={position()}">
 								<!-- Avoid duplicate content by not linking p=1 (issue #7) -->
@@ -158,8 +160,28 @@
 							</a>
 						</li>
 					</xsl:when>
+					<xsl:when test="$needToRenderGaps">
+						<xsl:variable name="from" select="$page - $pageLinksBeside" />
+						<xsl:variable name="to" select="$page + $pageLinksBeside" />
+						<!-- <xsl:if test="position() - $page &lt;= $pageLinksBeside and position() - $page &gt;= -$pageLinksBeside"> -->
+						<xsl:if test="position() &gt;= $from and position() &lt;= $to">
+							<li>
+								<a href="{$query}{$sep}{$pagerParam}={position()}">
+									<xsl:value-of select="position()" />
+								</a>
+							</li>
+						</xsl:if>
+					</xsl:when>
 				</xsl:choose>
 			</xsl:for-each>
+			
+			<!-- Do we need to create a "gap" + page n-1 & n ? -->
+			<xsl:if test="$needToRenderGaps and ($page + $pageLinksBeside &lt; $lastPageNum - 3)">
+				<li class="gap">...</li>
+				<li><a href="{$query}{$sep}{$pagerParam}={$lastPageNum - 1}"><xsl:value-of select="$lastPageNum - 1" /></a></li>
+				<li><a href="{$query}{$sep}{$pagerParam}={$lastPageNum}"><xsl:value-of select="$lastPageNum" /></a></li>
+			</xsl:if>
+			
 			<!-- Create the "Next" link -->
 			<li class="next">
 				<xsl:choose>

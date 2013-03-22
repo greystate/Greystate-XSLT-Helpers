@@ -106,7 +106,7 @@
 			<x:param name="perPage" select="3" />
 			<x:param name="selection" select="document('fixtures/lots-of-people.xml', /)/people/person" />
 		</x:call>
-		<x:expect label="it should render links for pages 1—12 with a gap and then links for the final 2 pages">
+		<x:expect label="it should render links for pages 1—5 with a gap and then links for the final 2 pages">
 			<ul class="pager">
 				<li class="prev">&prevPage;</li>
 				<li class="current">1</li>
@@ -114,19 +114,63 @@
 				<li><a href="...">3</a></li>
 				<li><a href="...">4</a></li>
 				<li><a href="...">5</a></li>
-				<li><a href="...">6</a></li>
-				<li><a href="...">7</a></li>
-				<li><a href="...">8</a></li>
-				<li><a href="...">9</a></li>
-				<li><a href="...">10</a></li>
-				<li><a href="...">11</a></li>
-				<li><a href="...">12</a></li>
 				<li class="gap">&gapFiller;</li>
-				<li><a href="...">19</a></li>
-				<li><a href="...">20</a></li>
-				<li class="next">&nextPage;</li>
+				<li><a href="...">23</a></li>
+				<li><a href="...">24</a></li>
+				<li class="next"><a href="&testURL;?&pagerParam;=2">&nextPage;</a></li>
 			</ul>
 		</x:expect>
+		
+		<x:scenario label="and page = 5">
+			<x:call>
+				<x:param name="page" select="5" />
+			</x:call>
+			<x:expect label="it should render links for pages 1—9 with a gap and then links for the final 2 pages">
+				<ul class="pager">
+					<li class="prev"><a href="&testURL;?&pagerParam;=4">&prevPage;</a></li>
+					<li><a href="...">1</a></li>
+					<li><a href="...">2</a></li>
+					<li><a href="...">3</a></li>
+					<li><a href="...">4</a></li>
+					<li class="current">5</li>
+					<li><a href="...">6</a></li>
+					<li><a href="...">7</a></li>
+					<li><a href="...">8</a></li>
+					<li><a href="...">9</a></li>
+					<li class="gap">&gapFiller;</li>
+					<li><a href="...">23</a></li>
+					<li><a href="...">24</a></li>
+					<li class="next"><a href="&testURL;?&pagerParam;=6">&nextPage;</a></li>
+				</ul>
+			</x:expect>
+		</x:scenario>
+
+		<x:scenario label="and page = 9">
+			<x:call>
+				<x:param name="page" select="9" />
+			</x:call>
+			<x:expect label="it should render links for pages 5—13 with gaps before and after">
+				<ul class="pager">
+					<li class="prev"><a href="&testURL;?&pagerParam;=8">&prevPage;</a></li>
+					<li><a href="&testURL;">1</a></li>
+					<li><a href="...">2</a></li>
+					<li class="gap">&gapFiller;</li>
+					<li><a href="...">5</a></li>
+					<li><a href="...">6</a></li>
+					<li><a href="...">7</a></li>
+					<li><a href="...">8</a></li>
+					<li class="current">9</li>
+					<li><a href="...">10</a></li>
+					<li><a href="...">11</a></li>
+					<li><a href="...">12</a></li>
+					<li><a href="...">13</a></li>
+					<li class="gap">&gapFiller;</li>
+					<li><a href="...">23</a></li>
+					<li><a href="...">24</a></li>
+					<li class="next"><a href="&testURL;?&pagerParam;=10">&nextPage;</a></li>
+				</ul>
+			</x:expect>
+		</x:scenario>
 	</x:scenario>
 	
 	<x:scenario label="when specifying false() for the 'showPager' parameter">
