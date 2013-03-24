@@ -106,7 +106,7 @@
 			<x:param name="perPage" select="3" />
 			<x:param name="selection" select="document('fixtures/lots-of-people.xml', /)/people/person" />
 		</x:call>
-		<x:expect label="it should render links for pages 1—5 with a gap and then links for the final 2 pages">
+		<x:expect label="it should render links for pages 1—9 with a gap and then links for the final 2 pages">
 			<ul class="pager">
 				<li class="prev">&prevPage;</li>
 				<li class="current">1</li>
@@ -114,6 +114,10 @@
 				<li><a href="...">3</a></li>
 				<li><a href="...">4</a></li>
 				<li><a href="...">5</a></li>
+				<li><a href="...">6</a></li>
+				<li><a href="...">7</a></li>
+				<li><a href="...">8</a></li>
+				<li><a href="...">9</a></li>
 				<li class="gap">&gapFiller;</li>
 				<li><a href="...">23</a></li>
 				<li><a href="...">24</a></li>
@@ -171,6 +175,31 @@
 				</ul>
 			</x:expect>
 		</x:scenario>
+		
+		<x:scenario label="and page = 20">
+			<x:call>
+				<x:param name="page" select="20" />
+			</x:call>
+			<x:expect label="it should render links for pages 1 and 2 with a gap and then links for pages 16—24">
+				<ul class="pager">
+					<li class="prev"><a href="&testURL;?&pagerParam;=19">&prevPage;</a></li>
+					<li><a href="...">1</a></li>
+					<li><a href="...">2</a></li>
+					<li class="gap">&gapFiller;</li>
+					<li><a href="...">16</a></li>
+					<li><a href="...">17</a></li>
+					<li><a href="...">18</a></li>
+					<li><a href="...">19</a></li>
+					<li class="current">20</li>
+					<li><a href="...">21</a></li>
+					<li><a href="...">22</a></li>
+					<li><a href="...">23</a></li>
+					<li><a href="...">24</a></li>
+					<li class="next"><a href="&testURL;?&pagerParam;=21">&nextPage;</a></li>
+				</ul>
+			</x:expect>
+		</x:scenario>
+		
 	</x:scenario>
 	
 	<x:scenario label="when specifying false() for the 'showPager' parameter">
