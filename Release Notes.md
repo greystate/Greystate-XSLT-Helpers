@@ -1,5 +1,6 @@
 # Release Notes
 
+* v0.8.4: Pagination Helper updated to 1.2
 * v0.8.3: Calendar Helper updated to 1.1, Media Helpers updated to 1.3
 * v0.8.2: Media Helpers updated to 1.2
 * v0.8.1: Pagination Helper updated to 1.1
@@ -20,6 +21,7 @@
 
 ## Pagination Helper
 
+* v1.2: Use `pageLinksBeside` to specify number of links to show before & after current in the Pager
 * v1.1: `perPage` parameter can now be overridden
 
 
