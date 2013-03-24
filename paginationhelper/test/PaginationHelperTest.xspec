@@ -229,30 +229,6 @@
 			</x:expect>
 		</x:scenario>
 		
-		<x:scenario label="and page = 20">
-			<x:call>
-				<x:param name="page" select="20" />
-			</x:call>
-			<x:expect label="it should render links for pages 1 and 2 with a gap and then links for pages 16—24">
-				<ul class="pager">
-					<li class="prev"><a href="&testURL;?&pagerParam;=19">&prevPage;</a></li>
-					<li><a href="...">1</a></li>
-					<li><a href="...">2</a></li>
-					<li class="gap">&gapFiller;</li>
-					<li><a href="...">16</a></li>
-					<li><a href="...">17</a></li>
-					<li><a href="...">18</a></li>
-					<li><a href="...">19</a></li>
-					<li class="current">20</li>
-					<li><a href="...">21</a></li>
-					<li><a href="...">22</a></li>
-					<li><a href="...">23</a></li>
-					<li><a href="...">24</a></li>
-					<li class="next"><a href="&testURL;?&pagerParam;=21">&nextPage;</a></li>
-				</ul>
-			</x:expect>
-		</x:scenario>
-		
 		<x:scenario label="and page = 16">
 			<x:call>
 				<x:param name="page" select="16" />
@@ -276,6 +252,30 @@
 					<li><a href="...">23</a></li>
 					<li><a href="...">24</a></li>
 					<li class="next"><a href="&testURL;?&pagerParam;=17">&nextPage;</a></li>
+				</ul>
+			</x:expect>
+		</x:scenario>
+		
+		<x:scenario label="and page = 20">
+			<x:call>
+				<x:param name="page" select="20" />
+			</x:call>
+			<x:expect label="it should render links for pages 1 and 2 with a gap and then links for pages 16—24">
+				<ul class="pager">
+					<li class="prev"><a href="&testURL;?&pagerParam;=19">&prevPage;</a></li>
+					<li><a href="...">1</a></li>
+					<li><a href="...">2</a></li>
+					<li class="gap">&gapFiller;</li>
+					<li><a href="...">16</a></li>
+					<li><a href="...">17</a></li>
+					<li><a href="...">18</a></li>
+					<li><a href="...">19</a></li>
+					<li class="current">20</li>
+					<li><a href="...">21</a></li>
+					<li><a href="...">22</a></li>
+					<li><a href="...">23</a></li>
+					<li><a href="...">24</a></li>
+					<li class="next"><a href="&testURL;?&pagerParam;=21">&nextPage;</a></li>
 				</ul>
 			</x:expect>
 		</x:scenario>
