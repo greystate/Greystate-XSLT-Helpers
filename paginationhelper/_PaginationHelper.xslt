@@ -79,6 +79,9 @@
 		<!-- You can disable the "Pager" control by setting this to false() - then manually calling RenderPager somewhere else -->
 		<xsl:param name="showPager" select="true()" />
 		
+		<!-- Specify how many links to show on each side of the "current" page in the Pager (if shown) -->
+		<xsl:param name="pageLinksBeside" select="$pageLinksBeside" />
+		
 		<xsl:variable name="startIndex" select="$perPage * ($page - 1) + 1" /><!-- First item on this page -->
 		<xsl:variable name="endIndex" select="$page * $perPage" /><!-- First item on next page -->
 		
@@ -91,6 +94,7 @@
 				<xsl:with-param name="selection" select="$selection" />
 				<xsl:with-param name="page" select="$page" />
 				<xsl:with-param name="perPage" select="$perPage" />
+				<xsl:with-param name="pageLinksBeside" select="$pageLinksBeside" />
 			</xsl:call-template>
 		</xsl:if>
 	</xsl:template>
@@ -99,7 +103,7 @@
 		<xsl:param name="selection" select="*" />
 		<xsl:param name="page" select="$page" />
 		<xsl:param name="perPage" select="$perPage" />
-		<xsl:param name="beside" select="$pageLinksBeside" />
+		<xsl:param name="pageLinksBeside" select="$pageLinksBeside" />
 		
 		<xsl:variable name="total" select="count($selection)" />
 		<xsl:variable name="lastPageNum" select="ceiling($total div $perPage)" />
