@@ -105,6 +105,7 @@
 		<xsl:variable name="lastPageNum" select="ceiling($total div $perPage)" />
 		
 		<xsl:variable name="needToRenderGaps" select="$lastPageNum &gt; 2 * $pageLinksBeside + 4" />
+		<xsl:variable name="pagerWidth" select="2 * $pageLinksBeside" />
 
 		<!-- Build the base query (i.e. the page's URL with any non-paging params) -->
 		<xsl:variable name="query">
@@ -161,13 +162,47 @@
 						</li>
 					</xsl:when>
 					<xsl:when test="$needToRenderGaps">
-						<xsl:variable name="from" select="$page - $pageLinksBeside" />
-						<xsl:variable name="to" select="$page + $pageLinksBeside" />
+						<!-- If there are too many pages to show, figure out where to start -->
+						<!-- <xsl:variable name="from" select="$page - $pageLinksBeside - (($lastPageNum) * ($page &lt; (2 * $pageLinksBeside + 1)))" /> -->
+						<xsl:variable name="from">
+							<!-- As a minimum, we want to show the current page + 2 * $pageLinksBeside, so it looks the same for most pages -->
+							<xsl:choose>
+								<xsl:when test="$page &lt;= $pagerWidth">
+									<xsl:value-of select="1" />
+								</xsl:when>
+								<xsl:when test="$page &gt; $lastPageNum - $pageLinksBeside">
+									<xsl:value-of select="$lastPageNum - $pagerWidth" />
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="$page - $pageLinksBeside" />
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
+						<xsl:variable name="to">
+							<xsl:choose>
+								<xsl:when test="$page &gt;= $lastPageNum - $pagerWidth">
+									<xsl:value-of select="$lastPageNum" />
+								</xsl:when>
+								<xsl:when test="$page &lt;= $pageLinksBeside">
+									<xsl:value-of select="$pagerWidth + 1" />
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="$page + $pageLinksBeside" />
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
+						<!-- Likewise, determine where to stop -->
+						<!-- <xsl:variable name="to" select="$page + $pageLinksBeside + ((1 + $pageLinksBeside - $page) * ($page &lt;= ($pageLinksBeside + 1)))" /> -->
+						
+<!-- 			from	1  1  1  1  1  1  1  1  5  6  7  8 ... 13 14 15 16 16 16 16 16                  
+				page	1  2  3  4  5  6  7  8  9 10 11 12 ... 17 18 19 20 21 22 23 24                  
+  				to		9  9  9  9  9 10 11 12 13 14 15 16 ... 24 24 24 24 24 24 24 24                  
+						 -->
 						<!-- <xsl:if test="position() - $page &lt;= $pageLinksBeside and position() - $page &gt;= -$pageLinksBeside"> -->
 						<xsl:if test="position() &gt;= $from and position() &lt;= $to">
 							<li>
 								<a href="{$query}{$sep}{$pagerParam}={position()}">
-									<xsl:value-of select="position()" />
+									<xsl:value-of select="position()" /><!-- <xsl:value-of select="concat(' (', $from, '——', $to, ')')" /> -->
 								</a>
 							</li>
 						</xsl:if>
