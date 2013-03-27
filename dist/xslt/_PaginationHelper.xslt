@@ -120,7 +120,7 @@
 			</li>
 
 			<!-- Do we need to create page 1 & 2 + a "gap"? -->
-			<xsl:if test="$needToRenderGaps and ($page &gt; 3 + $pageLinksBeside)">
+			<xsl:if test="$needToRenderGaps and ($page - $pageLinksBeside &gt; 4)">
 				<li><a href="{$query}">1</a></li>
 				<li><a href="{$query}{$sep}{$pagerParam}=2">2</a></li>
 				<li class="gap">...</li>
@@ -149,7 +149,7 @@
 						<!-- If there are too many pages to show, figure out where to start -->
 						<xsl:variable name="from">
 							<xsl:choose>
-								<xsl:when test="$page &lt; $pagerWidth">
+								<xsl:when test="$page - $pageLinksBeside &lt;= 4">
 									<xsl:value-of select="1"/>
 								</xsl:when>
 								<xsl:when test="$page &gt; ($lastPageNum - $pageLinksBeside)">
@@ -164,7 +164,7 @@
 						<!-- Likewise, determine where to stop -->
 						<xsl:variable name="to">
 							<xsl:choose>
-								<xsl:when test="$page &gt; $lastPageNum - $pagerWidth">
+								<xsl:when test="$page + $pageLinksBeside &gt;= $lastPageNum - 3">
 									<xsl:value-of select="$lastPageNum"/>
 								</xsl:when>
 								<xsl:when test="$page &lt;= $pageLinksBeside">
