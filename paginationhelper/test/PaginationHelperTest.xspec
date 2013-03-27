@@ -179,12 +179,12 @@
 			<x:call>
 				<x:param name="page" select="8" />
 			</x:call>
-			<x:expect label="it should render links for pages 4—12 with a gap on each side">
+			<x:expect label="it should render links for pages 1—12 with a gap on the right">
 				<ul class="pager">
 					<li class="prev"><a href="&testURL;?&pagerParam;=7">&prevPage;</a></li>
 					<li><a href="&testURL;">1</a></li>
 					<li><a href="...">2</a></li>
-					<li class="gap">&gapFiller;</li>
+					<li><a href="...">3</a></li>
 					<li><a href="...">4</a></li>
 					<li><a href="...">5</a></li>
 					<li><a href="...">6</a></li>
