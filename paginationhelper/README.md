@@ -73,10 +73,12 @@ get that from some other extension function. It assumes the standard query strin
 Also, there's a variable to hold the current page's URL - again, you can set it any way you like; the default uses Umbraco's
 `NiceUrl()` extension.
 
-### Paginating a sorted set
+## Number of pages in the Pager output
 
-TODO
+If the amount of pages grows huge, it's common to limit the pager output to some amount of pages *before* and *after* the current page.
+The Pagination Helper defaults this number to 4 pages before and after, but you can use the `pageLinksBeside` parameter to
+override this value. You will always have links to the first and last couple of pages, though - like this, for page 10 of a 30-page set:
 
-
+		< Previous 1 2 ... 6 7 8 9 *10* 11 12 13 14 ... 29 30 Next >
 
 

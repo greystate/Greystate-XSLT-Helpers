@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<?umbraco-package XSLT Helpers v0.8.3 - PaginationHelper v1.1?>
+<?umbraco-package XSLT Helpers v0.8.4 - PaginationHelper v1.2?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:str="urn:Exslt.ExsltStrings" xmlns:make="urn:schemas-microsoft-com:xslt" version="1.0" exclude-result-prefixes="umb str make">
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
@@ -9,6 +9,7 @@
 	<xsl:variable name="perPage" select="10"/><!-- Default number of items on a page -->
 	<xsl:variable name="prevPage" select="'&#x2039; Previous'"/>
 	<xsl:variable name="nextPage" select="'Next &#x203A;'"/>
+	<xsl:variable name="pageLinksBeside" select="'4'"/><!-- Number of pagination links to show before and after the current page -->
 	
 	<!--
 		This is where we get the options for the page, which defaults to the QueryString
@@ -58,6 +59,9 @@
 		<!-- You can disable the "Pager" control by setting this to false() - then manually calling RenderPager somewhere else -->
 		<xsl:param name="showPager" select="true()"/>
 		
+		<!-- Specify how many links to show on each side of the "current" page in the Pager (if shown) -->
+		<xsl:param name="pageLinksBeside" select="$pageLinksBeside"/>
+		
 		<xsl:variable name="startIndex" select="$perPage * ($page - 1) + 1"/><!-- First item on this page -->
 		<xsl:variable name="endIndex" select="$page * $perPage"/><!-- First item on next page -->
 		
@@ -70,6 +74,7 @@
 				<xsl:with-param name="selection" select="$selection"/>
 				<xsl:with-param name="page" select="$page"/>
 				<xsl:with-param name="perPage" select="$perPage"/>
+				<xsl:with-param name="pageLinksBeside" select="$pageLinksBeside"/>
 			</xsl:call-template>
 		</xsl:if>
 	</xsl:template>
@@ -78,9 +83,13 @@
 		<xsl:param name="selection" select="*"/>
 		<xsl:param name="page" select="$page"/>
 		<xsl:param name="perPage" select="$perPage"/>
+		<xsl:param name="pageLinksBeside" select="$pageLinksBeside"/>
 		
 		<xsl:variable name="total" select="count($selection)"/>
 		<xsl:variable name="lastPageNum" select="ceiling($total div $perPage)"/>
+		
+		<xsl:variable name="needToRenderGaps" select="$lastPageNum &gt; 2 * $pageLinksBeside + 4"/>
+		<xsl:variable name="pagerWidth" select="2 * $pageLinksBeside"/>
 
 		<!-- Build the base query (i.e. the page's URL with any non-paging params) -->
 		<xsl:variable name="query">
@@ -109,26 +118,88 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</li>
+
+			<!-- Do we need to create page 1 & 2 + a "gap"? -->
+			<xsl:if test="$needToRenderGaps and ($page - $pageLinksBeside &gt; 4)">
+				<li><a href="{$query}">1</a></li>
+				<li><a href="{$query}{$sep}{$pagerParam}=2">2</a></li>
+				<li class="gap">...</li>
+			</xsl:if>
+
 			<!-- Create links for each page available -->
 			<xsl:for-each select="$selection[position() &lt;= $lastPageNum]">
-				<li>
-					<xsl:choose>
-						<xsl:when test="$page = position()">
-							<xsl:attribute name="class">current</xsl:attribute>
+				<xsl:choose>
+					<xsl:when test="$page = position()">
+						<li class="current">
 							<xsl:value-of select="position()"/>
-						</xsl:when>
-						<!-- Avoid duplicate content by not linking p=1 (issue #7) -->
-						<xsl:when test="position() = 1">
-							<a href="{$query}">1</a>
-						</xsl:when>
-						<xsl:otherwise>
+						</li>
+					</xsl:when>
+					<xsl:when test="not($needToRenderGaps)">
+						<li>
 							<a href="{$query}{$sep}{$pagerParam}={position()}">
+								<!-- Avoid duplicate content by not linking p=1 (issue #7) -->
+								<xsl:if test="position() = 1">
+									<xsl:attribute name="href"><xsl:value-of select="$query"/></xsl:attribute>
+								</xsl:if>
 								<xsl:value-of select="position()"/>
 							</a>
-						</xsl:otherwise>
-					</xsl:choose>
-				</li>
+						</li>
+					</xsl:when>
+					<xsl:when test="$needToRenderGaps">
+						<!-- If there are too many pages to show, figure out where to start -->
+						<xsl:variable name="from">
+							<xsl:choose>
+								<xsl:when test="$page - $pageLinksBeside &lt;= 4">
+									<xsl:value-of select="1"/>
+								</xsl:when>
+								<xsl:when test="$page &gt; ($lastPageNum - $pageLinksBeside)">
+									<xsl:value-of select="$lastPageNum - $pagerWidth"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="$page - $pageLinksBeside"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
+
+						<!-- Likewise, determine where to stop -->
+						<xsl:variable name="to">
+							<xsl:choose>
+								<xsl:when test="$page + $pageLinksBeside &gt;= $lastPageNum - 3">
+									<xsl:value-of select="$lastPageNum"/>
+								</xsl:when>
+								<xsl:when test="$page &lt;= $pageLinksBeside">
+									<xsl:value-of select="$pagerWidth + 1"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="$page + $pageLinksBeside"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
+						
+						<!-- If we're inside that window, render the link -->
+						<xsl:if test="position() &gt;= $from and position() &lt;= $to">
+							<li>
+								<a href="{$query}{$sep}{$pagerParam}={position()}">
+									<!-- Avoid duplicate content by not linking p=1 (issue #7) -->
+									<xsl:if test="position() = 1">
+										<xsl:attribute name="href"><xsl:value-of select="$query"/></xsl:attribute>
+									</xsl:if>
+									<xsl:value-of select="position()"/><!-- <xsl:value-of select="concat(' (', $from, '——', $to, ')')" /> -->
+								</a>
+							</li>
+						</xsl:if>
+					</xsl:when>
+				</xsl:choose>
 			</xsl:for-each>
+			
+			<!-- Do we need to create a "gap" + page n-1 & n ? -->
+			<xsl:if test="$needToRenderGaps and ($page + $pageLinksBeside &lt; $lastPageNum - 3)">
+				<li class="gap">...</li>
+				<li><a href="{$query}{$sep}{$pagerParam}={$lastPageNum - 1}"><xsl:value-of select="$lastPageNum - 1"/></a></li>
+				<li><a href="{$query}{$sep}{$pagerParam}={$lastPageNum}"><xsl:value-of select="$lastPageNum"/></a></li>
+			</xsl:if>
+			
+			<!-- Create the "Next" link -->
 			<li class="next">
 				<xsl:choose>
 					<xsl:when test="$page = $lastPageNum"><xsl:value-of select="$nextPage"/></xsl:when>
