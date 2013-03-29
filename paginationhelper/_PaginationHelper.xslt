@@ -72,7 +72,10 @@
 		
 		<!-- This is the number of results you want per page -->
 		<xsl:param name="perPage" select="$perPage" />
-
+		
+		<!-- Specify which property(ies) to sort by as a string, e.g.: 'name,@updatedDate DESC' -->
+		<xsl:param name="sortBy" />
+		
 		<!-- Also, allow forcing specific options -->
 		<xsl:param name="options" select="$options" />
 
@@ -85,8 +88,17 @@
 		<xsl:variable name="startIndex" select="$perPage * ($page - 1) + 1" /><!-- First item on this page -->
 		<xsl:variable name="endIndex" select="$page * $perPage" /><!-- First item on next page -->
 		
-		<!-- Render the current page using apply-templates -->
-		<xsl:apply-templates select="$selection[position() &gt;= $startIndex and position() &lt;= $endIndex]" />
+		<xsl:choose>
+			<xsl:when test="$sortBy">
+				<xsl:apply-templates select="$selection">
+					<xsl:sort select="*[name() = $sortBy]" data-type="text" order="ascending" />
+				</xsl:apply-templates>
+			</xsl:when>
+			<xsl:otherwise>
+				<!-- Render the current page using apply-templates -->
+				<xsl:apply-templates select="$selection[position() &gt;= $startIndex and position() &lt;= $endIndex]" />
+			</xsl:otherwise>
+		</xsl:choose>
 		
 		<!-- Should we render the pager controls? -->
 		<xsl:if test="$showPager">
