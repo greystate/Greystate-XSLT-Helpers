@@ -81,4 +81,12 @@ override this value. You will always have links to the first and last couple of 
 
 		< Previous 1 2 ... 6 7 8 9 *10* 11 12 13 14 ... 29 30 Next >
 
+Note, however, that you will not get a *gap* (...) where it would be redundant, e.g. same setup as above, but on page 8, will look
+like this:
+
+		< Previous 1 2 3 4 5 6 7 *8* 9 10 11 12 ... 29 30 Next >
+
+— Where rendering a gap between 2 and 4 would be pretty pointless.
+
+
 
