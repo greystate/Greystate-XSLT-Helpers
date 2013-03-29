@@ -77,16 +77,16 @@ Also, there's a variable to hold the current page's URL - again, you can set it 
 
 If the amount of pages grows huge, it's common to limit the pager output to some amount of pages *before* and *after* the current page.
 The Pagination Helper defaults this number to 4 pages before and after, but you can use the `pageLinksBeside` parameter to
-override this value. You will always have links to the first and last couple of pages, though - like this, for page 10 of a 30-page set:
+override this value. You will always have links to the first and last couple of pages, though - like this, for page 10 of a 24-page set:
 
-		< Previous 1 2 ... 6 7 8 9 *10* 11 12 13 14 ... 29 30 Next >
+<img src="pagination-10.png" alt="Sample pager at page 10" title="Sample pager at page 10 with 4 page links before and after" width="885" />
 
 Note, however, that you will not get a *gap* (...) where it would be redundant, e.g. same setup as above, but on page 8, will look
 like this:
 
-		< Previous 1 2 3 4 5 6 7 *8* 9 10 11 12 ... 29 30 Next >
+<img src="pagination-8.png" alt="Sample pager at page 8" title="Sample pager at page 8" width="885" />
 
-— Where rendering a gap between 2 and 4 would be pretty pointless.
+— Where rendering a gap between 2 and 4 would be pretty pointless, wherefore you get a link to the third page as well (for free!).
 
 
 
