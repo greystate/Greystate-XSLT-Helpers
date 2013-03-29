@@ -128,20 +128,23 @@
 			<!-- Create the "Previous" link -->
 			<li class="prev">
 				<xsl:choose>
-					<xsl:when test="$page = 1"><xsl:value-of select="$prevPage" /></xsl:when>
+					<xsl:when test="$page = 1">
+						<xsl:attribute name="class">prev disabled</xsl:attribute>
+						<xsl:value-of select="$prevPage" />
+					</xsl:when>
 					<!-- Avoid duplicate content by not linking p=1 (issue #7) -->
 					<xsl:when test="$page = 2">
-						<a href="{$query}"><xsl:value-of select="$prevPage" /></a>
+						<a href="{$query}" rel="prev start"><xsl:value-of select="$prevPage" /></a>
 					</xsl:when>
 					<xsl:otherwise>
-						<a href="{$query}{$sep}{$pagerParam}={$page - 1}"><xsl:value-of select="$prevPage" /></a>
+						<a href="{$query}{$sep}{$pagerParam}={$page - 1}" rel="prev"><xsl:value-of select="$prevPage" /></a>
 					</xsl:otherwise>
 				</xsl:choose>
 			</li>
 
 			<!-- Do we need to create page 1 & 2 + a "gap"? -->
 			<xsl:if test="$needToRenderGaps and ($page - $pageLinksBeside &gt; 4)">
-				<li><a href="{$query}">1</a></li>
+				<li><a href="{$query}" rel="start">1</a></li>
 				<li><a href="{$query}{$sep}{$pagerParam}=2">2</a></li>
 				<li class="gap">...</li>
 			</xsl:if>
@@ -158,9 +161,16 @@
 						<li>
 							<a href="{$query}{$sep}{$pagerParam}={position()}">
 								<!-- Avoid duplicate content by not linking p=1 (issue #7) -->
+								<xsl:if test="position() = $page - 1"><xsl:attribute name="rel">prev</xsl:attribute></xsl:if>
+								<xsl:if test="position() = $page + 1"><xsl:attribute name="rel">next</xsl:attribute></xsl:if>
 								<xsl:if test="position() = 1">
 									<xsl:attribute name="href"><xsl:value-of select="$query" /></xsl:attribute>
+									<xsl:attribute name="rel">start</xsl:attribute>
+									<xsl:if test="$page = 2">
+										<xsl:attribute name="rel">prev start</xsl:attribute>
+									</xsl:if>
 								</xsl:if>
+								<!-- Set rel=prev or rel=next if applicable -->
 								<xsl:value-of select="position()" />
 							</a>
 						</li>
@@ -203,7 +213,11 @@
 									<!-- Avoid duplicate content by not linking p=1 (issue #7) -->
 									<xsl:if test="position() = 1">
 										<xsl:attribute name="href"><xsl:value-of select="$query" /></xsl:attribute>
+										<xsl:attribute name="rel">start</xsl:attribute>
 									</xsl:if>
+									<!-- Set rel=prev or rel=next if applicable -->
+									<xsl:if test="position() = $page - 1"><xsl:attribute name="rel">prev</xsl:attribute></xsl:if>
+									<xsl:if test="position() = $page + 1"><xsl:attribute name="rel">next</xsl:attribute></xsl:if>
 									<xsl:value-of select="position()" /><!-- <xsl:value-of select="concat(' (', $from, '——', $to, ')')" /> -->
 								</a>
 							</li>
@@ -222,9 +236,12 @@
 			<!-- Create the "Next" link -->
 			<li class="next">
 				<xsl:choose>
-					<xsl:when test="$page = $lastPageNum"><xsl:value-of select="$nextPage" /></xsl:when>
+					<xsl:when test="$page = $lastPageNum">
+						<xsl:attribute name="class">next disabled</xsl:attribute>
+						<xsl:value-of select="$nextPage" />
+					</xsl:when>
 					<xsl:otherwise>
-						<a href="{$query}{$sep}{$pagerParam}={$page + 1}"><xsl:value-of select="$nextPage" /></a>
+						<a href="{$query}{$sep}{$pagerParam}={$page + 1}" rel="next"><xsl:value-of select="$nextPage" /></a>
 					</xsl:otherwise>
 				</xsl:choose>
 			</li>			
