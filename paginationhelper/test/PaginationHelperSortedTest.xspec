@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<x:description
+	stylesheet="PaginationHelperSortedSample.xslt"
+	xslt-version="1.0"
+	xmlns:x="http://www.jenitennison.com/xslt/xspec"
+>
+
+	<x:scenario label="When calling PaginateSelection" focus="here">
+		<x:call template="PaginateSelection">
+			<x:param name="selection" select="document('fixtures/people-with-nicks.xml', /)/people/person" />
+			<x:param name="showPager" select="false()" />
+		</x:call>
+
+		<x:scenario label="with no sorting parameters">
+			<x:call />
+			<x:expect label="it should not sort the output">
+				<p>James Sawyer</p>
+				<p>Kate Austen</p>
+				<p>Penelope Widmore</p>
+				<p>Hugo Reyes</p>
+				<p>Jack Shepard</p>
+			</x:expect>
+		</x:scenario>
+		
+		<x:scenario label="with sortBy 'name'">
+			<x:call>
+				<x:param name="sortBy" select="'name'" />
+			</x:call>
+			<x:expect label="it should sort the output by name">
+				<p>Hugo Reyes</p>
+				<p>Jack Shepard</p>
+				<p>James Sawyer</p>
+				<p>Kate Austen</p>
+				<p>Penelope Widmore</p>
+			</x:expect>
+		</x:scenario>
+	
+	</x:scenario>
+
+
+
+</x:description>
