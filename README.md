@@ -3,15 +3,15 @@
 Miscellaneous XSLT files for use as included stylesheets to ease certain common tasks.
 
 Hopefully, using these helpers you should be able to keep your XSLT clean and
-readable, while offering a level of indirection for tasks that could require changes in
-the low-level implementation, when moved from one system to another.
+readable, with a focus on the logic that's part of your app, not worrying too much about
+the *common functionality* stuff that these provide.
 
 ## Installation
 
-There's an installable package in the works, but for now, here's how you should install the helpers:
+There's an installable package for [Umbraco](http://umbraco.com/) in the works, but for now, here's how you should install the helpers:
 
 * Grab all of the files in the `dist` folder and put them alongside your other XSLT files (i.e., the `xslt` folder if you're using Umbraco).
-
+* .config files should go into the `config` folder
 
 ## Basic usage
 
