@@ -59,6 +59,46 @@
 					<p>Hugo Reyes</p>
 				</x:expect>
 			</x:scenario>
+		</x:scenario>
+
+		<x:scenario label="with sortBy '@nickname'">
+			<!-- Doc, Freckles, Hurley, Penny, Sawyer -->
+			<x:call>
+				<x:param name="sortBy" select="'@nickname'" />
+			</x:call>
+			<x:expect label="it should sort the output by nickname">
+				<p>Jack Shepard</p>
+				<p>Kate Austen</p>
+				<p>Hugo Reyes</p>
+				<p>Penelope Widmore</p>
+				<p>James Sawyer</p>
+			</x:expect>
+			
+			<x:scenario label="specifying ASC">
+				<x:call>
+					<x:param name="sortBy" select="'@nickname ASC'" />
+				</x:call>
+				<x:expect label="it should still sort the output by nickname">
+					<p>Jack Shepard</p>
+					<p>Kate Austen</p>
+					<p>Hugo Reyes</p>
+					<p>Penelope Widmore</p>
+					<p>James Sawyer</p>
+				</x:expect>
+			</x:scenario>
+			
+			<x:scenario label="specifying DESC">
+				<x:call>
+					<x:param name="sortBy" select="'@nickname DESC'" />
+				</x:call>
+				<x:expect label="it should sort the output descending by nickname">
+					<p>James Sawyer</p>
+					<p>Penelope Widmore</p>
+					<p>Hugo Reyes</p>
+					<p>Kate Austen</p>
+					<p>Jack Shepard</p>
+				</x:expect>
+			</x:scenario>
 			
 		</x:scenario>
 	
