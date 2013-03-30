@@ -33,6 +33,33 @@
 				<p>Kate Austen</p>
 				<p>Penelope Widmore</p>
 			</x:expect>
+			
+			<x:scenario label="specifying ASC">
+				<x:call>
+					<x:param name="sortBy" select="'name ASC'" />
+				</x:call>
+				<x:expect label="it should still sort the output by name">
+					<p>Hugo Reyes</p>
+					<p>Jack Shepard</p>
+					<p>James Sawyer</p>
+					<p>Kate Austen</p>
+					<p>Penelope Widmore</p>
+				</x:expect>
+			</x:scenario>
+			
+			<x:scenario label="specifying DESC">
+				<x:call>
+					<x:param name="sortBy" select="'name DESC'" />
+				</x:call>
+				<x:expect label="it should sort the output descending by name">
+					<p>Penelope Widmore</p>
+					<p>Kate Austen</p>
+					<p>James Sawyer</p>
+					<p>Jack Shepard</p>
+					<p>Hugo Reyes</p>
+				</x:expect>
+			</x:scenario>
+			
 		</x:scenario>
 	
 	</x:scenario>
