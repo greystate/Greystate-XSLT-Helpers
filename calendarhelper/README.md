@@ -42,7 +42,7 @@ month:
 
 The `_CalendarHelper.xslt` file has a config file in the `config` folder called `CalendarSettings.config`,
 which contains some easy to understand XML for localizing the calendar. You can add your own language
-if you want (*fork, edit, pull request* anyone?), or you can change what you need to get the
+if you want (<em>fork, edit, pull request</em> anyone?), or you can change what you need to get the
 output you want. If, say, you needed a very compact calendar&#8212;you could change all the
 weekday headers to just the first letter.
 
