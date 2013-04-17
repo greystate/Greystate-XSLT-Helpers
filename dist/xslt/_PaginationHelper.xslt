@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<?umbraco-package XSLT Helpers v0.8.4 - PaginationHelper v1.2?>
+<?umbraco-package XSLT Helpers v0.8.5 - PaginationHelper v1.3?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:str="urn:Exslt.ExsltStrings" xmlns:make="urn:schemas-microsoft-com:xslt" version="1.0" exclude-result-prefixes="umb str make">
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
@@ -52,7 +52,10 @@
 		
 		<!-- This is the number of results you want per page -->
 		<xsl:param name="perPage" select="$perPage"/>
-
+		
+		<!-- Specify which node() to sort by (as a string), e.g.: 'name', 'name DESC', '@updateDate ASC' etc. -->
+		<xsl:param name="sortBy"/>
+		
 		<!-- Also, allow forcing specific options -->
 		<xsl:param name="options" select="$options"/>
 
@@ -65,8 +68,25 @@
 		<xsl:variable name="startIndex" select="$perPage * ($page - 1) + 1"/><!-- First item on this page -->
 		<xsl:variable name="endIndex" select="$page * $perPage"/><!-- First item on next page -->
 		
-		<!-- Render the current page using apply-templates -->
-		<xsl:apply-templates select="$selection[position() &gt;= $startIndex and position() &lt;= $endIndex]"/>
+		<xsl:choose>
+			<!-- Do we need to pre-sort the selection? -->
+			<xsl:when test="normalize-space($sortBy)">
+				<xsl:variable name="sortedProxy">
+					<xsl:call-template name="preSort">
+						<xsl:with-param name="selection" select="$selection"/>
+						<xsl:with-param name="sortBy" select="$sortBy"/>
+					</xsl:call-template>
+				</xsl:variable>
+				<xsl:variable name="sortedSelection" select="make:node-set($sortedProxy)/nodes/nodeId"/>
+				<xsl:apply-templates select="$selection[generate-id() = $sortedSelection[position() &gt;= $startIndex and position() &lt;= $endIndex]]">
+					<xsl:sort select="count($sortedSelection[. = generate-id(current())]/preceding-sibling::nodeId)" data-type="number" order="ascending"/>
+				</xsl:apply-templates>
+			</xsl:when>
+			<xsl:otherwise>
+				<!-- Render the current page using apply-templates -->
+				<xsl:apply-templates select="$selection[position() &gt;= $startIndex and position() &lt;= $endIndex]"/>
+			</xsl:otherwise>
+		</xsl:choose>
 		
 		<!-- Should we render the pager controls? -->
 		<xsl:if test="$showPager">
@@ -241,6 +261,46 @@
 		<option key="{$key}">
 			<xsl:value-of select="umb:RequestQueryString($key)"/>
 		</option>
+	</xsl:template>
+	
+	<!-- Pre-sorting -->
+	<xsl:template name="preSort">
+		<xsl:param name="selection" select="/.."/>
+		<xsl:param name="sortBy"/>
+
+		<nodes>
+			<xsl:if test="normalize-space($sortBy)">
+				<xsl:variable name="sortNode">
+					<xsl:value-of select="substring-before($sortBy, ' ')"/>
+					<xsl:if test="not(contains($sortBy, ' '))">
+						<xsl:value-of select="$sortBy"/>
+					</xsl:if>
+				</xsl:variable>
+				<xsl:variable name="sortDirection">
+					<xsl:value-of select="substring-after($sortBy, ' ')"/>
+					<xsl:if test="not(contains($sortBy, ' '))">
+						<xsl:value-of select="'ASC'"/>
+					</xsl:if>
+				</xsl:variable>
+				<xsl:variable name="direction" select="translate(concat($sortDirection, 'ending'), 'ACDES', 'acdes')"/>
+				<xsl:choose>
+					<xsl:when test="starts-with($sortNode, '@')">
+						<xsl:apply-templates select="$selection" mode="presort">
+							<xsl:sort select="@*[name() = substring-after($sortNode, '@')]" data-type="text" order="{$direction}"/>
+						</xsl:apply-templates>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="$selection" mode="presort">
+							<xsl:sort select="*[name() = $sortNode]" data-type="text" order="{$direction}"/>
+						</xsl:apply-templates>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:if>
+		</nodes>
+	</xsl:template>
+	
+	<xsl:template match="*" mode="presort">
+		<nodeId><xsl:value-of select="generate-id()"/></nodeId>
 	</xsl:template>
 
 </xsl:stylesheet>

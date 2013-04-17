@@ -149,11 +149,11 @@
 				</x:expect>
 			</x:scenario>
 			
-			<x:scenario label="specifying 3 per page" pending="offline">
+			<x:scenario label="specifying 3 per page">
 				<x:call>
 					<x:param name="perPage" select="3" />
 				</x:call>
-					
+				
 				<x:expect label="it should output 3">
 					<p>...</p>
 					<p>...</p>
