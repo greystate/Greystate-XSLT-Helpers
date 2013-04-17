@@ -296,5 +296,47 @@
 			<xsl:value-of select="&GetQueryStringValueForKey;" />
 		</option>
 	</xsl:template>
+	
+	<!-- Pre-sorting -->
+	<xsl:template name="preSort">
+		<xsl:param name="selection" select="/.." />
+		<xsl:param name="sortBy" />
+		<xsl:param name="page" select="$page" />
+		<xsl:param name="perPage" select="$perPage" />
+
+		<nodes>
+			<xsl:if test="normalize-space($sortBy)">
+				<xsl:variable name="sortNode">
+					<xsl:value-of select="substring-before($sortBy, ' ')" />
+					<xsl:if test="not(contains($sortBy, ' '))">
+						<xsl:value-of select="$sortBy" />
+					</xsl:if>
+				</xsl:variable>
+				<xsl:variable name="sortDirection">
+					<xsl:value-of select="substring-after($sortBy, ' ')" />
+					<xsl:if test="not(contains($sortBy, ' '))">
+						<xsl:value-of select="'ASC'" />
+					</xsl:if>
+				</xsl:variable>
+				<xsl:variable name="direction" select="translate(concat($sortDirection, 'ending'), 'ACDES', 'acdes')" />
+				<xsl:choose>
+					<xsl:when test="starts-with($sortNode, '@')">
+						<xsl:apply-templates select="$selection" mode="presort">
+							<xsl:sort select="@*[name() = substring-after($sortNode, '@')]" data-type="text" order="{$direction}" />
+						</xsl:apply-templates>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="$selection" mode="presort">
+							<xsl:sort select="*[name() = $sortNode]" data-type="text" order="{$direction}" />
+						</xsl:apply-templates>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:if>
+		</nodes>
+	</xsl:template>
+	
+	<xsl:template match="*" mode="presort">
+		<nodeId><xsl:value-of select="@id" /></nodeId>
+	</xsl:template>
 
 </xsl:stylesheet>
