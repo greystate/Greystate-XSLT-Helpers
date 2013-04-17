@@ -98,8 +98,8 @@
 					</xsl:call-template>
 				</xsl:variable>
 				<xsl:variable name="sortedSelection" select="make:node-set($sortedProxy)/nodes/nodeId" />
-				<xsl:apply-templates select="$selection[@id = $sortedSelection[position() &gt;= $startIndex and position() &lt;= $endIndex]]">
-					<xsl:sort select="count($sortedSelection[. = current()/@id]/preceding-sibling::nodeId)" data-type="number" order="ascending" />
+				<xsl:apply-templates select="$selection[generate-id() = $sortedSelection[position() &gt;= $startIndex and position() &lt;= $endIndex]]">
+					<xsl:sort select="count($sortedSelection[. = generate-id(current())]/preceding-sibling::nodeId)" data-type="number" order="ascending" />
 				</xsl:apply-templates>
 			</xsl:when>
 			<xsl:otherwise>
@@ -320,7 +320,7 @@
 	</xsl:template>
 	
 	<xsl:template match="*" mode="presort">
-		<nodeId><xsl:value-of select="@id" /></nodeId>
+		<nodeId><xsl:value-of select="generate-id()" /></nodeId>
 	</xsl:template>
 
 </xsl:stylesheet>
