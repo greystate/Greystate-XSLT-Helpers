@@ -89,6 +89,7 @@
 		<xsl:variable name="endIndex" select="$page * $perPage" /><!-- First item on next page -->
 		
 		<xsl:choose>
+			<!-- Do we need to pre-sort the selection? -->
 			<xsl:when test="normalize-space($sortBy)">
 				<xsl:variable name="sortedProxy">
 					<xsl:call-template name="preSort">
