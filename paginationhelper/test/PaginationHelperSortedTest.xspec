@@ -85,6 +85,29 @@
 					<p>Hugo Reyes</p>
 				</x:expect>
 			</x:scenario>
+			
+			<x:scenario label="specifying 3 per page">
+				<x:call>
+					<x:param name="perPage" select="3" />
+				</x:call>
+					
+				<x:expect label="it should output the first 3">
+					<p>Hugo Reyes</p>
+					<p>Jack Shepard</p>
+					<p>James Sawyer</p>
+				</x:expect>
+				
+				<x:scenario label="asking for page 2">
+					<x:call>
+						<x:param name="page" select="2" />
+					</x:call>
+					<x:expect label="it should output the last 2">
+						<p>Kate Austen</p>
+						<p>Penelope Widmore</p>
+					</x:expect>
+				</x:scenario>
+			</x:scenario>
+			
 		</x:scenario>
 
 		<x:scenario label="with sortBy '@nickname'">
