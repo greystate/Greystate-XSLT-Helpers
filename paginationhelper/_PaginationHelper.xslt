@@ -90,31 +90,16 @@
 		
 		<xsl:choose>
 			<xsl:when test="normalize-space($sortBy)">
-				<xsl:variable name="sortNode">
-					<xsl:value-of select="substring-before($sortBy, ' ')" />
-					<xsl:if test="not(contains($sortBy, ' '))">
-						<xsl:value-of select="$sortBy" />
-					</xsl:if>
+				<xsl:variable name="sortedProxy">
+					<xsl:call-template name="preSort">
+						<xsl:with-param name="selection" select="$selection" />
+						<xsl:with-param name="sortBy" select="$sortBy" />
+					</xsl:call-template>
 				</xsl:variable>
-				<xsl:variable name="sortDirection">
-					<xsl:value-of select="substring-after($sortBy, ' ')" />
-					<xsl:if test="not(contains($sortBy, ' '))">
-						<xsl:value-of select="'ASC'" />
-					</xsl:if>
-				</xsl:variable>
-				<xsl:variable name="direction" select="translate(concat($sortDirection, 'ending'), 'ACDES', 'acdes')" />
-				<xsl:choose>
-					<xsl:when test="starts-with($sortNode, '@')">
-						<xsl:apply-templates select="$selection">
-							<xsl:sort select="@*[name() = substring-after($sortNode, '@')]" data-type="text" order="{$direction}" />
-						</xsl:apply-templates>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:apply-templates select="$selection">
-							<xsl:sort select="*[name() = $sortNode]" data-type="text" order="{$direction}" />
-						</xsl:apply-templates>
-					</xsl:otherwise>
-				</xsl:choose>
+				<xsl:variable name="sortedSelection" select="make:node-set($sortedProxy)/nodes/nodeId" />
+				<xsl:apply-templates select="$selection[@id = $sortedSelection[position() &gt;= $startIndex and position() &lt;= $endIndex]]">
+					<xsl:sort select="count($sortedSelection[. = current()/@id]/preceding-sibling::nodeId)" data-type="number" order="ascending" />
+				</xsl:apply-templates>
 			</xsl:when>
 			<xsl:otherwise>
 				<!-- Render the current page using apply-templates -->
@@ -301,8 +286,6 @@
 	<xsl:template name="preSort">
 		<xsl:param name="selection" select="/.." />
 		<xsl:param name="sortBy" />
-		<xsl:param name="page" select="$page" />
-		<xsl:param name="perPage" select="$perPage" />
 
 		<nodes>
 			<xsl:if test="normalize-space($sortBy)">
