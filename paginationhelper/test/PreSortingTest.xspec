@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<x:description
+	stylesheet="../_PaginationHelper.xslt"
+	xslt-version="1.0"
+	xmlns:x="http://www.jenitennison.com/xslt/xspec"
+>
+	<x:scenario label="when calling the preSort template">
+		<x:call template="preSort">
+			<x:param name="selection" select="document('fixtures/people-with-nicks.xml', /)//person" />
+			<x:param name="sortBy" select="'name'" />
+		</x:call>
+		<x:expect label="it should produce a sorted set">
+			<nodes>
+				<nodeId>4</nodeId>
+				<nodeId>5</nodeId>
+				<nodeId>1</nodeId>
+				<nodeId>2</nodeId>
+				<nodeId>3</nodeId>
+			</nodes>
+		</x:expect>
+	</x:scenario>
+
+</x:description>
