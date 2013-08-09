@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<people>
+	<person nickname="Sawyer" id="1">
+		<name>James Sawyer</name>
+		<email>james.sawyer@4815162342x.com</email>
+	</person>
+	<person nickname="Freckles" id="2">
+		<name>Kate Austen</name>
+		<email>kate.austen@4815162342x.com</email>
+	</person>
+	<person nickname="Penny" id="3">
+		<name>Penelope Widmore</name>
+		<email>penelope.widmore@4815162342x.com</email>
+	</person>
+	<person nickname="Hurley" id="4">
+		<name>Hugo Reyes</name>
+		<email>hugo.reyes@4815162342x.com</email>
+	</person>
+	<person nickname="Doc" id="5">
+		<name>Jack Shepard</name>
+		<email>jack.shepard@4815162342x.com</email>
+	</person>
+</people>

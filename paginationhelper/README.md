@@ -55,6 +55,29 @@ output, you can turn them off with the `showPager` parameter by supplying `false
 can manually output the controls by calling `RenderPager`, using the same `selection` parameter as you called the
 `PaginateSelection` template with, to get the paging controls where you want them.
 
+## Sorting the output
+
+Sometimes, the data you want to paginate is actually also being sorted when rendered, e.g. like this common scenario:
+
+```xslt
+<xsl:apply-templates select="$currentPage/Textpage">
+	<xsl:sort select="@createDate" order="descending" />
+</xsl:apply-templates>
+```
+
+The problem with introducing pagination here, is that most often you get the pagination happening *before* sorting, but you really want to *sort* the results first and then perform the pagination. For that you use the `sortBy` parameter:
+
+```xslt
+<xsl:call-template name="PaginateSelection">
+	<xsl:with-param name="selection" select="$currentPage/Textpage" />
+	<xsl:with-param name="sortBy" select="'@createDate DESC'" />
+</xsl:call-template>
+```
+
+*Note that it's a string combining the name of the element or attribute to sort by and the direction (`ASC` or `DESC`), separated by a space. `ASC` is the default so you don't even need to specify the direction, unless it's `DESC`.*
+
+It won't cover every scenario, e.g. it doesn't do numerical sorting yet, and you can only sort by a single element/attribute, where the element has to be a direct child of the node being sorted. Still, this should cover **a lot** of use cases.
+
 ## QueryString options
 
 The pager links rendered will include all existing querystring options on the original page (i.e., "page 1"), so if
