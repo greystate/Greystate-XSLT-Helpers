@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<?umbraco-package XSLT Helpers v0.8.5 - PaginationHelper v1.3?>
+<?umbraco-package XSLT Helpers v0.8.6 - PaginationHelper v1.4?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:str="urn:Exslt.ExsltStrings" xmlns:make="urn:schemas-microsoft-com:xslt" version="1.0" exclude-result-prefixes="umb str make">
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes"/>
@@ -269,36 +269,55 @@
 		<xsl:param name="sortBy"/>
 
 		<nodes>
-			<xsl:if test="normalize-space($sortBy)">
-				<xsl:variable name="sortNode">
-					<xsl:value-of select="substring-before($sortBy, ' ')"/>
-					<xsl:if test="not(contains($sortBy, ' '))">
-						<xsl:value-of select="$sortBy"/>
-					</xsl:if>
-				</xsl:variable>
-				<xsl:variable name="sortDirection">
-					<xsl:value-of select="substring-after($sortBy, ' ')"/>
-					<xsl:if test="not(contains($sortBy, ' '))">
-						<xsl:value-of select="'ASC'"/>
-					</xsl:if>
-				</xsl:variable>
-				<xsl:variable name="direction" select="translate(concat($sortDirection, 'ending'), 'ACDES', 'acdes')"/>
-				<xsl:choose>
-					<xsl:when test="starts-with($sortNode, '@')">
-						<xsl:apply-templates select="$selection" mode="presort">
-							<xsl:sort select="@*[name() = substring-after($sortNode, '@')]" data-type="text" order="{$direction}"/>
-						</xsl:apply-templates>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:apply-templates select="$selection" mode="presort">
-							<xsl:sort select="*[name() = $sortNode]" data-type="text" order="{$direction}"/>
-						</xsl:apply-templates>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:if>
+			<xsl:choose>
+				<xsl:when test="$sortBy = '$CUSTOM'">
+					<xsl:call-template name="customSort">
+						<xsl:with-param name="selection" select="$selection"/>
+					</xsl:call-template>
+				</xsl:when>
+				<xsl:when test="normalize-space($sortBy)">
+					<xsl:variable name="sortNode">
+						<xsl:value-of select="substring-before($sortBy, ' ')"/>
+						<xsl:if test="not(contains($sortBy, ' '))">
+							<xsl:value-of select="$sortBy"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:variable name="sortDirection">
+						<xsl:value-of select="substring-after($sortBy, ' ')"/>
+						<xsl:if test="not(contains($sortBy, ' '))">
+							<xsl:value-of select="'ASC'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:variable name="direction" select="translate(concat($sortDirection, 'ending'), 'ACDES', 'acdes')"/>
+					<xsl:choose>
+						<xsl:when test="starts-with($sortNode, '@')">
+							<xsl:apply-templates select="$selection" mode="presort">
+								<xsl:sort select="@*[name() = substring-after($sortNode, '@')]" data-type="text" order="{$direction}"/>
+							</xsl:apply-templates>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates select="$selection" mode="presort">
+								<xsl:sort select="*[name() = $sortNode]" data-type="text" order="{$direction}"/>
+							</xsl:apply-templates>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>
+			</xsl:choose>
 		</nodes>
 	</xsl:template>
 	
+	<!--
+		This is the template that gets called when you ask for custom sorting.
+		It should just apply templates to the $selection parameter in "presort" mode,
+		and of course add a special sort element or more to accomplish the task.
+	-->
+	<xsl:template name="customSort">
+		<xsl:param name="selection"/>
+		<xsl:apply-templates select="$selection" mode="presort">
+			<xsl:sort select="." data-type="text" order="ascending"/>
+		</xsl:apply-templates>
+	</xsl:template>
+
 	<xsl:template match="*" mode="presort">
 		<nodeId><xsl:value-of select="generate-id()"/></nodeId>
 	</xsl:template>
