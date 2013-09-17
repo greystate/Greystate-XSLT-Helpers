@@ -162,6 +162,19 @@
 			</x:scenario>
 			
 		</x:scenario>
+		
+		<x:scenario label="with sortBy '$CUSTOM'">
+			<x:call>
+				<x:param name="sortBy" select="'$CUSTOM'" />
+			</x:call>
+			<x:expect label="it should call the customSort template">
+				<p>Hugo Reyes</p>
+				<p>Jack Shepard</p>
+				<p>James Sawyer</p>
+				<p>Kate Austen</p>
+				<p>Penelope Widmore</p>
+			</x:expect>
+		</x:scenario>
 	
 	</x:scenario>
 

@@ -65,7 +65,7 @@ Sometimes, the data you want to paginate is actually also being sorted when rend
 </xsl:apply-templates>
 ```
 
-The problem with introducing pagination here, is that most often you get the pagination happening *before* sorting, but you really want to *sort* the results first and then perform the pagination. For that you use the `sortBy` parameter:
+The problem with introducing pagination here, is that you'll get the pagination happening *before* sorting, but you really want to *sort* the results first and then perform the pagination. For that you use the `sortBy` parameter:
 
 ```xslt
 <xsl:call-template name="PaginateSelection">
@@ -76,7 +76,28 @@ The problem with introducing pagination here, is that most often you get the pag
 
 *Note that it's a string combining the name of the element or attribute to sort by and the direction (`ASC` or `DESC`), separated by a space. `ASC` is the default so you don't even need to specify the direction, unless it's `DESC`.*
 
-It won't cover every scenario, e.g. it doesn't do numerical sorting yet, and you can only sort by a single element/attribute, where the element has to be a direct child of the node being sorted. Still, this should cover **a lot** of use cases.
+It won't cover every scenario, e.g. it doesn't do numerical sorting, and you can only sort by a single element/attribute, where the element has to be a direct child of the node being sorted. Still, this should cover **a lot** of use cases.
+
+### Advanced sorting
+
+Because XSLT allows for some very special sorting (e.g., sorting by a substring of a value or the combined value of two or more values), there need to be a way to support this, so by sending the string **'$CUSTOM'** into the `sortBy` parameter, the helper will execute a named template (**"customSort"**) to perform the sorting, so in that one you can just paste your existing sort statements, e.g.:
+
+```xslt
+<xsl:call-template name="PaginateSelection">
+	<xsl:with-param name="selection" select="$currentPage/Textpage" />
+	<xsl:with-param name="sortBy" select="'$CUSTOM'" />
+</xsl:call-template>
+
+...
+
+<xsl:template name="customSort">
+	<xsl:param name="selection" />
+	<xsl:apply-templates select="$selection" mode="preSort">
+		<xsl:sort select="substring-before(@nodeName, '-')" data-type="text" order="ascending" />
+		<xsl:sort select="substring-after(@nodeName, '-')" data-type="number" order="ascending" />
+	</xsl:apply-templates>
+</xsl:template>
+```
 
 ## QueryString options
 
