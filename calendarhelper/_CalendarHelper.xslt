@@ -19,8 +19,6 @@
 	exclude-result-prefixes="umb date make freeze"
 >
 
-	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
-	
 	<!-- Grab today's date - we probably need it, this being a calendar and all -->
 	<xsl:variable name="today" select="&today;" />
 	
