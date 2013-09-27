@@ -22,8 +22,6 @@
 	exclude-result-prefixes="umb str make"
 >
 
-	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
-
 	<!-- Config constants -->
 	<xsl:variable name="pagerParam" select="'&pagerParam;'" /><!-- Name of QueryString parameter for 'page' -->
 	<xsl:variable name="perPage" select="&perPage;" /><!-- Default number of items on a page -->
