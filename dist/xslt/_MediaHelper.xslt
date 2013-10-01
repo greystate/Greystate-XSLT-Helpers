@@ -16,8 +16,8 @@
 
 	<!-- Set up some strings for later use -->
 	<xsl:variable name="stringProxy">
-		<defaultConfig>../config/CroppingSettings.config</defaultConfig>
-		<cropUpConfig>../config/Eksponent.CropUp.config</cropUpConfig>
+		<defaultConfig>../../config/CroppingSettings.config</defaultConfig>
+		<cropUpConfig>../../config/Eksponent.CropUp.config</cropUpConfig>
 		<x>x</x>
 	</xsl:variable>
 	<xsl:variable name="strings" select="make:node-set($stringProxy)"/>
