@@ -15,8 +15,6 @@
 	exclude-result-prefixes="umb freeze"
 >
 
-	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
-
 <!-- :: Configuration :: -->
 	<!-- CSS class for selected/active items -->
 	<xsl:variable name="selectedClass" select="'selected'" />

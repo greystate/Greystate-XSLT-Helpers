@@ -145,9 +145,7 @@
 			<x:context mode="media.url">
 				<pageImage>2230</pageImage>
 			</x:context>
-			<x:expect label="it should only return the Image's URL" select="output/text()">
-				<output>/test2230.png</output>
-			</x:expect>
+			<x:expect label="it should only return the Image's URL" select="'/test2230.png'" />
 		</x:scenario>
 		
 		<x:scenario label="with a crop parameter">
@@ -155,9 +153,7 @@
 				<x:param name="crop" select="'Large'" />
 				<pageImage>2230</pageImage>
 			</x:context>
-			<x:expect label="it should only return the URL of the specified crop" select="output/text()">
-				<output>/test2230_Large.png</output>
-			</x:expect>
+			<x:expect label="it should only return the URL of the specified crop" select="'/test2230_Large.png'" />
 		</x:scenario>
 
 	</x:scenario>

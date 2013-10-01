@@ -25,8 +25,6 @@
 	exclude-result-prefixes="umb get make cropup freeze"
 >
 
-	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
-
 	<!-- Set this to true() if you're using the Eksponent.CropUp cropper -->
 	<xsl:variable name="useCropUp" select="false()" />
 
