@@ -33,6 +33,6 @@
 	</xsl:template>
 	
 	<!-- Include Pagination Helper -->
-	<xsl:include href="_PaginationHelper.xslt" />
+	<xsl:include href="helpers/_PaginationHelper.xslt" />
 
 </xsl:stylesheet>

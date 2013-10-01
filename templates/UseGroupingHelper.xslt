@@ -47,6 +47,6 @@
 	</xsl:template>
 	
 	<!-- Include Grouping Helper -->
-	<xsl:include href="_GroupingHelper.xslt" />
+	<xsl:include href="helpers/_GroupingHelper.xslt" />
 
 </xsl:stylesheet>
