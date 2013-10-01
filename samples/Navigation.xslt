@@ -27,6 +27,6 @@
         <xsl:apply-templates select="$currentPage[$mode = 'sitemap']" mode="navigation.map" />
     </xsl:template>
 
-    <xsl:include href="_NavigationHelper.xslt" />
+    <xsl:include href="helpers/_NavigationHelper.xslt" />
 
 </xsl:stylesheet>
