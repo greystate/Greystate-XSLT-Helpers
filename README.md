@@ -8,7 +8,7 @@ the *common functionality* stuff that these provide.
 
 ## Installation
 
-There's an installable package for [Umbraco](http://umbraco.com/) in the works, but for now, here's how you should install the helpers:
+Get the latest build as a package for [Umbraco](http://umbraco.com/) from the [Releases section][RELEASES], and install as any other package from the **Developer** section:
 
 * Grab all of the files in the `dist` folder and put them alongside your other XSLT files (i.e., the `xslt` folder if you're using Umbraco).
 * .config files should go into the `config` folder
@@ -19,7 +19,7 @@ Using these helpers usually just require the same 2 steps:
 
 1.	Include the file(s) in your main XSLT file using the include instruction:
 
-		<xsl:include href="_HelperFile.xslt" />
+		<xsl:include href="helpers/_HelperFile.xslt" />
 
 2.	Perform one of the following actions:
 	
@@ -78,3 +78,4 @@ A bunch of well-tested templates for handling Media items in Umbraco - if you've
 [GROUPING]: https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/groupinghelper
 [CALENDAR]: https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/calendarhelper
 [MEDIA]: https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/mediahelpers
+[RELEASES]: https://github.com/greystate/Greystate-XSLT-Helpers/releases
