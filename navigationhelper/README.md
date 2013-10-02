@@ -23,7 +23,7 @@ The Navigation Helper makes it very easy to create four of the most common navig
 	</nav>
 </xsl:template>
 
-<xsl:include href="_NavigationHelper.xslt" />
+<xsl:include href="helpers/_NavigationHelper.xslt" />
 ```
 
 Note that Navigation Helper renders all the `<li>` and `<a>` elements for you - but you need to wrap your own `<ul>` and/or `<div>`, `<nav>` etc. around them - this gives you maximum flexibility in shaping as many class/id/wrapper combinations as possible.
@@ -132,12 +132,12 @@ You can create a single XSLT macro to render all of your site's navigations like
 		<xsl:apply-templates select="$currentPage[$mode = 'sitemap']" mode="navigation.map" />
 	</xsl:template>
 
-	<xsl:include href="_NavigationHelper.xslt" />
+	<xsl:include href="helpers/_NavigationHelper.xslt" />
 
 </xsl:stylesheet>
 ```
 
-(Remember to put the `dist/_NavigationHelper.xslt` file in the xslt folder as well)
+(Remember to put the `dist/_NavigationHelper.xslt` file in the `xslt/helpers` folder as well)
 
 Now, in your templates, you can just add the **Navigation** macro and choose the appropriate mode
 (you should use the mode names inside the squarebrackets above), e.g.:
