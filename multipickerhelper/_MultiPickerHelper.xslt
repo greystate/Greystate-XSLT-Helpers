@@ -2,20 +2,7 @@
 <!-- 
 	_MultiPickerHelper.xslt
 
-	Helper file for rendering various uComponents datatypes that store node ids; Currently supports:
-		* Multi-Node Tree Picker
-		* XPath CheckBox List
-		* CheckBoxTree
-		* WidgetGrid (separate package from Matt Brailsford)
-		
-	- when using "XML" as Storage Type and "Node Ids" as Values (if applicable).
-	
-	Usage:
-		Include this file in any XSLT file using <xsl:include href="_MultiPickerHelper.xslt" /> and in your
-		main XSLT file just apply templates to the property you want to render, like this:
-		
-		<xsl:apply-templates select="propertyName" mode="multipicker" />
-		
+	Helper file for rendering various datatypes that store node ids.
 -->
 <?umbraco-package This is a dummy for the packageVersion entity - see ../lib/freezeEntities.xslt ?>
 <?MultiPickerHelperVersion ?>
