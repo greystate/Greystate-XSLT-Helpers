@@ -42,6 +42,11 @@ A self-contained clip-on solution for pagination of node-sets.
 
 > "Just add Pagination"
 
+### [MultiPicker Helper][MULTIPICKER]
+
+Makes it very easy to work with various "picker" DataTypes in Umbraco, by having templates
+for each of the possible content nodes, and then using a key to grab all the picked nodes.
+
 ### [Navigation Helper][NAVIGATION]
 
 Simple Navigation generation - almost too easy. Supports the four most commonly needed navigations: Main navigation, Sub navigation, Breadcrumb and Sitemap.
@@ -78,3 +83,4 @@ A bunch of well-tested templates for handling Media items in Umbraco - if you've
 [GROUPING]: https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/groupinghelper
 [CALENDAR]: https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/calendarhelper
 [MEDIA]: https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/mediahelpers
+[MULTIPICKER]: https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/multipickerhelper
