@@ -1,2 +1,4 @@
 projectDirectory = "$CWD"
 windowTitle      = "$TM_DISPLAYNAME — ${CWD/^.*\///} ($TM_SCM_BRANCH)"
+
+CLASSPATH = /Users/chriz/Library/Java/saxon9.jar
