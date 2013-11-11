@@ -40,4 +40,7 @@
 		
 	</xsl:template>
 
+	<!-- Template to soak up text nodes being applied by the built-in templates -->
+	<xsl:template match="text()" mode="multipicker" priority="-1" />
+
 </xsl:stylesheet>
