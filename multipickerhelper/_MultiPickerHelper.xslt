@@ -20,7 +20,7 @@
 		<xsl:param name="key" select="'document-by-id'" />
 		
 	<!--
-		This does the equivalent of calling the key() function for every <nodeId>,
+		This does the equivalent of calling the `key()` function for every `<nodeId>`,
 		collecting the resulting documents into a node-set.
 
 		Ideally we could just apply templates to that set, but unfortunately the nodes
