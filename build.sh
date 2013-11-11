@@ -26,6 +26,7 @@ xsltproc --novalid --output package/_NavigationHelper.xslt lib/freezeEntities.xs
 xsltproc --novalid --output package/_GroupingHelper.xslt lib/freezeEntities.xslt groupinghelper/_GroupingHelper.xslt
 xsltproc --novalid --output package/_CalendarHelper.xslt lib/freezeEntities.xslt calendarhelper/_CalendarHelper.xslt
 xsltproc --novalid --output package/_MediaHelper.xslt lib/freezeEntities.xslt mediahelpers/_MediaHelper.xslt
+xsltproc --novalid --output package/_MultiPickerHelper.xslt lib/freezeEntities.xslt multipickerhelper/_MultiPickerHelper.xslt
 
 # Fix transformed entity references in attributes
 sed -i "" "s/\&amp;\(.*\);/\&\1;/" package/_NavigationHelper.xslt
@@ -51,6 +52,7 @@ cp package/_NavigationHelper.xslt dist/xslt/_NavigationHelper.xslt
 cp package/_GroupingHelper.xslt dist/xslt/_GroupingHelper.xslt
 cp package/_CalendarHelper.xslt dist/xslt/_CalendarHelper.xslt
 cp package/_MediaHelper.xslt dist/xslt/_MediaHelper.xslt
+cp package/_MultiPickerHelper.xslt dist/xslt/_MultiPickerHelper.xslt
 cp package/CroppingSettings.config dist/config/CroppingSettings.config
 cp package/CalendarSettings.config dist/config/CalendarSettings.config
 
