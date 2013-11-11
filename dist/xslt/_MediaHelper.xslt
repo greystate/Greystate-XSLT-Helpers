@@ -8,7 +8,7 @@
 	
 	Enables simple retrieval of media by handling the GetMedia() call and error-checking
 -->
-<?umbraco-package XSLT Helpers v0.8.7 - MediaHelper v1.4?>
+<?umbraco-package XSLT Helpers v0.9 - MediaHelper v1.4?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:freeze="http://xmlns.greystate.dk/2012/freezer" xmlns:get="urn:Exslt.ExsltMath" xmlns:make="urn:schemas-microsoft-com:xslt" xmlns:cropup="urn:Eksponent.CropUp" version="1.0" exclude-result-prefixes="umb get make cropup freeze">
 
 	<!-- Set this to true() if you're using the Eksponent.CropUp cropper -->
