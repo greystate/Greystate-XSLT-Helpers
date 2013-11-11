@@ -1,0 +1,2 @@
+projectDirectory = "$CWD"
+windowTitle      = "$TM_DISPLAYNAME — ${CWD/^.*\///} ($TM_SCM_BRANCH)"
