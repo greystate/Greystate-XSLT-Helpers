@@ -6,5 +6,5 @@
 ]]>
 
 <![ %use.in.textmate; [
-	<!ENTITY GetMediaFile "document('test/media.xml')//*[@id = current()]">
+	<!ENTITY GetMediaFile "document('test/fixtures/media.xml')//*[@id = current()]">
 ]]>
