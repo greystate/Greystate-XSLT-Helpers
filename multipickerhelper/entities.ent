@@ -1,0 +1,10 @@
+<!ENTITY % use.in.umbraco "IGNORE">
+<!ENTITY % use.in.textmate "INCLUDE">
+
+<![ %use.in.umbraco; [
+	<!ENTITY GetMediaFile "umb:GetMedia(., false())">
+]]>
+
+<![ %use.in.textmate; [
+	<!ENTITY GetMediaFile "document('test/media.xml')//*[@id = current()]">
+]]>
