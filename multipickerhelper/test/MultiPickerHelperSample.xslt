@@ -6,10 +6,10 @@
 
 	<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
 
-	<xsl:template match="MultiPickerTestNode">
+	<xsl:template match="MultiPickerTestNode | Image | Folder">
 		<p><xsl:value-of select="name" /></p>
 	</xsl:template>
-
+	
 	<xsl:include href="../_MultiPickerHelper.xslt" />
 
 </xsl:stylesheet>
