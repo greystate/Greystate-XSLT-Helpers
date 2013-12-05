@@ -4,7 +4,7 @@
 
 	Helper file for rendering various datatypes that store node ids.
 -->
-<?umbraco-package XSLT Helpers v0.9 - MultiPickerHelper v1.0?>
+<?umbraco-package XSLT Helpers v0.9.1 - MultiPickerHelper v1.1?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" version="1.0" exclude-result-prefixes="umb">
 
 	<xsl:key name="document-by-id" match="*[@isDoc]" use="@id"/>
@@ -32,6 +32,13 @@
 			<xsl:sort select="count($nodeIds[. = current()/@id]/preceding-sibling::nodeId)" data-type="number" order="ascending"/>
 		</xsl:apply-templates>
 		
+	</xsl:template>
+	
+	<xsl:template match="MultiNodePicker[@type = 'media']" mode="multipicker">
+		<xsl:for-each select="nodeId">
+			<xsl:variable name="mediaNode" select="umb:GetMedia(., false())"/>
+			<xsl:apply-templates select="$mediaNode[not(error)]"/>
+		</xsl:for-each>
 	</xsl:template>
 
 	<!-- Template to soak up text nodes being applied by the built-in templates -->
