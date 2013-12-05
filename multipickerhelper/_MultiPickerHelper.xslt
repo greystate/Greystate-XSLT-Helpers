@@ -43,6 +43,13 @@
 		</xsl:apply-templates>
 		
 	</xsl:template>
+	
+	<xsl:template match="MultiNodePicker[@type = 'media']" mode="multipicker">
+		<xsl:for-each select="nodeId">
+			<xsl:variable name="mediaNode" select="&GetMediaFile;" />
+			<xsl:apply-templates select="$mediaNode[not(error)]" />
+		</xsl:for-each>
+	</xsl:template>
 
 	<!-- Template to soak up text nodes being applied by the built-in templates -->
 	<xsl:template match="text()" mode="multipicker" priority="-1" />
