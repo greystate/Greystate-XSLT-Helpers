@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<Doc isDoc="">
+		<!-- This is standard functionality -->
+		<mntpProperty>
+			<MultiNodePicker>
+				<nodeId>12</nodeId>
+				<nodeId>13</nodeId>
+				<nodeId>14</nodeId>
+				<nodeId>15</nodeId>
+			</MultiNodePicker>
+		</mntpProperty>
+	</Doc>
+	
+	<Doc isDoc="">
+		<!-- These have been reordered -->
+		<mntpProperty>
+			<MultiNodePicker>
+				<nodeId>14</nodeId>
+				<nodeId>13</nodeId>
+				<nodeId>15</nodeId>
+				<nodeId>12</nodeId>
+			</MultiNodePicker>
+		</mntpProperty>
+	</Doc>
+	
+	<Doc isDoc="">
+		<!-- These are at arbitrary nesting levels -->
+		<mntpProperty>
+			<MultiNodePicker>
+				<nodeId>18</nodeId>
+				<nodeId>16</nodeId>
+				<nodeId>17</nodeId>
+			</MultiNodePicker>
+		</mntpProperty>
+	</Doc>
+	
+	<Doc isDoc="">
+		<!-- There are deleted ids in here -->
+		<mntpProperty>
+			<MultiNodePicker>
+				<nodeId>18</nodeId>
+				<nodeId>3</nodeId>
+				<nodeId>16</nodeId>
+				<nodeId>9</nodeId>
+				<nodeId>2</nodeId>
+				<nodeId>17</nodeId>
+			</MultiNodePicker>
+		</mntpProperty>
+	</Doc>
+	
+	<MultiPickerTestNode id="12" isDoc="">
+		<name>Node 1</name>
+	</MultiPickerTestNode>
+	
+	<MultiPickerTestNode id="13" isDoc="">
+		<name>Node 2</name>
+	</MultiPickerTestNode>
+	
+	<MultiPickerTestNode id="14" isDoc="">
+		<name>Node 3</name>
+	</MultiPickerTestNode>
+	
+	<MultiPickerTestNode id="15" isDoc="">
+		<name>Node 4</name>
+	</MultiPickerTestNode>
+	
+	<MultiPickerTestNode id="16" isDoc="">
+		<name>Node 5</name>
+		<MultiPickerTestNode id="17" isDoc="">
+			<name>Node 5.1</name>
+		</MultiPickerTestNode>
+		<MultiPickerTestNode id="18" isDoc="">
+			<name>Node 5.2</name>
+		</MultiPickerTestNode>
+	</MultiPickerTestNode>
+	
+</root>

@@ -128,6 +128,10 @@
 		<xsl:text> - CalendarHelper v&CalendarHelperVersion;</xsl:text>
 	</xsl:template>
 
+	<xsl:template match="processing-instruction('MultiPickerHelperVersion')">
+		<xsl:text> - MultiPickerHelper v&MultiPickerHelperVersion;</xsl:text>
+	</xsl:template>
+
 	<!-- Major trickery here - NOT recommended, but the only way to do what I want using XSLT 1.0 -->
 	<xsl:template name="GenerateDoctype">
 		<xsl:text disable-output-escaping="yes"><![CDATA[<!DOCTYPE xsl:stylesheet []]></xsl:text>

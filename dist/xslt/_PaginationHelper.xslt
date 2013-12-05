@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<?umbraco-package XSLT Helpers v0.8.7 - PaginationHelper v1.5?>
+<?umbraco-package XSLT Helpers v0.9 - PaginationHelper v1.5?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:str="urn:Exslt.ExsltStrings" xmlns:make="urn:schemas-microsoft-com:xslt" version="1.0" exclude-result-prefixes="umb str make">
 
 	<!-- Config constants -->
