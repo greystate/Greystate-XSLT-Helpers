@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE xsl:stylesheet [
+	<!ENTITY % entities SYSTEM "entities.ent">
+	%entities;
+]>
 <!-- 
 	_MultiPickerHelper.xslt
 
@@ -38,6 +42,13 @@
 			<xsl:sort select="count($nodeIds[. = current()/@id]/preceding-sibling::nodeId)" data-type="number" order="ascending" />
 		</xsl:apply-templates>
 		
+	</xsl:template>
+	
+	<xsl:template match="MultiNodePicker[@type = 'media']" mode="multipicker">
+		<xsl:for-each select="nodeId">
+			<xsl:variable name="mediaNode" select="&GetMediaFile;" />
+			<xsl:apply-templates select="$mediaNode[not(error)]" />
+		</xsl:for-each>
 	</xsl:template>
 
 	<!-- Template to soak up text nodes being applied by the built-in templates -->

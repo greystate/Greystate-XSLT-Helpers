@@ -1,5 +1,6 @@
 # Release Notes
 
+* v0.9.1: Support MNTP for Media in MultiPicker Helper
 * v0.9: Add MultiPicker Helper
 * v0.8.7: Remove output statements in helpers
 * v0.8.6: Pagination Helper updated to 1.4
@@ -24,7 +25,9 @@
 * v1.2: Adding `retinafy` option
 
 ## MultiPicker Helper
+
 * v1.0: Included in package
+* v1.1: Added support for MNTP for Media nodes
 
 ## Navigation Helper
 
