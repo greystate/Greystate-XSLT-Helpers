@@ -55,8 +55,10 @@ In Umbraco you can use this simple boilerplate for most of the following example
 
 	We can do this with a single line where you want the `<img>` to occur:
 
-		<xsl:apply-templates select="$currentPage/pageImage" mode="media" />
-	
+	```xslt
+	<xsl:apply-templates select="$currentPage/pageImage" mode="media" />
+	```
+
 	This will only render something if there's actually an id in the `pageImage` property
 	and that item is published.
 
