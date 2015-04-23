@@ -55,8 +55,10 @@ In Umbraco you can use this simple boilerplate for most of the following example
 
 	We can do this with a single line where you want the `<img>` to occur:
 
-		<xsl:apply-templates select="$currentPage/pageImage" mode="media" />
-	
+	```xslt
+	<xsl:apply-templates select="$currentPage/pageImage" mode="media" />
+	```
+
 	This will only render something if there's actually an id in the `pageImage` property
 	and that item is published.
 
@@ -64,44 +66,54 @@ In Umbraco you can use this simple boilerplate for most of the following example
 
 	Use the `media.url` mode instead:
 
-		<xsl:apply-templates select="$currentPage/pageImage" mode="media.url" />
-		
+	```xslt
+	<xsl:apply-templates select="$currentPage/pageImage" mode="media.url" />
+	```
+
 	Handles missing ids etc. just like the first one. 
 
 1. **Set a specific id for the image**
 
 	Add the `id` parameter:
 
-		<xsl:apply-templates select="$currentPage/pageImage" mode="media">
-			<xsl:with-param name="id" select="'topBanner'" />
-		</xsl:apply-templates>
-	
+	```xslt
+	<xsl:apply-templates select="$currentPage/pageImage" mode="media">
+		<xsl:with-param name="id" select="'topBanner'" />
+	</xsl:apply-templates>
+	```
+
 1. **Add a specific CSS class to the image**
 
 	Add the `class` parameter to the statement:
 
-		<xsl:apply-templates select="$currentPage/pageImage" mode="media">
-			<xsl:with-param name="class" select="'slide'" />
-		</xsl:apply-templates>
+	```xslt
+	<xsl:apply-templates select="$currentPage/pageImage" mode="media">
+		<xsl:with-param name="class" select="'slide'" />
+	</xsl:apply-templates>
+	```
 
 1. **Override the `width` and `height` attributes for an image**
 
 	Add the `size` parameter:
-	
-		<xsl:apply-templates select="$currentPage/pageImage" mode="media">
-			<xsl:with-param name="size" select="'400x300'" />
-		</xsl:apply-templates>
+
+	```xslt
+	<xsl:apply-templates select="$currentPage/pageImage" mode="media">
+		<xsl:with-param name="size" select="'400x300'" />
+	</xsl:apply-templates>
+	```
 
 1. **Combine the various options**
 
 	You can use all of them together where it makes sense (e.g., in the media.url mode,
 	only the crop parameter makes sense):
 	
-		<xsl:apply-templates select="$currentPage/pageImage" mode="media">
-			<xsl:with-param name="class" select="'slide'" />
-			<xsl:with-param name="crop" select="'ImageGallery'" />
-			<xsl:with-param name="id" select="concat('slide', position())" />
-		</xsl:apply-templates>
+	```xslt
+	<xsl:apply-templates select="$currentPage/pageImage" mode="media">
+		<xsl:with-param name="class" select="'slide'" />
+		<xsl:with-param name="crop" select="'ImageGallery'" />
+		<xsl:with-param name="id" select="concat('slide', position())" />
+	</xsl:apply-templates>
+	```
 
 ## Advanced usage
 
@@ -112,7 +124,9 @@ there's a simple change you can make to have that happen automatically. Just cre
 from, and create a Media Picker property that points to the folder, so the editor can change it at will. Then put
 a simple `media.random` on the apply-templates instruction:
 
-	<xsl:apply-templates select="$currentPage/imageFolder" mode="media.random" />
+```xslt
+<xsl:apply-templates select="$currentPage/imageFolder" mode="media.random" />
+```
 	
 Of course, you can combine this with the `size`, `class` and `id` parameters. And you can *even* use this next one too: 
 

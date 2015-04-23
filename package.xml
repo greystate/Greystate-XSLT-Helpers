@@ -25,6 +25,11 @@
 			<orgName>_MediaHelper.xslt</orgName>
 		</file>
 		<file>
+			<guid>_MultiPickerHelper.xslt</guid>
+			<orgPath>&helperPath;</orgPath>
+			<orgName>_MultiPickerHelper.xslt</orgName>
+		</file>
+		<file>
 			<guid>_NavigationHelper.xslt</guid>
 			<orgPath>&helperPath;</orgPath>
 			<orgName>_NavigationHelper.xslt</orgName>

@@ -1,8 +1,9 @@
 <!-- Current Versions -->
-<!ENTITY packageVersion "0.8.7">
+<!ENTITY packageVersion "0.9.1">
 <!ENTITY XSLTHelpersVersionHeader "XSLT Helpers v&packageVersion;">
 <!ENTITY MediaHelperVersion "1.4">
 <!ENTITY PaginationHelperVersion "1.5">
 <!ENTITY GroupingHelperVersion "1.0">
 <!ENTITY CalendarHelperVersion "1.2">
 <!ENTITY NavigationHelperVersion "1.2">
+<!ENTITY MultiPickerHelperVersion "1.1">

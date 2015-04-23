@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<x:description
+	stylesheet="MultiPickerHelperSample.xslt"
+	xslt-version="1.0"
+	xmlns:x="http://www.jenitennison.com/xslt/xspec"
+>
+	<x:scenario label="when processing an empty MNTP (media) property">
+		<x:context mode="multipicker">
+			<relatedLinks>
+				<MultiNodePicker type="media">
+				</MultiNodePicker>
+			</relatedLinks>
+		</x:context>
+		<x:expect label="it should not produce any output" test="()" />
+	</x:scenario>
+	
+	<x:scenario label="when processing the MNTP (media) fixture - Doc[1]">
+		<x:context href="fixtures/mntp-media.xml" select="/root/Doc[1]/mntpProperty" mode="multipicker" />
+		<x:expect label="it should produce a list of 4 media nodes in sequential order">
+			<p>Media 1</p>
+			<p>Media 2</p>
+			<p>Media 3</p>
+			<p>Media 4</p>
+		</x:expect>
+	</x:scenario>
+
+	<x:scenario label="when processing the MNTP (media) fixture - Doc[2]">
+		<x:context href="fixtures/mntp-media.xml" select="/root/Doc[2]/mntpProperty" mode="multipicker" />
+		<x:expect label="it should produce a list of 4 media nodes in the correct order">
+			<p>Media 3</p>
+			<p>Media 2</p>
+			<p>Media 4</p>
+			<p>Media 1</p>
+		</x:expect>
+	</x:scenario>
+
+	<x:scenario label="when processing the MNTP (media) fixture - Doc[3]">
+		<x:context href="fixtures/mntp-media.xml" select="/root/Doc[3]/mntpProperty" mode="multipicker" />
+		<x:expect label="it should produce a list of 3 media nodes in the correct order">
+			<p>Media 5.2</p>
+			<p>Media 5</p>
+			<p>Media 5.1</p>
+		</x:expect>
+	</x:scenario>
+
+	<x:scenario label="when processing the MNTP (media) fixture - Doc[4]">
+		<x:context href="fixtures/mntp-media.xml" select="/root/Doc[4]/mntpProperty" mode="multipicker" />
+		<x:expect label="it should *not* include media nodes that don't exist">
+			<p>Media 5.2</p>
+			<p>Media 5</p>
+			<p>Media 5.1</p>
+		</x:expect>
+	</x:scenario>
+
+</x:description>

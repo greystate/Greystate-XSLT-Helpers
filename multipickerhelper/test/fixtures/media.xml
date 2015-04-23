@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root id="-1">
+	<Image id="12" isDoc="">
+		<name>Media 1</name>
+	</Image>
+	
+	<Image id="13" isDoc="">
+		<name>Media 2</name>
+	</Image>
+	
+	<Image id="14" isDoc="">
+		<name>Media 3</name>
+	</Image>
+	
+	<Image id="15" isDoc="">
+		<name>Media 4</name>
+	</Image>
+	
+	<Folder id="16" isDoc="">
+		<name>Media 5</name>
+		<Image id="17" isDoc="">
+			<name>Media 5.1</name>
+		</Image>
+		<Image id="18" isDoc="">
+			<name>Media 5.2</name>
+		</Image>
+	</Folder>
+</root>

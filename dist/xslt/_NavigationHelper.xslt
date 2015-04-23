@@ -3,7 +3,7 @@
 	<!-- You can change this to suit your environment -->
 	<!ENTITY subPages "*[@isDoc][not(@template = 0) and not(umbracoNaviHide = 1)]">
 ]>
-<?umbraco-package XSLT Helpers v0.8.7 - NavigationHelper v1.2?>
+<?umbraco-package XSLT Helpers v0.9.1 - NavigationHelper v1.2?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:freeze="http://xmlns.greystate.dk/2012/freezer" version="1.0" exclude-result-prefixes="umb freeze">
 
 <!-- :: Configuration :: -->
