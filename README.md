@@ -10,7 +10,7 @@ the *common functionality* stuff that these provide.
 
 You can find installable packages for [Umbraco][UMBRACO] on the [releases][RELEASES] page, but if you prefer to install them manually, here's how:
 
-* Grab all of the files in the [`dist`][DIST] folder's `xslt` subfolder, and put them alongside your other XSLT files (i.e., the `xslt` folder if you're using Umbraco).
+* Grab `helpers` subfolder in the [`dist`][DIST] folder, and put it alongside your other XSLT files (i.e., in the `xslt` folder if you're using Umbraco).
 * The files in the `config` folder should go into the `config` folder of your Umbraco installation.
 
 ## Basic usage
