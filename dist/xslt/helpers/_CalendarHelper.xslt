@@ -3,14 +3,14 @@
 	<!-- You need to set this to the name of the property/attribute on your event nodes that holds the "date" value -->
 	<!ENTITY eventDate "eventStartDateTime">
 ]>
-<?umbraco-package XSLT Helpers v0.9.1 - CalendarHelper v1.2?>
+<?umbraco-package XSLT Helpers v0.9.2 - CalendarHelper v1.2?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:freeze="http://xmlns.greystate.dk/2012/freezer" xmlns:date="urn:Exslt.ExsltDatesAndTimes" xmlns:make="urn:schemas-microsoft-com:xslt" version="1.0" exclude-result-prefixes="umb date make freeze">
 
 	<!-- Grab today's date - we probably need it, this being a calendar and all -->
 	<xsl:variable name="today" select="date:date()"/>
 	
 <!-- :: Configuration :: -->
-	<xsl:variable name="config" select="document('../config/CalendarSettings.config')/calendar"/>
+	<xsl:variable name="config" select="document('../../config/CalendarSettings.config')/calendar"/>
 	
 	<!-- Remember you can grab this from somewhere else, if necessary -->
 	<xsl:variable name="language" select="'da'"/>

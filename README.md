@@ -18,11 +18,11 @@ You can find installable packages for [Umbraco][UMBRACO] on the [releases][RELEA
 Using these helpers usually just require the same 2 steps:
 
 1.	Include the file(s) in your main XSLT file using the include instruction:
-	
+
 	```xslt
-	<xsl:include href="_HelperFile.xslt" />
+	<xsl:include href="helpers/_HelperFile.xslt" />
 	```
-	
+
 2.	Perform one of the following actions:
 	
 	1. Applying templates in a specific mode, e.g.:

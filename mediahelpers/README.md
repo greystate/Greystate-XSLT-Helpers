@@ -43,7 +43,7 @@ In Umbraco you can use this simple boilerplate for most of the following example
 	</xsl:template>
 	
 	<!-- Include helpers -->
-	<xsl:include href="_MediaHelper.xslt" />
+	<xsl:include href="helpers/_MediaHelper.xslt" />
 
 </xsl:stylesheet>
 ```
@@ -180,7 +180,7 @@ file - *after* the include statement. For example, here's a way to render a `<fi
 </xsl:template>
 
 <!-- Include helpers -->
-<xsl:include href="_MediaHelper.xslt" />
+<xsl:include href="helpers/_MediaHelper.xslt" />
 
 <!-- Override Image template -->
 <xsl:template match="Image">
@@ -204,7 +204,7 @@ This gives you the ability to leverage all the error- and parameter-handling of 
 </xsl:template>
 
 <!-- Include helpers -->
-<xsl:include href="_MediaHelper.xslt" />
+<xsl:include href="helpers/_MediaHelper.xslt" />
 
 <!-- Override Image template -->
 <xsl:template match="Image">
@@ -232,7 +232,7 @@ it will be used for PDF files and ZIP files, so you create a template to render 
 </xsl:template>
 
 <!-- Include helpers -->
-<xsl:include href="_MediaHelper.xslt" />
+<xsl:include href="helpers/_MediaHelper.xslt" />
 
 <!-- Custom template for DownloadItem Media Type -->
 <xsl:template match="DownloadItem">

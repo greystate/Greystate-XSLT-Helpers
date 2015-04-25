@@ -3,7 +3,7 @@
 
 	%version;
 	
-	<!ENTITY helperPath "/xslt">
+	<!ENTITY helperPath "/xslt/helpers">
 	<!ENTITY templatePath "/umbraco/xslt/templates/Schema2">
 	<!ENTITY configPath "/config">
 ]>

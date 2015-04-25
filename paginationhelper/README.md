@@ -17,7 +17,7 @@ There&#8217;s very little work involved in using the Pagination Helper, basicall
 * Include `_PaginationHelper.xslt` in your main XSLT file (e.g. an Umbraco macro XSLT file)
 
 ```xslt
-<xsl:include href="_PaginationHelper.xslt" />
+<xsl:include href="helpers/_PaginationHelper.xslt" />
 ```
 
 * Create a *template* for a single item to be rendered (e.g. a search result or a thumbnail image)
