@@ -1,6 +1,6 @@
 # Create the dist directory if needed
 if [[ ! -d dist ]]
-	then mkdir dist dist/xslt dist/config
+	then mkdir dist dist/xslt dist/helpers dist/config
 fi
 # Likewise, create the package dir
 if [[ ! -d package ]]
@@ -34,8 +34,8 @@ sed -i "" "s/\&amp;\(.*\);/\&\1;/" package/_CalendarHelper.xslt
 sed -i "" "s/\&amp;\(.*\);/\&\1;/" package/_MediaHelper.xslt
 
 # Copy configs
-cp mediahelpers/CroppingSettings.config package/CroppingSettings.config
-cp calendarhelper/CalendarSettings.config package/CalendarSettings.config
+cp mediahelpers/CroppingSettings.config package/
+cp calendarhelper/CalendarSettings.config package/
 
 # Copy default templates
 cp templates/Use*.xslt package/
@@ -47,14 +47,13 @@ xsltproc --novalid --xinclude --output package/package.xml lib/freezeEntities.xs
 zip -j "dist/XSLTHelpers-$VERSION.zip" package/* -x \*.DS_Store
 
 # Copy the release XSLT into the dist dir for upgraders
-cp package/_PaginationHelper.xslt dist/xslt/_PaginationHelper.xslt
-cp package/_NavigationHelper.xslt dist/xslt/_NavigationHelper.xslt
-cp package/_GroupingHelper.xslt dist/xslt/_GroupingHelper.xslt
-cp package/_CalendarHelper.xslt dist/xslt/_CalendarHelper.xslt
-cp package/_MediaHelper.xslt dist/xslt/_MediaHelper.xslt
-cp package/_MultiPickerHelper.xslt dist/xslt/_MultiPickerHelper.xslt
-cp package/CroppingSettings.config dist/config/CroppingSettings.config
-cp package/CalendarSettings.config dist/config/CalendarSettings.config
+cp package/_PaginationHelper.xslt dist/xslt/helpers/
+cp package/_NavigationHelper.xslt dist/xslt/helpers/
+cp package/_GroupingHelper.xslt dist/xslt/helpers/
+cp package/_CalendarHelper.xslt dist/xslt/helpers/
+cp package/_MediaHelper.xslt dist/xslt/helpers/
+cp package/_MultiPickerHelper.xslt dist/xslt/helpers/
+cp package/*.config dist/config/
 
 # Go back to DEVELOPMENT versions again
 sed -i "" "s/$UMBON/$UMBOFF/" */entities.ent
