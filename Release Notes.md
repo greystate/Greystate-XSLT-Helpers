@@ -1,5 +1,6 @@
 # Release Notes
 
+* v0.9.2: Install into `helpers` folder
 * v0.9.1: Support MNTP for Media in MultiPicker Helper
 * v0.9: Add MultiPicker Helper
 * v0.8.7: Remove output statements in helpers
