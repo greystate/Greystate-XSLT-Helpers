@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<x:description
+	stylesheet="../_MediaHelper.xslt"
+	xslt-version="1.0"
+	xmlns:x="http://www.jenitennison.com/xslt/xspec"
+>
+	<x:scenario label="when processing a crops element without coordinates">
+		<x:context select="json/crops[alias = 'Hero']">
+			<json>
+				<crops>
+					<alias>Hero</alias>
+					<width>800</width>
+					<height>550</height>
+				</crops>
+				<focalPoint>
+					<left>0.2</left>
+					<top>0.8</top>
+				</focalPoint>
+			</json>
+		</x:context>
+		<x:expect label="it should create a crop URL using the focalPoint" select="text/text()">
+			<text>?mode=crop&amp;center=0.8,0.2&amp;width=800&amp;height=550</text>
+		</x:expect>
+		
+		<x:scenario label="and the halfsize param">
+			<x:context>
+				<x:param name="halfsize" select="true()" />
+			</x:context>
+			<x:expect label="it should create a crop URL using the focalPoint and halve the dimensions" select="text/text()">
+				<text>?mode=crop&amp;center=0.8,0.2&amp;width=400&amp;height=275</text>
+			</x:expect>
+		</x:scenario>
+	</x:scenario>
+	
+	<x:scenario label="when processing a crops element with coordinates">
+		<x:context select="json/crops[alias = 'Hero']">
+			<json>
+				<crops>
+					<alias>Hero</alias>
+					<width>800</width>
+					<height>550</height>
+					<coordinates>
+						<x1>A</x1>
+						<y1>B</y1>
+						<x2>C</x2>
+						<y2>D</y2>
+					</coordinates>
+				</crops>
+			</json>
+		</x:context>
+		<x:expect label="it should create a crop URL using the coordinates" select="text/text()">
+			<text>?crop=A,B,C,D&amp;cropmode=percent&amp;width=800&amp;height=550</text>
+		</x:expect>
+		
+		<x:scenario label="and the halfsize param">
+			<x:context>
+				<x:param name="halfsize" select="true()" />
+			</x:context>
+			
+			<x:expect label="it should create a crop URL using the coordinates and halve the dimensions" select="text/text()">
+				<text>?crop=A,B,C,D&amp;cropmode=percent&amp;width=400&amp;height=275</text>
+			</x:expect>
+		</x:scenario>
+	</x:scenario>
+
+</x:description>

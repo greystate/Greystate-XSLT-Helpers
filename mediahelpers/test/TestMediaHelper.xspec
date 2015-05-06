@@ -51,18 +51,18 @@
 				<x:param name="retinafy" select="true()" />
 				<pageImage>2230</pageImage>
 			</x:context>
-			<x:expect label="it should output the dimensions to half of the image's own">
-				<img src="..." width="800" height="400" alt="..." />
+			<x:expect label="it should output the dimensions to half of the image's own and add a srcset attribute">
+				<img src="/test2230.png?width=800&amp;height=400" width="800" height="400" srcset="/test2230.png 2x" alt="..." />
 			</x:expect>
 		</x:scenario>
 
 		<x:scenario label="with a crop parameter">
 			<x:context mode="media">
-				<x:param name="crop" select="'Large'" />
+				<x:param name="crop" select="'Hero'" />
 				<pageImage>2230</pageImage>
 			</x:context>
 			<x:expect label="it should use the crop with that name">
-				<img src="/test2230_Large.png" width="800" height="600" alt="My first Banner" />
+				<img src="/test2230.png?crop=0.25,0.5,0.75,0.2&amp;cropmode=percent&amp;width=1312&amp;height=680" width="1312" height="680" alt="..." />
 			</x:expect>
 
 			<x:scenario label="and the retinafy parameter">
@@ -70,8 +70,9 @@
 					<x:param name="retinafy" select="true()" />
 					<pageImage>2230</pageImage>
 				</x:context>
-				<x:expect label="it should use the named crop with it's dimensions halved">
-					<img src="/test2230_Large.png" width="400" height="300" alt="My first Banner" />
+				<x:expect label="it should use the named crop with it's dimensions halved and an extra srcset attribute">
+					<img src="/test2230.png?crop=0.25,0.5,0.75,0.2&amp;cropmode=percent&amp;width=656&amp;height=340" width="656" height="340"
+						srcset="/test2230.png?crop=0.25,0.5,0.75,0.2&amp;cropmode=percent&amp;width=1312&amp;height=680 2x" alt="..." />
 				</x:expect>
 
 			</x:scenario>
@@ -83,21 +84,10 @@
 				<x:param name="crop" select="'Small'" />
 				<pageImage>2230</pageImage>
 			</x:context>
-			<x:expect label="it should fallback to the original image URL but use the width &amp; height from the config file">
-				<img src="/test2230.png" width="320" height="480" alt="My first Banner" />
+			<x:expect label="it should fallback to the original image URL but add a width constraint">
+				<img src="/test2230.png?width=800" width="" height="" alt="My first Banner" />
 			</x:expect>
 		</x:scenario>
-				
-		<x:scenario label="with a crop name that exists but no config available">
-			<x:context mode="media">
-				<x:param name="crop" select="'X-Large'" />
-				<pageImage>2230</pageImage>
-			</x:context>
-			<x:expect label="it should use the crop URL but remove the width &amp; height">
-				<img src="/test2230_X-Large.png" width="" height="" alt="My first Banner" />
-			</x:expect>
-		</x:scenario>
-		
 	</x:scenario>
 	
 	<x:scenario label="when processing a custom Media Type element in mode=&quot;media&quot;">
@@ -123,8 +113,9 @@
 				<x:param name="retinafy" select="true()" />
 			</x:context>
 		
-			<x:expect label="it should halve the width &amp; height">
-				<img src="..." width="720" height="450" alt="..." />
+			<x:expect label="it should halve the width &amp; height and add a srcset attribute">
+				<img src="/media/3468/test2234.png?width=720&amp;height=450" width="720" height="450"
+					srcset="/media/3468/test2234.png 2x" alt="..." />
 			</x:expect>
 		</x:scenario>
 		
@@ -145,15 +136,19 @@
 			<x:context mode="media.url">
 				<pageImage>2230</pageImage>
 			</x:context>
-			<x:expect label="it should only return the Image's URL" select="'/test2230.png'" />
+			<x:expect label="it should only return the Image's URL" select="text/text()">
+				<text>/test2230.png</text>
+			</x:expect>
 		</x:scenario>
 		
 		<x:scenario label="with a crop parameter">
 			<x:context mode="media.url">
-				<x:param name="crop" select="'Large'" />
+				<x:param name="crop" select="'Hero'" />
 				<pageImage>2230</pageImage>
 			</x:context>
-			<x:expect label="it should only return the URL of the specified crop" select="'/test2230_Large.png'" />
+			<x:expect label="it should only return the URL of the specified crop" select="text/text()">
+				<text>/test2230.png?crop=0.25,0.5,0.75,0.2&amp;cropmode=percent&amp;width=1312&amp;height=680</text>
+			</x:expect>
 		</x:scenario>
 
 	</x:scenario>
@@ -185,11 +180,11 @@
 				<x:context>
 					<x:param name="retinafy" select="true()" />
 				</x:context>
-				<x:expect label="it should render each Image in the folder with half dimensions">
-					<img src="..." width="800" height="400" alt="..." />
-					<img src="..." width="384" height="288" alt="..." />
-					<img src="..." width="160" height="90" alt="..." />
-					<img src="..." width="720" height="450" alt="..." />
+				<x:expect label="it should render each Image in the folder with half dimensions and srcset attributes">
+					<img src="..." width="800" height="400" srcset="..." alt="..." />
+					<img src="..." width="384" height="288" srcset="..." alt="..." />
+					<img src="..." width="160" height="90" srcset="..." alt="..." />
+					<img src="..." width="720" height="450" srcset="..." alt="..." />
 				</x:expect>
 			</x:scenario>
 			
@@ -223,19 +218,17 @@
 		
 		<x:scenario label="with a crop parameter">
 			<x:context>
-				<x:param name="crop" select="'Large'" />
+				<x:param name="crop" select="'Hero'" />
 				<imgFolder>2030</imgFolder>
 			</x:context>
 			<x:expect label="it should render the specified crop for each Image in the folder">
-				<img src="/test2230_Large.png" width="800" height="600" alt="My first Banner" />
-				<img src="/test2231_Large.png" width="800" height="600" alt="My first Banner" />
-				<img src="/test2232_Large.png" width="800" height="600" alt="My first Banner" />
+				<img src="/test2230.png?crop=0.25,0.5,0.75,0.2&amp;cropmode=percent&amp;width=1312&amp;height=680" width="1312" height="680" alt="My first Banner" />
+				<img src="/test2231.png?mode=crop&amp;center=0.55,0.4&amp;width=1312&amp;height=680" width="1312" height="680" alt="My first Banner" />
+				<img src="/test2232.png?width=800" width="" height="" alt="My first Banner" />
 				<img src="..." width="..." height="..." alt="..." />
 			</x:expect>
 		</x:scenario>
 		
 	</x:scenario>
 
-	<x:import href="TestDAMP.xspec" />
-	
 </x:description>

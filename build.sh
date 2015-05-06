@@ -20,6 +20,9 @@ TMON="textmate \"INCLUDE\""
 sed -i "" "s/$UMBOFF/$UMBON/" */entities.ent
 sed -i "" "s/$TMON/$TMOFF/" */entities.ent
 
+sed -i "" "s/$UMBOFF/$UMBON/" lib/mocks/entities.ent
+sed -i "" "s/$TMON/$TMOFF/" lib/mocks/entities.ent
+
 # Transform the development XSLT into the release files
 xsltproc --novalid --output package/_PaginationHelper.xslt lib/freezeEntities.xslt paginationhelper/_PaginationHelper.xslt
 xsltproc --novalid --output package/_NavigationHelper.xslt lib/freezeEntities.xslt navigationhelper/_NavigationHelper.xslt
@@ -34,9 +37,8 @@ sed -i "" "s/\&amp;\(.*\);/\&\1;/" package/_CalendarHelper.xslt
 sed -i "" "s/\&amp;\(.*\);/\&\1;/" package/_MediaHelper.xslt
 
 # Copy configs
-cp mediahelpers/CroppingSettings.config package/
 cp calendarhelper/CalendarSettings.config package/
-
+	
 # Copy default templates
 cp templates/Use*.xslt package/
 
@@ -58,3 +60,6 @@ cp package/*.config dist/config/
 # Go back to DEVELOPMENT versions again
 sed -i "" "s/$UMBON/$UMBOFF/" */entities.ent
 sed -i "" "s/$TMOFF/$TMON/" */entities.ent
+
+sed -i "" "s/$UMBON/$UMBOFF/" lib/mocks/entities.ent
+sed -i "" "s/$TMOFF/$TMON/" lib/mocks/entities.ent

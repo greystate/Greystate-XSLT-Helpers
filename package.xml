@@ -50,11 +50,6 @@
 			<orgName>UseGrouping.xslt</orgName>
 		</file>
 		<file>
-			<guid>CroppingSettings.config</guid>
-			<orgPath>&configPath;</orgPath>
-			<orgName>CroppingSettings.config</orgName>
-		</file>
-		<file>
 			<guid>CalendarSettings.config</guid>
 			<orgPath>&configPath;</orgPath>
 			<orgName>CalendarSettings.config</orgName>
@@ -68,9 +63,9 @@
 			<license url="http://greystate.mit-license.org/">MIT license</license>
 			<url>https://github.com/greystate/Greystate-XSLT-Helpers/</url>
 			<requirements>
-				<major>4</major>
-				<minor>5</minor>
-				<patch>2</patch>
+				<major>7</major>
+				<minor>0</minor>
+				<patch>0</patch>
 			</requirements>
 		</package>
 		<author>
