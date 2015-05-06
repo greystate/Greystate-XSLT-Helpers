@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE xsl:stylesheet [
 	<!ENTITY % entities SYSTEM "entities.ent">
+	<!ENTITY % mocks SYSTEM "../lib/mocks/entities.ent">
+
+	%mocks;
 	%entities;
 	
 	<!ENTITY CustomImageTypes "*[@id and @nodeTypeAlias]">
@@ -21,28 +24,13 @@
 	xmlns:freeze="http://xmlns.greystate.dk/2012/freezer"
 	xmlns:get="&random-ns-uri;"
 	xmlns:make="&nodeset-ns-uri;"
-	xmlns:cropup="urn:Eksponent.CropUp"
-	exclude-result-prefixes="umb get make cropup freeze"
+	exclude-result-prefixes="umb get make freeze"
 >
 
-	<!-- Set this to true() if you're using the Eksponent.CropUp cropper -->
-	<xsl:variable name="useCropUp" select="false()" />
+	&compatibility;
 
-	<!-- Set up some strings for later use -->
-	<xsl:variable name="stringProxy">
-		<defaultConfig>&config-file;</defaultConfig>
-		<cropUpConfig>&cropUp-config-file;</cropUpConfig>
-		<x>x</x>
-	</xsl:variable>
-	<xsl:variable name="strings" select="&makeNodeSetOfStrings;" />
-	
-	<xsl:variable name="configFileName" select="($strings/defaultConfig[not($useCropUp)] | $strings/cropUpConfig[$useCropUp])[1]" />
+	<xsl:variable name="maxWidthForUnknownCrop" select="800" />
 
-	<!-- Fetch cropping setup -->
-	<xsl:variable name="configFile" select="document(normalize-space($configFileName))" />
-	<xsl:variable name="croppingSetup" select="$configFile/crops/crop" />
-	<xsl:variable name="cropUpSetup" select="$configFile/cropUp/croppings/add" />
-	
 	<!-- Template for any media that needs fetching - handles potential error -->
 	<xsl:template match="*" mode="media">
 		<xsl:param name="class" />
@@ -60,22 +48,6 @@
 		</xsl:apply-templates>
 	</xsl:template>
 	
-	<!-- Template for DAMP (Digibiz Advanced Media Picker) content -->
-	<xsl:template match="*[DAMP[@fullMedia]]" mode="media">
-		<xsl:param name="class" />
-		<xsl:param name="crop" />
-		<xsl:param name="id" />
-		<xsl:param name="size" />
-		<xsl:param name="retinafy" />
-		<xsl:apply-templates select="DAMP/mediaItem/*[@id]">
-			<xsl:with-param name="class" select="$class" />
-			<xsl:with-param name="crop" select="$crop" />
-			<xsl:with-param name="id" select="$id" />
-			<xsl:with-param name="size" select="$size" />
-			<xsl:with-param name="retinafy" select="$retinafy" />
-		</xsl:apply-templates>
-	</xsl:template>
-	
 	<!-- Template for any mediafolder that needs fetching - handles potential error -->
 	<xsl:template match="*" mode="media.folder">
 		<xsl:param name="class" />
@@ -83,21 +55,6 @@
 		<xsl:param name="size" />
 		<xsl:param name="retinafy" />
 		<xsl:variable name="mediaFolder" select="&GetMediaFolder;" />
-		<xsl:apply-templates select="$mediaFolder[not(error)]">
-			<xsl:with-param name="class" select="$class" />
-			<xsl:with-param name="crop" select="$crop" />
-			<xsl:with-param name="size" select="$size" />
-			<xsl:with-param name="retinafy" select="$retinafy" />
-		</xsl:apply-templates>
-	</xsl:template>
-	
-	<!-- Template for DAMP folder content -->
-	<xsl:template match="*[DAMP[@fullMedia]]" mode="media.folder">
-		<xsl:param name="class" />
-		<xsl:param name="crop" />
-		<xsl:param name="size" />
-		<xsl:param name="retinafy" />
-		<xsl:variable name="mediaFolder" select="&GetDAMPMediaFolder;" />
 		<xsl:apply-templates select="$mediaFolder[not(error)]">
 			<xsl:with-param name="class" select="$class" />
 			<xsl:with-param name="crop" select="$crop" />
@@ -148,38 +105,48 @@
 			<xsl:if test="$retinafy">
 				<xsl:attribute name="width"><xsl:value-of select="floor(umbracoWidth div 2)" /></xsl:attribute>
 				<xsl:attribute name="height"><xsl:value-of select="floor(umbracoHeight div 2)" /></xsl:attribute>
+				<xsl:attribute name="src">
+					<xsl:value-of select="concat(umbracoFile,
+						'?width=', floor(umbracoWidth div 2),
+						'&amp;height=', floor(umbracoHeight div 2))"
+					/>
+				</xsl:attribute>
+				<xsl:attribute name="srcset"><xsl:value-of select="concat(umbracoFile, ' 2x')" /></xsl:attribute>
 			</xsl:if>
+
 			<xsl:if test="$crop">
-				<xsl:variable name="cropConfig" select="($croppingSetup[@name = $crop] | $cropUpSetup[@name = $crop] | $cropUpSetup[@alias = $crop])[1]" />
-				<xsl:variable name="cropSize" select="concat($cropConfig/@size, $cropConfig/@width, $strings/x[$cropConfig/@width], $cropConfig/@height)" />
-				<xsl:variable name="selectedCrop" select="*/crops/crop[@name = $crop]" />
+				<xsl:variable name="cropData" select="umb:JsonToXml(umbracoFile)/json" />
+				<xsl:variable name="cropset" select="$cropData/crops[alias = $crop]" />
+
+				<!-- Fallback if specified crop does not exist -->
+				<xsl:attribute name="src"><xsl:value-of select="concat(umbracoFile, '?width=', $maxWidthForUnknownCrop)" /></xsl:attribute>
 				
-				<!-- If the media XML contains the crop -->
-				<xsl:if test="$selectedCrop">
-					<xsl:attribute name="src"><xsl:value-of select="*/crops/crop[@name = $crop]/@url" /></xsl:attribute>
-				</xsl:if>
-				<!-- CropUp has its own extension to get the URL -->
-				<xsl:if test="$useCropUp">
+				<xsl:if test="$cropset">
 					<xsl:attribute name="src">
-						<xsl:apply-templates select="." mode="cropUp.url">
-							<xsl:with-param name="crop" select="$crop" />
+						<xsl:value-of select="$cropData/src" />
+						<xsl:apply-templates select="$cropset">
+							<xsl:with-param name="halfsize" select="$retinafy" />
 						</xsl:apply-templates>
 					</xsl:attribute>
+					<xsl:attribute name="width"><xsl:value-of select="$cropset/width" /></xsl:attribute>
+					<xsl:attribute name="height"><xsl:value-of select="$cropset/height" /></xsl:attribute>
+					
+					<xsl:if test="$retinafy">
+						<xsl:attribute name="srcset">
+							<xsl:value-of select="$cropData/src" />
+							<xsl:apply-templates select="$cropset" />
+							<xsl:text> 2x</xsl:text>
+						</xsl:attribute>
+						<xsl:attribute name="width"><xsl:value-of select="floor($cropset/width div 2)" /></xsl:attribute>
+						<xsl:attribute name="height"><xsl:value-of select="floor($cropset/height div 2)" /></xsl:attribute>
+					</xsl:if>
 				</xsl:if>
-
-				<!-- Output the sizes (or clear them if none found) -->
-				<xsl:variable name="wValue" select="substring-before($cropSize, 'x')" />
-				<xsl:variable name="hValue" select="substring-after($cropSize, 'x')" />
-
-				<xsl:attribute name="width"><xsl:value-of select="$wValue" /></xsl:attribute>
-				<xsl:attribute name="height"><xsl:value-of select="$hValue" /></xsl:attribute>
-				
-				<!-- Cut them in half if 'retinafy' was specified  -->
-				<xsl:if test="$retinafy and $wValue and $hValue">
-					<xsl:attribute name="width"><xsl:value-of select="floor($wValue div 2)" /></xsl:attribute>
-					<xsl:attribute name="height"><xsl:value-of select="floor($hValue div 2)" /></xsl:attribute>
+				<xsl:if test="not($cropset)">
+					<xsl:attribute name="width" />
+					<xsl:attribute name="height" />
 				</xsl:if>
 			</xsl:if>
+			
 			<!-- $size can override original + cropped sizes -->
 			<xsl:if test="$size">
 				<xsl:attribute name="width"><xsl:value-of select="substring-before($size, 'x')" /></xsl:attribute>
@@ -200,14 +167,6 @@
 		</xsl:apply-templates>
 	</xsl:template>
 
-	<!-- DAMP template -->
-	<xsl:template match="*[DAMP[@fullMedia]]" mode="media.url">
-		<xsl:param name="crop" />
-		<xsl:apply-templates select="DAMP/mediaItem/*[@id]" mode="url">
-			<xsl:with-param name="crop" select="$crop" />
-		</xsl:apply-templates>
-	</xsl:template>
-	
 	<!-- Safeguards for empty elements - need one for each mode -->
 	<xsl:template match="*[not(normalize-space())]" mode="media">
 		<!-- Render info to the developer looking for clues in the source, as to why nothing renders -->
@@ -226,35 +185,17 @@
 	<xsl:template match="Image" mode="url">
 		<xsl:param name="crop" />
 		<xsl:choose>
-			<xsl:when test="$crop and $useCropUp">
-				<xsl:apply-templates select="." mode="cropUp.url">
-					<xsl:with-param name="crop" select="$crop" />
-				</xsl:apply-templates>
-			</xsl:when>				
 			<xsl:when test="$crop">
-				<xsl:value-of select="*/crops/crop[@name = $crop]/@url" />
+				<xsl:variable name="cropData" select="umb:JsonToXml(umbracoFile)/json" />
+				<xsl:if test="$cropData and $cropData/crops[alias = $crop]">
+					<xsl:value-of select="$cropData/src" />
+					<xsl:apply-templates select="$cropData/crops[alias = $crop]" />
+				</xsl:if>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="umbracoFile" />				
+				<xsl:value-of select="umbracoFile" />
 			</xsl:otherwise>
 		</xsl:choose>
-	</xsl:template>
-	
-	<!-- (internal) URL Template for CropUp image -->
-	<xsl:template match="Image" mode="cropUp.url">
-		<xsl:param name="crop" />
-		
-		<xsl:variable name="cropConfig" select="($croppingSetup[@name = $crop] | $cropUpSetup[@name = $crop] | $cropUpSetup[@alias = $crop])[1]" />
-		<xsl:variable name="cropSize" select="concat($cropConfig/@size, $cropConfig/@width, $strings/x[$cropConfig/@width], $cropConfig/@height)" />
-
-		<xsl:variable name="cropUpArgs">
-			<xsl:if test="not($cropConfig)"><xsl:value-of select="$crop" /></xsl:if>
-			<xsl:value-of select="$cropConfig/@alias" />
-		</xsl:variable>
-
-		<!-- Call the extension -->
-		<xsl:value-of select="&CropUpUrlByMediaId;" />
-		
 	</xsl:template>
 	
 	<!-- Template for easier support of custom Media Types -->
@@ -272,6 +213,29 @@
 			<xsl:with-param name="size" select="$size"/>
 			<xsl:with-param name="retinafy" select="$retinafy"/>
 		</xsl:call-template>
+	</xsl:template>
+	
+<!-- :: Crop templates :: -->
+	<xsl:template match="json/crops">
+		<xsl:param name="halfsize" />
+		<xsl:variable name="fp" select="../focalPoint" />
+		<xsl:variable name="width" select="floor(width div (1 + number(boolean($halfsize))))" />
+		<xsl:variable name="height" select="floor(height div (1 + number(boolean($halfsize))))" />
+		
+		<xsl:value-of select="concat('?', 'mode=crop', '&amp;center=', $fp/top, ',', $fp/left)" />
+		
+		<xsl:value-of select="concat('&amp;width=', $width, '&amp;height=', $height)" />
+	</xsl:template>
+	
+	<xsl:template match="json/crops[coordinates]">
+		<xsl:param name="halfsize" />
+		<xsl:variable name="coords" select="coordinates" />
+		<xsl:variable name="width" select="floor(width div (1 + number(boolean($halfsize))))" />
+		<xsl:variable name="height" select="floor(height div (1 + number(boolean($halfsize))))" />
+
+		<xsl:value-of select="concat('?', 'crop=', $coords/x1, ',', $coords/y1, ',', $coords/x2, ',', $coords/y2)" />
+		<xsl:value-of select="concat('&amp;cropmode=', 'percent')" />
+		<xsl:value-of select="concat('&amp;width=', $width, '&amp;height=', $height)" />
 	</xsl:template>
 	
 </xsl:stylesheet>

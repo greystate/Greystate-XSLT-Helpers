@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	# LibraryMockFixtures.xml
+	
+	These fixtures are used by the various extension mocks so you can easily
+	fake a specific state, e.g. the `HasAccess()` and `IsLoggedIn()` methods
+	simply return whatever you specify here, which makes it easy to set up
+	from project to project, if you need it.
+	
+	Media files are also fetched from here so you can use the right images
+	and not rely on kittens every time :-)
+	
+-->
+<fixtures>
+	<fixture name="Media">
+		<!--
+			## Media
+			
+			Sample media fixture for use with the GetMedia() extension.
+		-->
+		<Image id="1667" nodeName="Profile Image">
+			<umbracoFile>http://placekitten.com/400/300</umbracoFile>
+			<umbracoWidth>400</umbracoWidth>
+			<umbracoHeight>300</umbracoHeight>
+			<umbracoExtension>jpg</umbracoExtension>
+		</Image>
+
+		<Folder id="1777" nodeName="PDF files">
+			<contents />
+	
+			<File id="2021" nodeName="Specs">
+				<umbracoFile>/specification.pdf</umbracoFile>
+				<umbracoBytes>16384</umbracoBytes>
+				<umbracoExtension>pdf</umbracoExtension>
+			</File>
+		</Folder>
+
+		<!-- Keep this as the last item -->
+		<NonExisitingNode id="NaN">
+			<error>No media exist with that id</error>
+		</NonExisitingNode>
+	</fixture>
+	
+	<!--
+		## ServerVariables
+		
+		You can fake any Server variable by adding an <item> for it here.
+	-->
+	<fixture name="ServerVariables">
+		<!-- <item key="QUERY_STRING">p=2&amp;v=3</item> -->
+	</fixture>
+
+	<!--
+		## QueryString
+		
+		You can fake any QueryString variable by adding an <item> for it here.
+	-->
+	<fixture name="QueryString">
+		<!-- <item key="p">2</item> -->
+		<!-- <item key="v">3</item> -->
+	</fixture>
+
+	<!--
+		## Access
+		
+		By default you have access to all nodes and you're not
+		logged in as a member.
+	-->
+	<fixture name="Access">
+		<!-- Add as many as you need like this one: -->
+		<!-- <hasAccess id="1200" path="-1,1080,1200">false</hasAccess> -->
+		
+		<!-- Keep this as the last one  -->
+		<hasAccess id="*" path="*">true</hasAccess>
+
+		<!-- Only need one of these -->
+		<isLoggedOn>false</isLoggedOn>
+	</fixture>
+	
+	<fixture name="JsonToXml">
+		<umbracoFile media="2230">
+			<json>
+				<src>/test2230.png</src>
+				<crops>
+					<alias>Hero</alias>
+					<width>1312</width>
+					<height>680</height>
+					<coordinates>
+						<x1>0.25</x1>
+						<y1>0.5</y1>
+						<x2>0.75</x2>
+						<y2>0.2</y2>
+					</coordinates>
+				</crops>
+				<crops>
+					<width>362</width>
+					<height>198</height>
+					<alias>Feature</alias>
+				</crops>
+				<crops>
+					<alias>Thumb</alias>
+					<width>76</width>
+					<height>69</height>
+				</crops>
+				<focalPoint>
+					<left>0.4</left>
+					<top>0.55</top>
+				</focalPoint>
+			</json>
+		</umbracoFile>
+		<umbracoFile media="2231">
+			<json>
+				<src>/test2231.png</src>
+				<crops>
+					<alias>Hero</alias>
+					<width>1312</width>
+					<height>680</height>
+				</crops>
+				<crops>
+					<width>362</width>
+					<height>198</height>
+					<alias>Feature</alias>
+				</crops>
+				<crops>
+					<alias>Thumb</alias>
+					<width>76</width>
+					<height>69</height>
+				</crops>
+				<focalPoint>
+					<left>0.4</left>
+					<top>0.55</top>
+				</focalPoint>
+			</json>
+		</umbracoFile>
+		<umbracoFile media="2232">
+			<json>
+				<src>/test2232.png</src>
+				<focalPoint>
+					<left>0.5</left>
+					<top>0.5</top>
+				</focalPoint>
+			</json>
+		</umbracoFile>
+		<umbracoFile media="3200">
+			<json>
+				<src>/media/3468/test2234.png</src>
+				<crops>
+					<alias>Hero</alias>
+					<width>1312</width>
+					<height>680</height>
+					<coordinates>
+						<x1>0.25</x1>
+						<y1>0.5</y1>
+						<x2>0.75</x2>
+						<y2>0.2</y2>
+					</coordinates>
+				</crops>
+				<crops>
+					<width>362</width>
+					<height>198</height>
+					<alias>Feature</alias>
+				</crops>
+				<crops>
+					<alias>Thumb</alias>
+					<width>76</width>
+					<height>69</height>
+				</crops>
+				<focalPoint>
+					<left>0.4</left>
+					<top>0.55</top>
+				</focalPoint>
+			</json>
+		</umbracoFile>
+	</fixture>
+	
+</fixtures>

@@ -1,5 +1,6 @@
 # Release Notes
 
+* v1.0.0: *Breaking* MediaHelper now requires Umbraco 7 - other helpers should be compatible with pre-v7 versions too.
 * v0.9.2: Install into `helpers` folder
 * v0.9.1: Support MNTP for Media in MultiPicker Helper
 * v0.9: Add MultiPicker Helper
@@ -21,6 +22,7 @@
 
 ## Media Helpers
 
+* v2.0: *Breaking* Support Umbraco 7 media and built-in cropper. Not backwards compatible.
 * v1.4: Removed output statement
 * v1.3: Move (and rename) cropping config file to config folder - issue #11
 * v1.2: Adding `retinafy` option
