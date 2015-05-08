@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<?umbraco-package XSLT Helpers v1.0.0 - GroupingHelper v1.0?>
+<?umbraco-package XSLT Helpers v1.1.0 - GroupingHelper v1.0?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
 	<!-- 'Groupify' template -->
