@@ -4,7 +4,7 @@
 	xslt-version="1.0"
 	xmlns:x="http://www.jenitennison.com/xslt/xspec"
 >
-	<x:scenario label="when calling the preSort template">
+	<x:scenario label="when calling the preSort template" pending="Can't reliably test the results of generate-id()'">
 		<x:call template="preSort">
 			<x:param name="selection" select="document('fixtures/people-with-nicks.xml', /)//person" />
 			<x:param name="sortBy" select="'name'" />
