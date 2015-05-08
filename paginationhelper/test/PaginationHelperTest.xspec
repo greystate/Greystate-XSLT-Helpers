@@ -51,10 +51,54 @@
 		</x:call>
 		<x:expect label="it should produce the pager for page 1">
 			<ul class="pager">
-				<li class="prev disabled">&prevPage;</li>
-				<li class="current">1</li>
+				<li class="prev disabled"><span>&prevPage;</span></li>
+				<li class="current"><span>1</span></li>
 				<li><a rel="next" href="&testURL;?&pagerParam;=2">2</a></li>
 				<li class="next"><a rel="next" href="&testURL;?&pagerParam;=2">&nextPage;</a></li>
+			</ul>
+		</x:expect>
+		<x:scenario label="and sending the `$pagerClass` param">
+			<x:call>
+				<x:param name="pagerClass" select="'pagination'" />
+			</x:call>
+			<x:expect label="it should use that CSS class instead of the default 'pager' class">
+				<ul class="pagination">...</ul>
+			</x:expect>
+		</x:scenario>
+		<x:scenario label="and sending the `$currentClass` param">
+			<x:call>
+				<x:param name="currentClass" select="'activated'" />
+			</x:call>
+			<x:expect label="it should use that CSS class instead of the default 'current' class">
+				<ul class="...">
+					<li class="...">...</li>
+					<li class="activated">...</li>
+					<li>...</li>
+					<li class="...">...</li>
+				</ul>
+			</x:expect>
+		</x:scenario>
+	</x:scenario>
+
+	<x:scenario label="when specifying custom classes to PageinateSelection">
+		<x:call template="PaginateSelection">
+			<x:param name="selection" select="document('fixtures/people.xml', /)/people/person" />
+			<x:param name="page" select="2" />
+			<x:param name="pagerClass" select="'pagination'" />
+			<x:param name="currentClass" select="'active'" />
+			<x:param name="prevClass" select="'backwards'" />
+			<x:param name="nextClass" select="'forwards'" />
+		</x:call>
+		<x:expect label="they should all fall through to the pager control">
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<ul class="pagination">
+			<li class="backwards">...</li>
+			<li>...</li>
+			<li class="active">...</li>
+			<li class="forwards disabled">...</li>
 			</ul>
 		</x:expect>
 	</x:scenario>
@@ -66,8 +110,8 @@
 		</x:call>
 		<x:expect label="it should produce the pager for page 1">
 			<ul class="pager">
-				<li class="prev disabled">&prevPage;</li>
-				<li class="current">1</li>
+				<li class="prev disabled"><span>&prevPage;</span></li>
+				<li class="current"><span>1</span></li>
 				<li><a rel="next" href="&testURL;?&pagerParam;=2">2</a></li>
 				<li class="next"><a rel="next" href="&testURL;?&pagerParam;=2">&nextPage;</a></li>
 			</ul>
@@ -83,8 +127,8 @@
 			<ul class="pager">
 				<li class="prev"><a rel="prev start" href="&testURL;">&prevPage;</a></li>
 				<li><a rel="prev start" href="&testURL;">1</a></li>
-				<li class="current">2</li>
-				<li class="next disabled">&nextPage;</li>
+				<li class="current"><span>2</span></li>
+				<li class="next disabled"><span>&nextPage;</span></li>
 			</ul>
 		</x:expect>
 		<x:expect label="it should not add &pagerParam;=1 to the Page 1 link (issue #7)" test="not(//a[contains(@href, '&pagerParam;=1')])" />
@@ -108,8 +152,8 @@
 		</x:call>
 		<x:expect label="it should render links for pages 1—9 with a gap and then links for the final 2 pages">
 			<ul class="pager">
-				<li class="prev disabled">&prevPage;</li>
-				<li class="current">1</li>
+				<li class="prev disabled"><span>&prevPage;</span></li>
+				<li class="current"><span>1</span></li>
 				<li><a rel="next" href="...">2</a></li>
 				<li><a href="...">3</a></li>
 				<li><a href="...">4</a></li>
@@ -118,7 +162,7 @@
 				<li><a href="...">7</a></li>
 				<li><a href="...">8</a></li>
 				<li><a href="...">9</a></li>
-				<li class="gap">&gapFiller;</li>
+				<li class="gap"><span>&gapFiller;</span></li>
 				<li><a href="...">23</a></li>
 				<li><a href="...">24</a></li>
 				<li class="next"><a rel="next" href="&testURL;?&pagerParam;=2">&nextPage;</a></li>
@@ -136,12 +180,12 @@
 					<li><a href="...">2</a></li>
 					<li><a href="...">3</a></li>
 					<li><a rel="prev" href="...">4</a></li>
-					<li class="current">5</li>
+					<li class="current"><span>5</span></li>
 					<li><a rel="next" href="...">6</a></li>
 					<li><a href="...">7</a></li>
 					<li><a href="...">8</a></li>
 					<li><a href="...">9</a></li>
-					<li class="gap">&gapFiller;</li>
+					<li class="gap"><span>&gapFiller;</span></li>
 					<li><a href="...">23</a></li>
 					<li><a href="...">24</a></li>
 					<li class="next"><a rel="next" href="&testURL;?&pagerParam;=6">&nextPage;</a></li>
@@ -162,12 +206,12 @@
 					<li><a href="...">4</a></li>
 					<li><a href="...">5</a></li>
 					<li><a rel="prev" href="...">6</a></li>
-					<li class="current">7</li>
+					<li class="current"><span>7</span></li>
 					<li><a rel="next" href="...">8</a></li>
 					<li><a href="...">9</a></li>
 					<li><a href="...">10</a></li>
 					<li><a href="...">11</a></li>
-					<li class="gap">&gapFiller;</li>
+					<li class="gap"><span>&gapFiller;</span></li>
 					<li><a href="...">23</a></li>
 					<li><a href="...">24</a></li>
 					<li class="next"><a rel="next" href="&testURL;?&pagerParam;=8">&nextPage;</a></li>
@@ -189,12 +233,12 @@
 					<li><a href="...">5</a></li>
 					<li><a href="...">6</a></li>
 					<li><a rel="prev" href="...">7</a></li>
-					<li class="current">8</li>
+					<li class="current"><span>8</span></li>
 					<li><a rel="next" href="...">9</a></li>
 					<li><a href="...">10</a></li>
 					<li><a href="...">11</a></li>
 					<li><a href="...">12</a></li>
-					<li class="gap">&gapFiller;</li>
+					<li class="gap"><span>&gapFiller;</span></li>
 					<li><a href="...">23</a></li>
 					<li><a href="...">24</a></li>
 					<li class="next"><a rel="next" href="&testURL;?&pagerParam;=9">&nextPage;</a></li>
@@ -211,17 +255,17 @@
 					<li class="prev"><a rel="prev" href="&testURL;?&pagerParam;=8">&prevPage;</a></li>
 					<li><a rel="start" href="&testURL;">1</a></li>
 					<li><a href="...">2</a></li>
-					<li class="gap">&gapFiller;</li>
+					<li class="gap"><span>&gapFiller;</span></li>
 					<li><a href="...">5</a></li>
 					<li><a href="...">6</a></li>
 					<li><a href="...">7</a></li>
 					<li><a rel="prev" href="...">8</a></li>
-					<li class="current">9</li>
+					<li class="current"><span>9</span></li>
 					<li><a rel="next" href="...">10</a></li>
 					<li><a href="...">11</a></li>
 					<li><a href="...">12</a></li>
 					<li><a href="...">13</a></li>
-					<li class="gap">&gapFiller;</li>
+					<li class="gap"><span>&gapFiller;</span></li>
 					<li><a href="...">23</a></li>
 					<li><a href="...">24</a></li>
 					<li class="next"><a rel="next" href="&testURL;?&pagerParam;=10">&nextPage;</a></li>
@@ -238,17 +282,17 @@
 					<li class="prev"><a rel="prev" href="&testURL;?&pagerParam;=15">&prevPage;</a></li>
 					<li><a rel="start" href="...">1</a></li>
 					<li><a href="...">2</a></li>
-					<li class="gap">&gapFiller;</li>
+					<li class="gap"><span>&gapFiller;</span></li>
 					<li><a href="...">12</a></li>
 					<li><a href="...">13</a></li>
 					<li><a href="...">14</a></li>
 					<li><a rel="prev" href="...">15</a></li>
-					<li class="current">16</li>
+					<li class="current"><span>16</span></li>
 					<li><a rel="next" href="...">17</a></li>
 					<li><a href="...">18</a></li>
 					<li><a href="...">19</a></li>
 					<li><a href="...">20</a></li>
-					<li class="gap">&gapFiller;</li>
+					<li class="gap"><span>&gapFiller;</span></li>
 					<li><a href="...">23</a></li>
 					<li><a href="...">24</a></li>
 					<li class="next"><a rel="next" href="&testURL;?&pagerParam;=17">&nextPage;</a></li>
@@ -265,12 +309,12 @@
 					<li class="prev"><a rel="prev" href="&testURL;?&pagerParam;=19">&prevPage;</a></li>
 					<li><a rel="start" href="...">1</a></li>
 					<li><a href="...">2</a></li>
-					<li class="gap">&gapFiller;</li>
+					<li class="gap"><span>&gapFiller;</span></li>
 					<li><a href="...">16</a></li>
 					<li><a href="...">17</a></li>
 					<li><a href="...">18</a></li>
 					<li><a rel="prev" href="...">19</a></li>
-					<li class="current">20</li>
+					<li class="current"><span>20</span></li>
 					<li><a rel="next" href="...">21</a></li>
 					<li><a href="...">22</a></li>
 					<li><a href="...">23</a></li>

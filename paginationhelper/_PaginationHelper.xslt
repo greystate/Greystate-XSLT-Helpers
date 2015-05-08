@@ -6,10 +6,17 @@
 	<!-- Paging constants -->
 	<!ENTITY prevPage "&#8249; Previous">
 	<!ENTITY nextPage "Next &#8250;">
+	<!ENTITY gapFiller "&#8230;">
 
 	<!ENTITY pagerParam "p"><!-- Name of QueryString parameter for 'page' -->
 	<!ENTITY perPage "10"><!-- Number of items on a page -->
 	<!ENTITY pageLinksBeside "4"><!-- Number of pagination links to show before and after the current page -->
+
+	<!-- CSS classes -->
+	<!ENTITY class.pager "pager"><!-- CSS class for the pager control -->
+	<!ENTITY class.current "current"><!-- CSS class for the "current page" link -->
+	<!ENTITY class.prev "prev"><!-- CSS class for the "previous page" link -->
+	<!ENTITY class.next "next"><!-- CSS class for the "next page" link -->
 ]>
 <?umbraco-package This is a dummy for the packageVersion entity - see ../lib/freezeEntities.xslt ?>
 <?PaginationHelperVersion ?>
@@ -28,6 +35,10 @@
 	<xsl:variable name="prevPage" select="'&prevPage;'" />
 	<xsl:variable name="nextPage" select="'&nextPage;'" />
 	<xsl:variable name="pageLinksBeside" select="'&pageLinksBeside;'" /><!-- Number of pagination links to show before and after the current page -->
+	<xsl:variable name="pagerClass" select="'&class.pager;'" />
+	<xsl:variable name="currentClass" select="'&class.current;'" />
+	<xsl:variable name="prevClass" select="'&class.prev;'" />
+	<xsl:variable name="nextClass" select="'&class.next;'" />
 	
 	<!--
 		This is where we get the options for the page, which defaults to the QueryString
@@ -83,6 +94,12 @@
 		<!-- Specify how many links to show on each side of the "current" page in the Pager (if shown) -->
 		<xsl:param name="pageLinksBeside" select="$pageLinksBeside" />
 		
+		<!-- Set some custom CSS classes -->
+		<xsl:param name="pagerClass" select="$pagerClass" />
+		<xsl:param name="currentClass" select="$currentClass" />
+		<xsl:param name="prevClass" select="$prevClass" />
+		<xsl:param name="nextClass" select="$nextClass" />
+		
 		<xsl:variable name="startIndex" select="$perPage * ($page - 1) + 1" /><!-- First item on this page -->
 		<xsl:variable name="endIndex" select="$page * $perPage" /><!-- First item on next page -->
 		
@@ -113,6 +130,10 @@
 				<xsl:with-param name="page" select="$page" />
 				<xsl:with-param name="perPage" select="$perPage" />
 				<xsl:with-param name="pageLinksBeside" select="$pageLinksBeside" />
+				<xsl:with-param name="pagerClass" select="$pagerClass" />
+				<xsl:with-param name="currentClass" select="$currentClass" />
+				<xsl:with-param name="prevClass" select="$prevClass" />
+				<xsl:with-param name="nextClass" select="$nextClass" />
 			</xsl:call-template>
 		</xsl:if>
 	</xsl:template>
@@ -122,6 +143,10 @@
 		<xsl:param name="page" select="$page" />
 		<xsl:param name="perPage" select="$perPage" />
 		<xsl:param name="pageLinksBeside" select="$pageLinksBeside" />
+		<xsl:param name="pagerClass" select="$pagerClass" />
+		<xsl:param name="currentClass" select="$currentClass" />
+		<xsl:param name="prevClass" select="$prevClass" />
+		<xsl:param name="nextClass" select="$nextClass" />
 		
 		<xsl:variable name="total" select="count($selection)" />
 		<xsl:variable name="lastPageNum" select="ceiling($total div $perPage)" />
@@ -142,13 +167,13 @@
 		</xsl:variable>
 		<xsl:variable name="sep" select="substring('&amp;|?', not($options[not(@key = $pagerParam)]) * 2 + 1, 1)" />
 
-		<ul class="pager">
+		<ul class="{$pagerClass}">
 			<!-- Create the "Previous" link -->
-			<li class="prev">
+			<li class="{$prevClass}">
 				<xsl:choose>
 					<xsl:when test="$page = 1">
-						<xsl:attribute name="class">prev disabled</xsl:attribute>
-						<xsl:value-of select="$prevPage" />
+						<xsl:attribute name="class"><xsl:value-of select="normalize-space(concat($prevClass, ' ', 'disabled'))" /></xsl:attribute>
+						<span><xsl:value-of select="$prevPage" /></span>
 					</xsl:when>
 					<!-- Avoid duplicate content by not linking p=1 (issue #7) -->
 					<xsl:when test="$page = 2">
@@ -164,15 +189,15 @@
 			<xsl:if test="$needToRenderGaps and ($page - $pageLinksBeside &gt; 4)">
 				<li><a href="{$query}" rel="start">1</a></li>
 				<li><a href="{$query}{$sep}{$pagerParam}=2">2</a></li>
-				<li class="gap">...</li>
+				<li class="gap"><span>&gapFiller;</span></li>
 			</xsl:if>
 
 			<!-- Create links for each page available -->
 			<xsl:for-each select="$selection[position() &lt;= $lastPageNum]">
 				<xsl:choose>
 					<xsl:when test="$page = position()">
-						<li class="current">
-							<xsl:value-of select="position()" />
+						<li class="{$currentClass}">
+							<span><xsl:value-of select="position()" /></span>
 						</li>
 					</xsl:when>
 					<xsl:when test="not($needToRenderGaps)">
@@ -246,17 +271,17 @@
 			
 			<!-- Do we need to create a "gap" + page n-1 & n ? -->
 			<xsl:if test="$needToRenderGaps and ($page + $pageLinksBeside &lt; $lastPageNum - 3)">
-				<li class="gap">...</li>
+				<li class="gap"><span>&gapFiller;</span></li>
 				<li><a href="{$query}{$sep}{$pagerParam}={$lastPageNum - 1}"><xsl:value-of select="$lastPageNum - 1" /></a></li>
 				<li><a href="{$query}{$sep}{$pagerParam}={$lastPageNum}"><xsl:value-of select="$lastPageNum" /></a></li>
 			</xsl:if>
 			
 			<!-- Create the "Next" link -->
-			<li class="next">
+			<li class="{$nextClass}">
 				<xsl:choose>
 					<xsl:when test="$page = $lastPageNum">
-						<xsl:attribute name="class">next disabled</xsl:attribute>
-						<xsl:value-of select="$nextPage" />
+						<xsl:attribute name="class"><xsl:value-of select="normalize-space(concat($nextClass, ' ', 'disabled'))" /></xsl:attribute>
+						<span><xsl:value-of select="$nextPage" /></span>
 					</xsl:when>
 					<xsl:otherwise>
 						<a href="{$query}{$sep}{$pagerParam}={$page + 1}" rel="next"><xsl:value-of select="$nextPage" /></a>
