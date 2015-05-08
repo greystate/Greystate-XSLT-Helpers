@@ -6,6 +6,7 @@
 	<!-- Paging constants -->
 	<!ENTITY prevPage "&#8249; Previous">
 	<!ENTITY nextPage "Next &#8250;">
+	<!ENTITY gapFiller "&#8230;">
 
 	<!ENTITY pagerParam "p"><!-- Name of QueryString parameter for 'page' -->
 	<!ENTITY perPage "10"><!-- Number of items on a page -->
@@ -188,7 +189,7 @@
 			<xsl:if test="$needToRenderGaps and ($page - $pageLinksBeside &gt; 4)">
 				<li><a href="{$query}" rel="start">1</a></li>
 				<li><a href="{$query}{$sep}{$pagerParam}=2">2</a></li>
-				<li class="gap">...</li>
+				<li class="gap"><span>&gapFiller;</span></li>
 			</xsl:if>
 
 			<!-- Create links for each page available -->
@@ -270,7 +271,7 @@
 			
 			<!-- Do we need to create a "gap" + page n-1 & n ? -->
 			<xsl:if test="$needToRenderGaps and ($page + $pageLinksBeside &lt; $lastPageNum - 3)">
-				<li class="gap">...</li>
+				<li class="gap"><span>&gapFiller;</span></li>
 				<li><a href="{$query}{$sep}{$pagerParam}={$lastPageNum - 1}"><xsl:value-of select="$lastPageNum - 1" /></a></li>
 				<li><a href="{$query}{$sep}{$pagerParam}={$lastPageNum}"><xsl:value-of select="$lastPageNum" /></a></li>
 			</xsl:if>

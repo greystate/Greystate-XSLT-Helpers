@@ -162,7 +162,7 @@
 				<li><a href="...">7</a></li>
 				<li><a href="...">8</a></li>
 				<li><a href="...">9</a></li>
-				<li class="gap">&gapFiller;</li>
+				<li class="gap"><span>&gapFiller;</span></li>
 				<li><a href="...">23</a></li>
 				<li><a href="...">24</a></li>
 				<li class="next"><a rel="next" href="&testURL;?&pagerParam;=2">&nextPage;</a></li>
@@ -185,7 +185,7 @@
 					<li><a href="...">7</a></li>
 					<li><a href="...">8</a></li>
 					<li><a href="...">9</a></li>
-					<li class="gap">&gapFiller;</li>
+					<li class="gap"><span>&gapFiller;</span></li>
 					<li><a href="...">23</a></li>
 					<li><a href="...">24</a></li>
 					<li class="next"><a rel="next" href="&testURL;?&pagerParam;=6">&nextPage;</a></li>
@@ -211,7 +211,7 @@
 					<li><a href="...">9</a></li>
 					<li><a href="...">10</a></li>
 					<li><a href="...">11</a></li>
-					<li class="gap">&gapFiller;</li>
+					<li class="gap"><span>&gapFiller;</span></li>
 					<li><a href="...">23</a></li>
 					<li><a href="...">24</a></li>
 					<li class="next"><a rel="next" href="&testURL;?&pagerParam;=8">&nextPage;</a></li>
@@ -238,7 +238,7 @@
 					<li><a href="...">10</a></li>
 					<li><a href="...">11</a></li>
 					<li><a href="...">12</a></li>
-					<li class="gap">&gapFiller;</li>
+					<li class="gap"><span>&gapFiller;</span></li>
 					<li><a href="...">23</a></li>
 					<li><a href="...">24</a></li>
 					<li class="next"><a rel="next" href="&testURL;?&pagerParam;=9">&nextPage;</a></li>
@@ -255,7 +255,7 @@
 					<li class="prev"><a rel="prev" href="&testURL;?&pagerParam;=8">&prevPage;</a></li>
 					<li><a rel="start" href="&testURL;">1</a></li>
 					<li><a href="...">2</a></li>
-					<li class="gap">&gapFiller;</li>
+					<li class="gap"><span>&gapFiller;</span></li>
 					<li><a href="...">5</a></li>
 					<li><a href="...">6</a></li>
 					<li><a href="...">7</a></li>
@@ -265,7 +265,7 @@
 					<li><a href="...">11</a></li>
 					<li><a href="...">12</a></li>
 					<li><a href="...">13</a></li>
-					<li class="gap">&gapFiller;</li>
+					<li class="gap"><span>&gapFiller;</span></li>
 					<li><a href="...">23</a></li>
 					<li><a href="...">24</a></li>
 					<li class="next"><a rel="next" href="&testURL;?&pagerParam;=10">&nextPage;</a></li>
@@ -282,7 +282,7 @@
 					<li class="prev"><a rel="prev" href="&testURL;?&pagerParam;=15">&prevPage;</a></li>
 					<li><a rel="start" href="...">1</a></li>
 					<li><a href="...">2</a></li>
-					<li class="gap">&gapFiller;</li>
+					<li class="gap"><span>&gapFiller;</span></li>
 					<li><a href="...">12</a></li>
 					<li><a href="...">13</a></li>
 					<li><a href="...">14</a></li>
@@ -292,7 +292,7 @@
 					<li><a href="...">18</a></li>
 					<li><a href="...">19</a></li>
 					<li><a href="...">20</a></li>
-					<li class="gap">&gapFiller;</li>
+					<li class="gap"><span>&gapFiller;</span></li>
 					<li><a href="...">23</a></li>
 					<li><a href="...">24</a></li>
 					<li class="next"><a rel="next" href="&testURL;?&pagerParam;=17">&nextPage;</a></li>
@@ -309,7 +309,7 @@
 					<li class="prev"><a rel="prev" href="&testURL;?&pagerParam;=19">&prevPage;</a></li>
 					<li><a rel="start" href="...">1</a></li>
 					<li><a href="...">2</a></li>
-					<li class="gap">&gapFiller;</li>
+					<li class="gap"><span>&gapFiller;</span></li>
 					<li><a href="...">16</a></li>
 					<li><a href="...">17</a></li>
 					<li><a href="...">18</a></li>
