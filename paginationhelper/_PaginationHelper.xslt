@@ -10,6 +10,9 @@
 	<!ENTITY pagerParam "p"><!-- Name of QueryString parameter for 'page' -->
 	<!ENTITY perPage "10"><!-- Number of items on a page -->
 	<!ENTITY pageLinksBeside "4"><!-- Number of pagination links to show before and after the current page -->
+
+	<!-- CSS classes -->
+	<!ENTITY class.pager "pager"><!-- Default CSS class for the pager control -->
 ]>
 <?umbraco-package This is a dummy for the packageVersion entity - see ../lib/freezeEntities.xslt ?>
 <?PaginationHelperVersion ?>
@@ -28,6 +31,7 @@
 	<xsl:variable name="prevPage" select="'&prevPage;'" />
 	<xsl:variable name="nextPage" select="'&nextPage;'" />
 	<xsl:variable name="pageLinksBeside" select="'&pageLinksBeside;'" /><!-- Number of pagination links to show before and after the current page -->
+	<xsl:variable name="pagerClass" select="'&class.pager;'" />
 	
 	<!--
 		This is where we get the options for the page, which defaults to the QueryString
@@ -83,6 +87,9 @@
 		<!-- Specify how many links to show on each side of the "current" page in the Pager (if shown) -->
 		<xsl:param name="pageLinksBeside" select="$pageLinksBeside" />
 		
+		<!-- Set a custom class for the pager control -->
+		<xsl:param name="pagerClass" select="$pagerClass" />
+		
 		<xsl:variable name="startIndex" select="$perPage * ($page - 1) + 1" /><!-- First item on this page -->
 		<xsl:variable name="endIndex" select="$page * $perPage" /><!-- First item on next page -->
 		
@@ -113,6 +120,7 @@
 				<xsl:with-param name="page" select="$page" />
 				<xsl:with-param name="perPage" select="$perPage" />
 				<xsl:with-param name="pageLinksBeside" select="$pageLinksBeside" />
+				<xsl:with-param name="pagerClass" select="$pagerClass" />
 			</xsl:call-template>
 		</xsl:if>
 	</xsl:template>
@@ -122,6 +130,7 @@
 		<xsl:param name="page" select="$page" />
 		<xsl:param name="perPage" select="$perPage" />
 		<xsl:param name="pageLinksBeside" select="$pageLinksBeside" />
+		<xsl:param name="pagerClass" select="$pagerClass" />
 		
 		<xsl:variable name="total" select="count($selection)" />
 		<xsl:variable name="lastPageNum" select="ceiling($total div $perPage)" />
@@ -142,7 +151,7 @@
 		</xsl:variable>
 		<xsl:variable name="sep" select="substring('&amp;|?', not($options[not(@key = $pagerParam)]) * 2 + 1, 1)" />
 
-		<ul class="pager">
+		<ul class="{$pagerClass}">
 			<!-- Create the "Previous" link -->
 			<li class="prev">
 				<xsl:choose>
