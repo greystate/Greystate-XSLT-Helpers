@@ -65,6 +65,19 @@
 				<ul class="pagination">...</ul>
 			</x:expect>
 		</x:scenario>
+		<x:scenario label="and sending the `$currentClass` param">
+			<x:call>
+				<x:param name="currentClass" select="'activated'" />
+			</x:call>
+			<x:expect label="it should use that CSS class instead of the default 'current' class">
+				<ul class="...">
+					<li class="...">...</li>
+					<li class="activated">...</li>
+					<li>...</li>
+					<li class="...">...</li>
+				</ul>
+			</x:expect>
+		</x:scenario>
 	</x:scenario>
 
 	<x:scenario label="when specifying `$pagerClass` to PageinateSelection">
