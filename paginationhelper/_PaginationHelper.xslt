@@ -172,7 +172,7 @@
 				<xsl:choose>
 					<xsl:when test="$page = position()">
 						<li class="current">
-							<xsl:value-of select="position()" />
+							<span><xsl:value-of select="position()" /></span>
 						</li>
 					</xsl:when>
 					<xsl:when test="not($needToRenderGaps)">
