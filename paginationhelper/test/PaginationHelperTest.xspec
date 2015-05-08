@@ -52,7 +52,7 @@
 		<x:expect label="it should produce the pager for page 1">
 			<ul class="pager">
 				<li class="prev disabled">&prevPage;</li>
-				<li class="current">1</li>
+				<li class="current"><span>1</span></li>
 				<li><a rel="next" href="&testURL;?&pagerParam;=2">2</a></li>
 				<li class="next"><a rel="next" href="&testURL;?&pagerParam;=2">&nextPage;</a></li>
 			</ul>
@@ -67,7 +67,7 @@
 		<x:expect label="it should produce the pager for page 1">
 			<ul class="pager">
 				<li class="prev disabled">&prevPage;</li>
-				<li class="current">1</li>
+				<li class="current"><span>1</span></li>
 				<li><a rel="next" href="&testURL;?&pagerParam;=2">2</a></li>
 				<li class="next"><a rel="next" href="&testURL;?&pagerParam;=2">&nextPage;</a></li>
 			</ul>
@@ -83,7 +83,7 @@
 			<ul class="pager">
 				<li class="prev"><a rel="prev start" href="&testURL;">&prevPage;</a></li>
 				<li><a rel="prev start" href="&testURL;">1</a></li>
-				<li class="current">2</li>
+				<li class="current"><span>2</span></li>
 				<li class="next disabled">&nextPage;</li>
 			</ul>
 		</x:expect>
@@ -109,7 +109,7 @@
 		<x:expect label="it should render links for pages 1—9 with a gap and then links for the final 2 pages">
 			<ul class="pager">
 				<li class="prev disabled">&prevPage;</li>
-				<li class="current">1</li>
+				<li class="current"><span>1</span></li>
 				<li><a rel="next" href="...">2</a></li>
 				<li><a href="...">3</a></li>
 				<li><a href="...">4</a></li>
@@ -136,7 +136,7 @@
 					<li><a href="...">2</a></li>
 					<li><a href="...">3</a></li>
 					<li><a rel="prev" href="...">4</a></li>
-					<li class="current">5</li>
+					<li class="current"><span>5</span></li>
 					<li><a rel="next" href="...">6</a></li>
 					<li><a href="...">7</a></li>
 					<li><a href="...">8</a></li>
@@ -162,7 +162,7 @@
 					<li><a href="...">4</a></li>
 					<li><a href="...">5</a></li>
 					<li><a rel="prev" href="...">6</a></li>
-					<li class="current">7</li>
+					<li class="current"><span>7</span></li>
 					<li><a rel="next" href="...">8</a></li>
 					<li><a href="...">9</a></li>
 					<li><a href="...">10</a></li>
@@ -189,7 +189,7 @@
 					<li><a href="...">5</a></li>
 					<li><a href="...">6</a></li>
 					<li><a rel="prev" href="...">7</a></li>
-					<li class="current">8</li>
+					<li class="current"><span>8</span></li>
 					<li><a rel="next" href="...">9</a></li>
 					<li><a href="...">10</a></li>
 					<li><a href="...">11</a></li>
@@ -216,7 +216,7 @@
 					<li><a href="...">6</a></li>
 					<li><a href="...">7</a></li>
 					<li><a rel="prev" href="...">8</a></li>
-					<li class="current">9</li>
+					<li class="current"><span>9</span></li>
 					<li><a rel="next" href="...">10</a></li>
 					<li><a href="...">11</a></li>
 					<li><a href="...">12</a></li>
@@ -243,7 +243,7 @@
 					<li><a href="...">13</a></li>
 					<li><a href="...">14</a></li>
 					<li><a rel="prev" href="...">15</a></li>
-					<li class="current">16</li>
+					<li class="current"><span>16</span></li>
 					<li><a rel="next" href="...">17</a></li>
 					<li><a href="...">18</a></li>
 					<li><a href="...">19</a></li>
@@ -270,7 +270,7 @@
 					<li><a href="...">17</a></li>
 					<li><a href="...">18</a></li>
 					<li><a rel="prev" href="...">19</a></li>
-					<li class="current">20</li>
+					<li class="current"><span>20</span></li>
 					<li><a rel="next" href="...">21</a></li>
 					<li><a href="...">22</a></li>
 					<li><a href="...">23</a></li>
