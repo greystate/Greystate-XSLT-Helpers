@@ -86,6 +86,8 @@
 			<x:param name="page" select="2" />
 			<x:param name="pagerClass" select="'pagination'" />
 			<x:param name="currentClass" select="'active'" />
+			<x:param name="prevClass" select="'backwards'" />
+			<x:param name="nextClass" select="'forwards'" />
 		</x:call>
 		<x:expect label="they should all fall through to the pager control">
 			<p><a href="...">...</a></p>
@@ -93,10 +95,10 @@
 			<p><a href="...">...</a></p>
 			<p><a href="...">...</a></p>
 			<ul class="pagination">
-			<li class="...">...</li>
+			<li class="backwards">...</li>
 			<li>...</li>
 			<li class="active">...</li>
-			<li class="...">...</li>
+			<li class="forwards disabled">...</li>
 			</ul>
 		</x:expect>
 	</x:scenario>
