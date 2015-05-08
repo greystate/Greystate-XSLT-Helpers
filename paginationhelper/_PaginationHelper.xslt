@@ -148,7 +148,7 @@
 				<xsl:choose>
 					<xsl:when test="$page = 1">
 						<xsl:attribute name="class">prev disabled</xsl:attribute>
-						<xsl:value-of select="$prevPage" />
+						<span><xsl:value-of select="$prevPage" /></span>
 					</xsl:when>
 					<!-- Avoid duplicate content by not linking p=1 (issue #7) -->
 					<xsl:when test="$page = 2">
@@ -256,7 +256,7 @@
 				<xsl:choose>
 					<xsl:when test="$page = $lastPageNum">
 						<xsl:attribute name="class">next disabled</xsl:attribute>
-						<xsl:value-of select="$nextPage" />
+						<span><xsl:value-of select="$nextPage" /></span>
 					</xsl:when>
 					<xsl:otherwise>
 						<a href="{$query}{$sep}{$pagerParam}={$page + 1}" rel="next"><xsl:value-of select="$nextPage" /></a>
