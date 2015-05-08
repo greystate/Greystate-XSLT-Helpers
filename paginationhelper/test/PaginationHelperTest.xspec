@@ -51,7 +51,7 @@
 		</x:call>
 		<x:expect label="it should produce the pager for page 1">
 			<ul class="pager">
-				<li class="prev disabled">&prevPage;</li>
+				<li class="prev disabled"><span>&prevPage;</span></li>
 				<li class="current"><span>1</span></li>
 				<li><a rel="next" href="&testURL;?&pagerParam;=2">2</a></li>
 				<li class="next"><a rel="next" href="&testURL;?&pagerParam;=2">&nextPage;</a></li>
@@ -66,7 +66,7 @@
 		</x:call>
 		<x:expect label="it should produce the pager for page 1">
 			<ul class="pager">
-				<li class="prev disabled">&prevPage;</li>
+				<li class="prev disabled"><span>&prevPage;</span></li>
 				<li class="current"><span>1</span></li>
 				<li><a rel="next" href="&testURL;?&pagerParam;=2">2</a></li>
 				<li class="next"><a rel="next" href="&testURL;?&pagerParam;=2">&nextPage;</a></li>
@@ -84,7 +84,7 @@
 				<li class="prev"><a rel="prev start" href="&testURL;">&prevPage;</a></li>
 				<li><a rel="prev start" href="&testURL;">1</a></li>
 				<li class="current"><span>2</span></li>
-				<li class="next disabled">&nextPage;</li>
+				<li class="next disabled"><span>&nextPage;</span></li>
 			</ul>
 		</x:expect>
 		<x:expect label="it should not add &pagerParam;=1 to the Page 1 link (issue #7)" test="not(//a[contains(@href, '&pagerParam;=1')])" />
@@ -108,7 +108,7 @@
 		</x:call>
 		<x:expect label="it should render links for pages 1—9 with a gap and then links for the final 2 pages">
 			<ul class="pager">
-				<li class="prev disabled">&prevPage;</li>
+				<li class="prev disabled"><span>&prevPage;</span></li>
 				<li class="current"><span>1</span></li>
 				<li><a rel="next" href="...">2</a></li>
 				<li><a href="...">3</a></li>
