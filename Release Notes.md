@@ -1,5 +1,6 @@
 # Release Notes
 
+* v1.1.0: Customize classes in Pagination Helper
 * v1.0.0: *Breaking* MediaHelper now requires Umbraco 7 - other helpers should be compatible with pre-v7 versions too.
 * v0.9.2: Install into `helpers` folder
 * v0.9.1: Support MNTP for Media in MultiPicker Helper
@@ -38,6 +39,7 @@
 
 ## Pagination Helper
 
+* v1.6: Add class variables for `.pager`, `.prev`, `.next` and `.current`
 * v1.5: Removed output statement
 * v1.4: Support custom sorting in pagination
 * v1.3: Support sorting pagination by way of the `sortBy` parameter
