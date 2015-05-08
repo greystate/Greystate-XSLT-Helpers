@@ -57,6 +57,29 @@
 				<li class="next"><a rel="next" href="&testURL;?&pagerParam;=2">&nextPage;</a></li>
 			</ul>
 		</x:expect>
+		<x:scenario label="and sending the `$pagerClass` param">
+			<x:call>
+				<x:param name="pagerClass" select="'pagination'" />
+			</x:call>
+			<x:expect label="it should use that CSS class instead of the default 'pager' class">
+				<ul class="pagination">...</ul>
+			</x:expect>
+		</x:scenario>
+	</x:scenario>
+
+	<x:scenario label="when specifying `$pagerClass` to PageinateSelection">
+		<x:call template="PaginateSelection">
+			<x:param name="selection" select="document('fixtures/people.xml', /)/people/person" />
+			<x:param name="page" select="2" />
+			<x:param name="pagerClass" select="'fall-through'" />
+		</x:call>
+		<x:expect label="it should fall through to the pager control">
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<ul class="fall-through">...</ul>
+		</x:expect>
 	</x:scenario>
 	
 	<x:scenario label="when calling RenderPager for page 1">
