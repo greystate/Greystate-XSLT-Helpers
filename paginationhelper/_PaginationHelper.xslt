@@ -85,6 +85,9 @@
 		<!-- Specify which node() to sort by (as a string), e.g.: 'name', 'name DESC', '@updateDate ASC' etc. -->
 		<xsl:param name="sortBy" />
 		
+		<!-- Set to true() to enable custom sorting -->
+		<xsl:param name="customSort" />
+		
 		<!-- Set to true() to enable using a special template (if you need to apply in specific modes, or send parameters along etc.) -->
 		<xsl:param name="customApply" />
 		
@@ -108,11 +111,12 @@
 		
 		<xsl:choose>
 			<!-- Do we need to pre-sort the selection? -->
-			<xsl:when test="normalize-space($sortBy)">
+			<xsl:when test="normalize-space($sortBy) or $customSort">
 				<xsl:variable name="sortedProxy">
 					<xsl:call-template name="preSort">
 						<xsl:with-param name="selection" select="$selection" />
 						<xsl:with-param name="sortBy" select="$sortBy" />
+						<xsl:with-param name="customSort" select="$customSort" />
 					</xsl:call-template>
 				</xsl:variable>
 				<xsl:variable name="sortedSelection" select="make:node-set($sortedProxy)/nodes/nodeId" />
@@ -318,10 +322,11 @@
 	<xsl:template name="preSort">
 		<xsl:param name="selection" select="/.." />
 		<xsl:param name="sortBy" />
+		<xsl:param name="customSort" />
 
 		<nodes>
 			<xsl:choose>
-				<xsl:when test="$sortBy = '&CustomSortTrigger;'">
+				<xsl:when test="$customSort">
 					<xsl:call-template name="customSort">
 						<xsl:with-param name="selection" select="$selection" />
 					</xsl:call-template>

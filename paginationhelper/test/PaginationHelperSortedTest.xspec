@@ -163,9 +163,9 @@
 			
 		</x:scenario>
 		
-		<x:scenario label="with sortBy '$CUSTOM'">
+		<x:scenario label="with customSort true()">
 			<x:call>
-				<x:param name="sortBy" select="'$CUSTOM'" />
+				<x:param name="customSort" select="true()" />
 			</x:call>
 			<x:expect label="it should call the customSort template">
 				<p>Hugo Reyes</p>

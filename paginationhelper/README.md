@@ -80,12 +80,12 @@ It won't cover every scenario, e.g. it doesn't do numerical sorting, and you can
 
 ### Advanced sorting
 
-Because XSLT allows for some very special sorting (e.g., sorting by a substring of a value or the combined value of two or more values), there need to be a way to support this, so by sending the string **'$CUSTOM'** into the `sortBy` parameter, the helper will execute a named template (**"customSort"**) to perform the sorting, so in that one you can just paste your existing sort statements, e.g.:
+Because XSLT allows for some very special sorting (e.g., sorting by a substring of a value or the combined value of two or more values), there need to be a way to support this, so by specifying the `customSort` parameter as `true()`, the helper will execute a named template (**"customSort"**) to perform the sorting, so in that one you can just paste your existing sort statements, e.g.:
 
 ```xslt
 <xsl:call-template name="PaginateSelection">
 	<xsl:with-param name="selection" select="$currentPage/Textpage" />
-	<xsl:with-param name="sortBy" select="'$CUSTOM'" />
+	<xsl:with-param name="customSort" select="true()" />
 </xsl:call-template>
 
 ...
@@ -123,8 +123,7 @@ You pass the parameter `customApply` (set to `true()`) and then you modify the n
 </xsl:template>
 ```
 
-*Note: You can take the "customApply" template out of the Pagination Helper file and put it in your main XSLT file to have it survive between updates. Just remember to delete it from the Pagination Helper*
-
+*Note: You can take the "customSort" and/or "customApply" templates out of the Pagination Helper file and put them in your main XSLT file to have them survive between updates. Just remember to delete them from the Pagination Helper*
 
 
 ## QueryString options
