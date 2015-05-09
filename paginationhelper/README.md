@@ -99,6 +99,34 @@ Because XSLT allows for some very special sorting (e.g., sorting by a substring 
 </xsl:template>
 ```
 
+## Advanced template handling
+
+Now *what if* you have to pass a parameter to every item you render in the paginated set? Or maybe your original (un-paginated) output had two modes, e.g. a "list" mode and a "grid" mode? (It could happen :) Can you still just *inject* Pagination Helper into the mix and have everything "just work"?
+
+Well, you can at least specify that you would like a little bit more control, and that you will in fact personally oversee the specific rendering of each page yourself. Here's how:
+
+You pass the parameter `customApply` (set to `true()`) and then you modify the named "customApply" template to suit your needs, e.g., to pass an index variable to the item template, you can do this:
+
+```xslt
+<xsl:call-template name="PaginateSelection">
+	<xsl:with-param name="selection" select="$currentPage/Textpage" />
+	<xsl:with-param name="customApply" select="true()" />
+</xsl:call-template>
+
+...
+
+<xsl:template name="customApply">
+	<xsl:param name="currentSelection" />
+	<xsl:apply-templates select="$currentSelection">
+		<xsl:with-param name="index" select="position()" />
+	</xsl:apply-templates>
+</xsl:template>
+```
+
+*Note: You can take the "customApply" template out of the Pagination Helper file and put it in your main XSLT file to have it survive between updates. Just remember to delete it from the Pagination Helper*
+
+
+
 ## QueryString options
 
 The pager links rendered will include all existing querystring options on the original page (i.e., "page 1"), so if

@@ -377,7 +377,6 @@
 		This is the template that's called when you need to customize the call to
 		`<xsl:apply-templates />` (e.g. to add a specific mode or to pass parameters).
 		The `$currentSelection` parameter holds the current page of items.
-		*Note:* You need to handle sorting yourself as well.
 	 -->
 	<xsl:template name="customApply">
 		<xsl:param name="currentSelection" />
