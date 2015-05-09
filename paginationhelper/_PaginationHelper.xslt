@@ -85,6 +85,12 @@
 		<!-- Specify which node() to sort by (as a string), e.g.: 'name', 'name DESC', '@updateDate ASC' etc. -->
 		<xsl:param name="sortBy" />
 		
+		<!-- Set to true() to enable custom sorting -->
+		<xsl:param name="customSort" />
+		
+		<!-- Set to true() to enable using a special template (if you need to apply in specific modes, or send parameters along etc.) -->
+		<xsl:param name="customApply" />
+		
 		<!-- Also, allow forcing specific options -->
 		<xsl:param name="options" select="$options" />
 
@@ -105,17 +111,23 @@
 		
 		<xsl:choose>
 			<!-- Do we need to pre-sort the selection? -->
-			<xsl:when test="normalize-space($sortBy)">
+			<xsl:when test="normalize-space($sortBy) or $customSort">
 				<xsl:variable name="sortedProxy">
 					<xsl:call-template name="preSort">
 						<xsl:with-param name="selection" select="$selection" />
 						<xsl:with-param name="sortBy" select="$sortBy" />
+						<xsl:with-param name="customSort" select="$customSort" />
 					</xsl:call-template>
 				</xsl:variable>
 				<xsl:variable name="sortedSelection" select="make:node-set($sortedProxy)/nodes/nodeId" />
 				<xsl:apply-templates select="$selection[generate-id() = $sortedSelection[position() &gt;= $startIndex and position() &lt;= $endIndex]]">
 					<xsl:sort select="count($sortedSelection[. = generate-id(current())]/preceding-sibling::nodeId)" data-type="number" order="ascending" />
 				</xsl:apply-templates>
+			</xsl:when>
+			<xsl:when test="$customApply">
+				<xsl:call-template name="customApply">
+					<xsl:with-param name="currentSelection" select="$selection[position() &gt;= $startIndex and position() &lt;= $endIndex]" />
+				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise>
 				<!-- Render the current page using apply-templates -->
@@ -310,10 +322,11 @@
 	<xsl:template name="preSort">
 		<xsl:param name="selection" select="/.." />
 		<xsl:param name="sortBy" />
+		<xsl:param name="customSort" />
 
 		<nodes>
 			<xsl:choose>
-				<xsl:when test="$sortBy = '&CustomSortTrigger;'">
+				<xsl:when test="$customSort">
 					<xsl:call-template name="customSort">
 						<xsl:with-param name="selection" select="$selection" />
 					</xsl:call-template>
@@ -363,6 +376,16 @@
 
 	<xsl:template match="*" mode="presort">
 		<nodeId><xsl:value-of select="generate-id()" /></nodeId>
+	</xsl:template>
+	
+	<!--
+		This is the template that's called when you need to customize the call to
+		`<xsl:apply-templates />` (e.g. to add a specific mode or to pass parameters).
+		The `$currentSelection` parameter holds the current page of items.
+	 -->
+	<xsl:template name="customApply">
+		<xsl:param name="currentSelection" />
+		<xsl:apply-templates select="$currentSelection" mode="customApply" />
 	</xsl:template>
 
 </xsl:stylesheet>
