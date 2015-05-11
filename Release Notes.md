@@ -1,5 +1,7 @@
 # Release Notes
 
+* v1.2.1: Bugfix for using `customSort` and `customApply` at the same time (Pagination Helper)
+* v1.2.0: Allow custom apply-templates in Pagination Helper
 * v1.1.0: Customize classes in Pagination Helper
 * v1.0.0: *Breaking* MediaHelper now requires Umbraco 7 - other helpers should be compatible with pre-v7 versions too.
 * v0.9.2: Install into `helpers` folder
@@ -39,6 +41,8 @@
 
 ## Pagination Helper
 
+* v1.7.1: Bugfix for custom apply with custom sort 
+* v1.7: Support custom apply in pagination
 * v1.6: Add class variables for `.pager`, `.prev`, `.next` and `.current`
 * v1.5: Removed output statement
 * v1.4: Support custom sorting in pagination
