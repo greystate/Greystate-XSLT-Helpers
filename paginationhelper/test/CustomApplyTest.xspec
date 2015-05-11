@@ -20,6 +20,19 @@
 				<p>...</p>
 				<p>"Jack Shepard" &lt;jack.shepard@4815162342x.com&gt;</p>
 			</x:expect>
+			
+			<x:scenario label="and the customSort parameter">
+				<x:call>
+					<x:param name="customSort" select="true()" />
+				</x:call>
+				<x:expect label="it should use both the 'customApply' and the 'customSort' templates">
+					<p>"Hugo Reyes" &lt;hugo.reyes@4815162342x.com&gt;</p>
+					<p>"Jack Shepard" &lt;jack.shepard@4815162342x.com&gt;</p>
+					<p>...</p>
+					<p>...</p>
+					<p>"Penelope Widmore" &lt;penelope.widmore@4815162342x.com&gt;</p>
+				</x:expect>
+			</x:scenario>
 		</x:scenario>
 	</x:scenario>
 

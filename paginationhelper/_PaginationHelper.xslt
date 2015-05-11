@@ -120,9 +120,20 @@
 					</xsl:call-template>
 				</xsl:variable>
 				<xsl:variable name="sortedSelection" select="make:node-set($sortedProxy)/nodes/nodeId" />
-				<xsl:apply-templates select="$selection[generate-id() = $sortedSelection[position() &gt;= $startIndex and position() &lt;= $endIndex]]">
-					<xsl:sort select="count($sortedSelection[. = generate-id(current())]/preceding-sibling::nodeId)" data-type="number" order="ascending" />
-				</xsl:apply-templates>
+				
+				<xsl:choose>
+					<xsl:when test="$customApply">
+						<xsl:call-template name="customApply">
+							<xsl:with-param name="currentSelection" select="$selection[generate-id() = $sortedSelection[position() &gt;= $startIndex and position() &lt;= $endIndex]]" />
+							<xsl:with-param name="sortedSelection" select="$sortedSelection" />
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="$selection[generate-id() = $sortedSelection[position() &gt;= $startIndex and position() &lt;= $endIndex]]">
+							<xsl:sort select="count($sortedSelection[. = generate-id(current())]/preceding-sibling::nodeId)" data-type="number" order="ascending" />
+						</xsl:apply-templates>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="$customApply">
 				<xsl:call-template name="customApply">
@@ -382,10 +393,16 @@
 		This is the template that's called when you need to customize the call to
 		`<xsl:apply-templates />` (e.g. to add a specific mode or to pass parameters).
 		The `$currentSelection` parameter holds the current page of items.
+		The `$sortedSelection` parameter is used if `customSort` is also specified.
 	 -->
 	<xsl:template name="customApply">
 		<xsl:param name="currentSelection" />
-		<xsl:apply-templates select="$currentSelection" mode="customApply" />
+		<xsl:param name="sortedSelection" />
+
+		<xsl:apply-templates select="$currentSelection" mode="customApply">
+			<xsl:sort select="count($sortedSelection[. = generate-id(current())]/preceding-sibling::nodeId)" data-type="number" order="ascending" />
+			<!-- You can change the `mode` above or add `<xsl:with-param>` statements here, but leave the sorting as is -->
+		</xsl:apply-templates>
 	</xsl:template>
 
 </xsl:stylesheet>
