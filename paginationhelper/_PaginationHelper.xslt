@@ -163,6 +163,7 @@
 	
 	<xsl:template name="RenderPager">
 		<xsl:param name="selection" select="*" />
+		<xsl:param name="maxItems" select="0" />
 		<xsl:param name="page" select="$page" />
 		<xsl:param name="perPage" select="$perPage" />
 		<xsl:param name="pageLinksBeside" select="$pageLinksBeside" />
@@ -171,7 +172,7 @@
 		<xsl:param name="prevClass" select="$prevClass" />
 		<xsl:param name="nextClass" select="$nextClass" />
 		
-		<xsl:variable name="total" select="count($selection)" />
+		<xsl:variable name="total" select="count($selection) * ($maxItems = 0) + $maxItems" />
 		<xsl:variable name="lastPageNum" select="ceiling($total div $perPage)" />
 		
 		<xsl:variable name="needToRenderGaps" select="$lastPageNum &gt; 2 * $pageLinksBeside + 4" />
