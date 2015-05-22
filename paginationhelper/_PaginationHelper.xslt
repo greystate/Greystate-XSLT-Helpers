@@ -76,6 +76,9 @@
 		<!-- The stuff to paginate - defaults to all children of the context node when invoking this  -->
 		<xsl:param name="selection" select="*" />
 		
+		<!-- Allow capping large sets of data by only showing a subset -->
+		<xsl:param name="maxItems" select="0" />
+		
 		<!-- This is to allow forcing a specific page without using QueryString  -->
 		<xsl:param name="page" select="$page" />
 		
@@ -107,7 +110,23 @@
 		<xsl:param name="nextClass" select="$nextClass" />
 		
 		<xsl:variable name="startIndex" select="$perPage * ($page - 1) + 1" /><!-- First item on this page -->
-		<xsl:variable name="endIndex" select="$page * $perPage" /><!-- First item on next page -->
+		<xsl:variable name="endIndex"><!-- Last item on this page -->
+			<xsl:choose>
+				<xsl:when test="$maxItems = 0">
+					<xsl:value-of select="$page * $perPage" />
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:choose>
+						<xsl:when test="$page * $perPage &gt; $maxItems">
+							<xsl:value-of select="$maxItems" />
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="$page * $perPage" />
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
 		
 		<xsl:choose>
 			<!-- Do we need to pre-sort the selection? -->
