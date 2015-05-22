@@ -95,10 +95,30 @@
 			<p><a href="...">...</a></p>
 			<p><a href="...">...</a></p>
 			<ul class="pagination">
-			<li class="backwards">...</li>
-			<li>...</li>
-			<li class="active">...</li>
-			<li class="forwards disabled">...</li>
+				<li class="backwards">...</li>
+				<li>...</li>
+				<li class="active">...</li>
+				<li class="forwards disabled">...</li>
+			</ul>
+		</x:expect>
+	</x:scenario>
+	
+	<x:scenario label="when specifying maxItems to PageinateSelection">
+		<x:call template="PaginateSelection">
+			<x:param name="selection" select="document('fixtures/people.xml', /)/people/person" />
+			<x:param name="page" select="2" />
+			<x:param name="perPage" select="7" />
+			<x:param name="maxItems" select="10" />
+		</x:call>
+		<x:expect label="it should fall through to the pager control">
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<ul class="...">
+				<li class="...">...</li>
+				<li>...</li>
+				<li class="...">...</li>
+				<li class="...">...</li>
 			</ul>
 		</x:expect>
 	</x:scenario>
