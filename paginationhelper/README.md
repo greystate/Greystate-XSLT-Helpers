@@ -144,6 +144,25 @@ get that from some other extension function. It assumes the standard query strin
 Also, there's a variable to hold the current page's URL - again, you can set it any way you like; the default uses Umbraco's
 `NiceUrl()` extension.
 
+### CSS
+
+The CSS classes used in the pager can also be customized - these are the defaults:
+
+```html
+<ul class="pager">
+	<li class="prev disabled"><span>Previous</span></li>
+	<li class="current"><span>1</span></li>
+	<li><a href="#">2</a></li>
+	<li><a href="#">3</a></li>
+	<li class="gap"><span>...</span></li>
+	<li><a href="#">9</a></li>
+	<li><a href="#">10</a></li>
+	<li class="next"><a href="#">Next</a></li>
+</ul>
+```
+
+The variables for these are located at the top of the file.
+
 ## Number of pages in the Pager output
 
 If the amount of pages grows huge, it's common to limit the pager output to some amount of pages *before* and *after* the current page.
