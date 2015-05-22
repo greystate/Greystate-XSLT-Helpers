@@ -375,6 +375,64 @@
 		</x:expect>
 	</x:scenario>
 	
+	<x:scenario label="when 'maxItems' is equal to the number of items and you're on the last page'">
+		<x:call template="PaginateSelection">
+			<x:param name="selection" select="document('fixtures/people.xml', /)/people/person" />
+			<x:param name="maxItems" select="14" />
+			<x:param name="perPage" select="7" />
+			<x:param name="page" select="2" />
+			<x:param name="showPager" select="false()" />
+		</x:call>
+		<x:expect label="it should render a complete page">
+			<p><a href="...">James Sawyer</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">Sun Kwon</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="christian.shepard@4815162342x.com">...</a></p>
+			<p><a href="...">Juliet</a></p>
+		</x:expect>
+	</x:scenario>
+	
+	<x:scenario label="when 'maxItems' is larger than the number of items">
+		<x:call template="PaginateSelection">
+			<x:param name="selection" select="document('fixtures/people.xml', /)/people/person" />
+			<x:param name="maxItems" select="20" />
+			<x:param name="perPage" select="7" />
+			<x:param name="showPager" select="false()" />
+		</x:call>
+		
+		<x:scenario label="on page 1">
+			<x:call>
+				<x:param name="page" select="1" />
+			</x:call>
+			<x:expect label="it should render the complete page">
+				<p><a href="...">Jack Shepard</a></p>
+				<p><a href="...">Kate Austen</a></p>
+				<p><a href="...">Hugo Reyes</a></p>
+				<p><a href="...">...</a></p>
+				<p><a href="...">...</a></p>
+				<p><a href="...">...</a></p>
+				<p><a href="...">...</a></p>
+			</x:expect>
+		</x:scenario>
+
+		<x:scenario label="on page 2">
+			<x:call>
+				<x:param name="page" select="2" />
+			</x:call>
+			<x:expect label="it should also render the complete page">
+				<p><a href="...">James Sawyer</a></p>
+				<p><a href="...">...</a></p>
+				<p><a href="...">Sun Kwon</a></p>
+				<p><a href="...">...</a></p>
+				<p><a href="...">...</a></p>
+				<p><a href="christian.shepard@4815162342x.com">...</a></p>
+				<p><a href="...">Juliet</a></p>
+			</x:expect>
+		</x:scenario>
+	</x:scenario>
+	
 	<x:scenario label="when specifying 5 for the 'perPage' parameter">
 		<x:call template="PaginateSelection">
 			<x:param name="selection" select="document('fixtures/people.xml', /)/people/person" />
