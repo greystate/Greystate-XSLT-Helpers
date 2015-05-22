@@ -4,7 +4,7 @@
 
 	Helper file for rendering various datatypes that store node ids.
 -->
-<?umbraco-package XSLT Helpers v1.2.1 - MultiPickerHelper v1.1?>
+<?umbraco-package XSLT Helpers v1.2.2 - MultiPickerHelper v1.1?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" version="1.0" exclude-result-prefixes="umb">
 
 	<xsl:key name="document-by-id" match="*[@isDoc]" use="@id"/>
