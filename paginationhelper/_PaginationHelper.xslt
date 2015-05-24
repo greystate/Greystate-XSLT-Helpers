@@ -111,10 +111,6 @@
 		
 		<xsl:variable name="startIndex" select="$perPage * ($page - 1) + 1" /><!-- First item on this page -->
 		<xsl:variable name="endIndex"><!-- Last item on this page -->
-			<!--
-				If $maxItems is 0 use page * perPage
-				
-			-->
 			<xsl:value-of select="
 				(($page * $perPage) * (($maxItems = 0) or ($maxItems &gt; ($page * $perPage)))) +
 				(($maxItems) * (($page * $perPage) &gt;= $maxItems))
