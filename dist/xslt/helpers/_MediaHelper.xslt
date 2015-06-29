@@ -205,7 +205,7 @@
 		
 		<xsl:value-of select="concat('?', 'mode=crop', '&amp;center=', $fp/top, ',', $fp/left)"/>
 		
-		<xsl:value-of select="concat('&width=', $width, '&amp;height=', $height)"/>
+		<xsl:value-of select="concat('&amp;width=', $width, '&amp;height=', $height)"/>
 	</xsl:template>
 	
 	<xsl:template match="json/crops[coordinates]">
@@ -216,7 +216,7 @@
 
 		<xsl:value-of select="concat('?', 'crop=', $coords/x1, ',', $coords/y1, ',', $coords/x2, ',', $coords/y2)"/>
 		<xsl:value-of select="concat('&amp;cropmode=', 'percent')"/>
-		<xsl:value-of select="concat('&width=', $width, '&amp;height=', $height)"/>
+		<xsl:value-of select="concat('&amp;width=', $width, '&amp;height=', $height)"/>
 	</xsl:template>
 	
 </xsl:stylesheet>

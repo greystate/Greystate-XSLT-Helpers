@@ -32,9 +32,9 @@ xsltproc --novalid --output package/_MediaHelper.xslt lib/freezeEntities.xslt me
 xsltproc --novalid --output package/_MultiPickerHelper.xslt lib/freezeEntities.xslt multipickerhelper/_MultiPickerHelper.xslt
 
 # Fix transformed entity references in attributes
-sed -i "" "s/\&amp;\(.*\);/\&\1;/" package/_NavigationHelper.xslt
-sed -i "" "s/\&amp;\(.*\);/\&\1;/" package/_CalendarHelper.xslt
-sed -i "" "s/\&amp;\(.*\);/\&\1;/" package/_MediaHelper.xslt
+sed -i "" "s/\&amp;\([A-Za-z]*\);/\&\1;/" package/_NavigationHelper.xslt
+sed -i "" "s/\&amp;\([A-Za-z]*\);/\&\1;/" package/_CalendarHelper.xslt
+sed -i "" "s/\&amp;\([A-Za-z]*\);/\&\1;/" package/_MediaHelper.xslt
 
 # Copy configs
 cp calendarhelper/CalendarSettings.config package/
