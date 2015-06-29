@@ -48,9 +48,6 @@ In Umbraco you can use this simple boilerplate for most of the following example
 </xsl:stylesheet>
 ```
 
-**NOTE:** *All of the following scenarios "just works", even if you're using the [Digibiz Advanced Media Picker][DAMP] (DAMP) for selecting images (magic!)*
-
-
 1. **Render an image tag for the chosen image**
 
 	We can do this with a single line where you want the `<img>` to occur:
@@ -132,7 +129,7 @@ Of course, you can combine this with the `size`, `class` and `id` parameters. An
 
 ### Cropping support baked in
 
-If you use cropping with the built-in `Image Cropper` (or the one in the [Image Extras][EXTRAS] package), you can grap a specific crop very easy;
+If you use cropping with the built-in `Image Cropper` you can grap a specific crop very easy;
 just add the `crop` parameter:
 
 ```xslt
@@ -140,33 +137,6 @@ just add the `crop` parameter:
 	<xsl:with-param name="crop" select="'GalleryThumb'" />
 </xsl:apply-templates>
 ```
-
-By default, this will create an `<img>` element with empty `width` and `height` attributes, because that info is not available in the crop XML.
-However, you can create a config file for the Media Helper to use, if you would like to generate the correct dimension attributes (which can
-eliminate potential reflow during rendering, not to mention protecting against the odd giant image uploaded by "somebody", wrecking the entire frontpage for an hour).
-
-Just edit the included sample XML file called `CroppingSettings.config` in the *config* directory and specify the names and sizes you've set up for the crops, e.g.:
-
-```xml
-<crops>
-	<crop name="Large" size="800x600" />
-	<crop name="Small" size="320x480" />
-</crops>
-```
-
-That's it - the helpers will make sure to consult your config file before writing the `width` and `height` of crops. 
-
-#### Cropping with the "CropUp" cropper
-
-The [Eksponent.CropUp cropper][CROPUP] is a very cool cropper, and you should of course be able to have these helpers "just work" with that too. Cool thing is you don't even need to create a config file because the helper will just read the one you already made for CropUp!
-
-You can tell the helper to use CropUp when a crop is requested by editing the `useCropUp` variable at the top of the `_MediaHelper.xslt` file:
-
-```xslt
-<xsl:variable name="useCropUp" select="true()" />
-```
-
-Once you've enabled CropUp support, the `crop` parameter functions as the `args` you can send to CropUp, so if you send a crop name (or its alias) you will get the predefined crop size from the config file, but you can also send a custom crop format, like `600x-` to get an image cropped to 600 pixels wide, keeping the aspect ratio. You can check out the various options on the [CropUp project page.][CROPUP]
 
 ### Overriding the templates for Media Types
 
@@ -242,10 +212,3 @@ it will be used for PDF files and ZIP files, so you create a template to render 
 	<a class="download {umbracoExtension}file" href="{umbracoFile}" title="Download {@nodeName} ({umbracoBytes} bytes)">Download</a>
 </xsl:template>
 ```
-
-
-
-[DAMP]: http://our.umbraco.org/projects/backoffice-extensions/digibiz-advanced-media-picker	
-[EXTRAS]: http://our.umbraco.org/projects/backoffice-extensions/images-extras
-[CROPUP]: http://our.umbraco.org/projects/website-utilities/eksponent-cropup
-
