@@ -115,7 +115,7 @@
 			</xsl:if>
 
 			<xsl:if test="$crop">
-				<xsl:variable name="cropData" select="umb:JsonToXml(umbracoFile)/json" />
+				<xsl:variable name="cropData" select="umb:JsonToXml(umbracoFile)" />
 				<xsl:variable name="cropset" select="$cropData/crops[alias = $crop]" />
 
 				<!-- Fallback if specified crop does not exist -->
@@ -186,7 +186,7 @@
 		<xsl:param name="crop" />
 		<xsl:choose>
 			<xsl:when test="$crop">
-				<xsl:variable name="cropData" select="umb:JsonToXml(umbracoFile)/json" />
+				<xsl:variable name="cropData" select="umb:JsonToXml(umbracoFile)" />
 				<xsl:if test="$cropData and $cropData/crops[alias = $crop]">
 					<xsl:value-of select="$cropData/src" />
 					<xsl:apply-templates select="$cropData/crops[alias = $crop]" />
