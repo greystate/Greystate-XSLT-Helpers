@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<?umbraco-package XSLT Helpers v1.2.1 - PaginationHelper v1.7.1?>
+<?umbraco-package XSLT Helpers v1.2.2 - PaginationHelper v1.7.2?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:str="urn:Exslt.ExsltStrings" xmlns:make="urn:schemas-microsoft-com:xslt" version="1.0" exclude-result-prefixes="umb str make">
 
 	<!-- Config constants -->
@@ -49,6 +49,9 @@
 		<!-- The stuff to paginate - defaults to all children of the context node when invoking this  -->
 		<xsl:param name="selection" select="*"/>
 		
+		<!-- Allow capping large sets of data by only showing a subset -->
+		<xsl:param name="maxItems" select="0"/>
+		
 		<!-- This is to allow forcing a specific page without using QueryString  -->
 		<xsl:param name="page" select="$page"/>
 		
@@ -80,7 +83,9 @@
 		<xsl:param name="nextClass" select="$nextClass"/>
 		
 		<xsl:variable name="startIndex" select="$perPage * ($page - 1) + 1"/><!-- First item on this page -->
-		<xsl:variable name="endIndex" select="$page * $perPage"/><!-- First item on next page -->
+		<xsl:variable name="endIndex"><!-- Last item on this page -->
+			<xsl:value-of select="     (($page * $perPage) * (($maxItems = 0) or ($maxItems &gt; ($page * $perPage)))) +     (($maxItems) * (($page * $perPage) &gt;= $maxItems))    "/>
+		</xsl:variable>
 		
 		<xsl:choose>
 			<!-- Do we need to pre-sort the selection? -->
@@ -136,6 +141,7 @@
 	
 	<xsl:template name="RenderPager">
 		<xsl:param name="selection" select="*"/>
+		<xsl:param name="maxItems" select="0"/>
 		<xsl:param name="page" select="$page"/>
 		<xsl:param name="perPage" select="$perPage"/>
 		<xsl:param name="pageLinksBeside" select="$pageLinksBeside"/>
@@ -144,7 +150,7 @@
 		<xsl:param name="prevClass" select="$prevClass"/>
 		<xsl:param name="nextClass" select="$nextClass"/>
 		
-		<xsl:variable name="total" select="count($selection)"/>
+		<xsl:variable name="total" select="count($selection) * ($maxItems = 0) + $maxItems"/>
 		<xsl:variable name="lastPageNum" select="ceiling($total div $perPage)"/>
 		
 		<xsl:variable name="needToRenderGaps" select="$lastPageNum &gt; 2 * $pageLinksBeside + 4"/>

@@ -1,6 +1,6 @@
 # Create the dist directory if needed
 if [[ ! -d dist ]]
-	then mkdir dist dist/xslt dist/helpers dist/config
+	then mkdir dist dist/xslt dist/xslt/helpers dist/config dist/zip
 fi
 # Likewise, create the package dir
 if [[ ! -d package ]]
@@ -46,7 +46,7 @@ cp templates/Use*.xslt package/
 xsltproc --novalid --xinclude --output package/package.xml lib/freezeEntities.xslt package.xml
 
 # Build the ZIP file 
-zip -j "dist/XSLTHelpers-$VERSION.zip" package/* -x \*.DS_Store
+zip -j "dist/zip/XSLTHelpers-$VERSION.zip" package/* -x \*.DS_Store
 
 # Copy the release XSLT into the dist dir for upgraders
 cp package/_PaginationHelper.xslt dist/xslt/helpers/

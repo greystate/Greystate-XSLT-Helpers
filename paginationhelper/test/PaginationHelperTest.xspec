@@ -95,10 +95,30 @@
 			<p><a href="...">...</a></p>
 			<p><a href="...">...</a></p>
 			<ul class="pagination">
-			<li class="backwards">...</li>
-			<li>...</li>
-			<li class="active">...</li>
-			<li class="forwards disabled">...</li>
+				<li class="backwards">...</li>
+				<li>...</li>
+				<li class="active">...</li>
+				<li class="forwards disabled">...</li>
+			</ul>
+		</x:expect>
+	</x:scenario>
+	
+	<x:scenario label="when specifying maxItems to PageinateSelection">
+		<x:call template="PaginateSelection">
+			<x:param name="selection" select="document('fixtures/people.xml', /)/people/person" />
+			<x:param name="page" select="2" />
+			<x:param name="perPage" select="7" />
+			<x:param name="maxItems" select="10" />
+		</x:call>
+		<x:expect label="it should fall through to the pager control">
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<ul class="...">
+				<li class="...">...</li>
+				<li>...</li>
+				<li class="...">...</li>
+				<li class="...">...</li>
 			</ul>
 		</x:expect>
 	</x:scenario>
@@ -324,6 +344,21 @@
 			</x:expect>
 		</x:scenario>
 		
+		<x:scenario label="then specifying maxItems = 10">
+			<x:call>
+				<x:param name="maxItems" select="10" />
+			</x:call>
+			<x:expect label="it should only render 4 pages">
+				<ul class="pager">
+					<li class="prev disabled">...</li>
+					<li class="current">...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li class="next">...</li>
+				</ul>
+			</x:expect>
+		</x:scenario>
 	</x:scenario>
 	
 	<x:scenario label="when specifying false() for the 'showPager' parameter">
@@ -345,6 +380,77 @@
 			<p><a href="...">...</a></p>
 		</x:expect>
 		<x:expect label="not the pager &lt;ul&gt;" test="not(//ul[@class = 'pager'])" />
+	</x:scenario>
+	
+	<x:scenario label="when specifying 10 for the 'maxItems' parameter with 3 perPage on page 4">
+		<x:call template="PaginateSelection">
+			<x:param name="selection" select="document('fixtures/lots-of-people.xml', /)/people/person" />
+			<x:param name="maxItems" select="10" />
+			<x:param name="perPage" select="3" />
+			<x:param name="page" select="4" />
+			<x:param name="showPager" select="false()" />
+		</x:call>
+		<x:expect label="it should only render the 10th (faked last) person">
+			<p><a href="...">Sun Kwon</a></p>
+		</x:expect>
+	</x:scenario>
+	
+	<x:scenario label="when 'maxItems' is equal to the number of items and you're on the last page'">
+		<x:call template="PaginateSelection">
+			<x:param name="selection" select="document('fixtures/people.xml', /)/people/person" />
+			<x:param name="maxItems" select="14" />
+			<x:param name="perPage" select="7" />
+			<x:param name="page" select="2" />
+			<x:param name="showPager" select="false()" />
+		</x:call>
+		<x:expect label="it should render a complete page">
+			<p><a href="...">James Sawyer</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">Sun Kwon</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="...">...</a></p>
+			<p><a href="christian.shepard@4815162342x.com">...</a></p>
+			<p><a href="...">Juliet</a></p>
+		</x:expect>
+	</x:scenario>
+	
+	<x:scenario label="when 'maxItems' is larger than the number of items">
+		<x:call template="PaginateSelection">
+			<x:param name="selection" select="document('fixtures/people.xml', /)/people/person" />
+			<x:param name="maxItems" select="20" />
+			<x:param name="perPage" select="7" />
+			<x:param name="showPager" select="false()" />
+		</x:call>
+		
+		<x:scenario label="on page 1">
+			<x:call>
+				<x:param name="page" select="1" />
+			</x:call>
+			<x:expect label="it should render the complete page">
+				<p><a href="...">Jack Shepard</a></p>
+				<p><a href="...">Kate Austen</a></p>
+				<p><a href="...">Hugo Reyes</a></p>
+				<p><a href="...">...</a></p>
+				<p><a href="...">...</a></p>
+				<p><a href="...">...</a></p>
+				<p><a href="...">...</a></p>
+			</x:expect>
+		</x:scenario>
+
+		<x:scenario label="on page 2">
+			<x:call>
+				<x:param name="page" select="2" />
+			</x:call>
+			<x:expect label="it should also render the complete page">
+				<p><a href="...">James Sawyer</a></p>
+				<p><a href="...">...</a></p>
+				<p><a href="...">Sun Kwon</a></p>
+				<p><a href="...">...</a></p>
+				<p><a href="...">...</a></p>
+				<p><a href="christian.shepard@4815162342x.com">...</a></p>
+				<p><a href="...">Juliet</a></p>
+			</x:expect>
+		</x:scenario>
 	</x:scenario>
 	
 	<x:scenario label="when specifying 5 for the 'perPage' parameter">

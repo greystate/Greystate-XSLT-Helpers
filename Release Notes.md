@@ -1,5 +1,6 @@
 # Release Notes
 
+* v1.2.2: Pagination Helper updated to 1.7.2
 * v1.2.1: Bugfix for using `customSort` and `customApply` at the same time (Pagination Helper)
 * v1.2.0: Allow custom apply-templates in Pagination Helper
 * v1.1.0: Customize classes in Pagination Helper
@@ -32,8 +33,8 @@
 
 ## MultiPicker Helper
 
-* v1.0: Included in package
 * v1.1: Added support for MNTP for Media nodes
+* v1.0: Included in package
 
 ## Navigation Helper
 
@@ -41,6 +42,7 @@
 
 ## Pagination Helper
 
+* v1.7.2: Add `$maxItems` parameter
 * v1.7.1: Bugfix for custom apply with custom sort 
 * v1.7: Support custom apply in pagination
 * v1.6: Add class variables for `.pager`, `.prev`, `.next` and `.current`

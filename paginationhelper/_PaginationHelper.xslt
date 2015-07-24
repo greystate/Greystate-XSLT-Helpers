@@ -76,6 +76,9 @@
 		<!-- The stuff to paginate - defaults to all children of the context node when invoking this  -->
 		<xsl:param name="selection" select="*" />
 		
+		<!-- Allow capping large sets of data by only showing a subset -->
+		<xsl:param name="maxItems" select="0" />
+		
 		<!-- This is to allow forcing a specific page without using QueryString  -->
 		<xsl:param name="page" select="$page" />
 		
@@ -107,7 +110,12 @@
 		<xsl:param name="nextClass" select="$nextClass" />
 		
 		<xsl:variable name="startIndex" select="$perPage * ($page - 1) + 1" /><!-- First item on this page -->
-		<xsl:variable name="endIndex" select="$page * $perPage" /><!-- First item on next page -->
+		<xsl:variable name="endIndex"><!-- Last item on this page -->
+			<xsl:value-of select="
+				(($page * $perPage) * (($maxItems = 0) or ($maxItems &gt; ($page * $perPage)))) +
+				(($maxItems) * (($page * $perPage) &gt;= $maxItems))
+			" />
+		</xsl:variable>
 		
 		<xsl:choose>
 			<!-- Do we need to pre-sort the selection? -->
@@ -163,6 +171,7 @@
 	
 	<xsl:template name="RenderPager">
 		<xsl:param name="selection" select="*" />
+		<xsl:param name="maxItems" select="0" />
 		<xsl:param name="page" select="$page" />
 		<xsl:param name="perPage" select="$perPage" />
 		<xsl:param name="pageLinksBeside" select="$pageLinksBeside" />
@@ -171,7 +180,7 @@
 		<xsl:param name="prevClass" select="$prevClass" />
 		<xsl:param name="nextClass" select="$nextClass" />
 		
-		<xsl:variable name="total" select="count($selection)" />
+		<xsl:variable name="total" select="count($selection) * ($maxItems = 0) + $maxItems" />
 		<xsl:variable name="lastPageNum" select="ceiling($total div $perPage)" />
 		
 		<xsl:variable name="needToRenderGaps" select="$lastPageNum &gt; 2 * $pageLinksBeside + 4" />
