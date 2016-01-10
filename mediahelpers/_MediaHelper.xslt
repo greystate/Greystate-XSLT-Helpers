@@ -217,14 +217,16 @@
 	
 <!-- :: Crop templates :: -->
 	<xsl:template match="json/crops">
-		<xsl:param name="halfsize" />
-		<xsl:variable name="fp" select="../focalPoint" />
-		<xsl:variable name="width" select="floor(width div (1 + number(boolean($halfsize))))" />
-		<xsl:variable name="height" select="floor(height div (1 + number(boolean($halfsize))))" />
+		<xsl:param name="halfsize"/>
+		<xsl:variable name="fp" select="../focalPoint"/>
+		<xsl:variable name="fpTop" select="format-number($fp/top, '#.0000000')"/>
+		<xsl:variable name="fpLeft" select="format-number($fp/left, '#.0000000')"/>
+		<xsl:variable name="width" select="floor(width div (1 + number(boolean($halfsize))))"/>
+		<xsl:variable name="height" select="floor(height div (1 + number(boolean($halfsize))))"/>
 		
-		<xsl:value-of select="concat('?', 'mode=crop', '&amp;center=', $fp/top, ',', $fp/left)" />
+		<xsl:value-of select="concat('?', 'mode=crop', '&amp;center=', $fpTop, ',', $fpLeft)"/>
 		
-		<xsl:value-of select="concat('&amp;width=', $width, '&amp;height=', $height)" />
+		<xsl:value-of select="concat('&amp;width=', $width, '&amp;height=', $height)"/>
 	</xsl:template>
 	
 	<xsl:template match="json/crops[coordinates]">
