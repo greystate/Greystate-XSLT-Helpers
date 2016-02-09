@@ -1,6 +1,6 @@
 # Release Notes
 
-* v1.2.2: Pagination Helper updated to 1.7.2
+* v1.2.2: Pagination Helper updated to 1.7.2, Media Helpers updated to 2.1
 * v1.2.1: Bugfix for using `customSort` and `customApply` at the same time (Pagination Helper)
 * v1.2.0: Allow custom apply-templates in Pagination Helper
 * v1.1.0: Customize classes in Pagination Helper
@@ -26,6 +26,7 @@
 
 ## Media Helpers
 
+* v2.1: A couple of bugfixes for issues with crops
 * v2.0: *Breaking* Support Umbraco 7 media and built-in cropper. Not backwards compatible.
 * v1.4: Removed output statement
 * v1.3: Move (and rename) cropping config file to config folder - issue #11

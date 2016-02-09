@@ -8,7 +8,7 @@
 	
 	Enables simple retrieval of media by handling the GetMedia() call and error-checking
 -->
-<?umbraco-package XSLT Helpers v1.2.2 - MediaHelper v2.0?>
+<?umbraco-package XSLT Helpers v1.2.2 - MediaHelper v2.1?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:umb="urn:umbraco.library" xmlns:freeze="http://xmlns.greystate.dk/2012/freezer" xmlns:get="urn:Exslt.ExsltMath" xmlns:make="urn:schemas-microsoft-com:xslt" version="1.0" exclude-result-prefixes="umb get make freeze">
 
 	
@@ -96,7 +96,7 @@
 			</xsl:if>
 
 			<xsl:if test="$crop">
-				<xsl:variable name="cropData" select="umb:JsonToXml(umbracoFile)/json"/>
+				<xsl:variable name="cropData" select="umb:JsonToXml(umbracoFile)"/>
 				<xsl:variable name="cropset" select="$cropData/crops[alias = $crop]"/>
 
 				<!-- Fallback if specified crop does not exist -->
@@ -167,7 +167,7 @@
 		<xsl:param name="crop"/>
 		<xsl:choose>
 			<xsl:when test="$crop">
-				<xsl:variable name="cropData" select="umb:JsonToXml(umbracoFile)/json"/>
+				<xsl:variable name="cropData" select="umb:JsonToXml(umbracoFile)"/>
 				<xsl:if test="$cropData and $cropData/crops[alias = $crop]">
 					<xsl:value-of select="$cropData/src"/>
 					<xsl:apply-templates select="$cropData/crops[alias = $crop]"/>
@@ -200,10 +200,12 @@
 	<xsl:template match="json/crops">
 		<xsl:param name="halfsize"/>
 		<xsl:variable name="fp" select="../focalPoint"/>
+		<xsl:variable name="fpTop" select="format-number($fp/top, '#.0000000')"/>
+		<xsl:variable name="fpLeft" select="format-number($fp/left, '#.0000000')"/>
 		<xsl:variable name="width" select="floor(width div (1 + number(boolean($halfsize))))"/>
 		<xsl:variable name="height" select="floor(height div (1 + number(boolean($halfsize))))"/>
 		
-		<xsl:value-of select="concat('?', 'mode=crop', '&amp;center=', $fp/top, ',', $fp/left)"/>
+		<xsl:value-of select="concat('?', 'mode=crop', '&amp;center=', $fpTop, ',', $fpLeft)"/>
 		
 		<xsl:value-of select="concat('&amp;width=', $width, '&amp;height=', $height)"/>
 	</xsl:template>
