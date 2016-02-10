@@ -236,7 +236,7 @@
 		<xsl:variable name="height" select="floor(height div (1 + number(boolean($halfsize))))" />
 
 		<xsl:value-of select="concat('?', 'crop=', $coords/x1, ',', $coords/y1, ',', $coords/x2, ',', $coords/y2)" />
-		<xsl:value-of select="concat('&amp;cropmode=', 'percent')" />
+		<xsl:value-of select="concat('&amp;cropmode=', 'percentage')" />
 		<xsl:value-of select="concat('&amp;width=', $width, '&amp;height=', $height)" />
 	</xsl:template>
 	
